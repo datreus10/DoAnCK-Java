@@ -1,17 +1,12 @@
 package com.example.demo.model;
 
-import java.util.Collection;
+import java.time.LocalDate;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -19,32 +14,50 @@ import javax.persistence.Table;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "UserId")
+    @Column(name = "Id")
     private Long userId;
 
-    @Column(name = "FirstName",nullable = false)
+    @Column(name = "FirstName", nullable = false,columnDefinition = "nvarchar(50)")
     private String firstName;
 
-    @Column(name = "LastName",nullable = false)
+    @Column(name = "LastName", nullable = false,columnDefinition = "nvarchar(50)")
     private String lastName;
 
-    @Column(name = "Email",nullable = false,unique = true)
+    @Column(name = "Email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "Password",nullable = false)
+    @Column(name = "Password", nullable = false)
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(
-        name = "users_roles",
-        joinColumns = @JoinColumn(
-            name = "user_id", referencedColumnName = "userId"),
-        inverseJoinColumns = @JoinColumn(
-            name = "role_id", referencedColumnName = "roleId"))
-    private Collection<Role> roles;
+    @Column(name="BirthDate")
+    private LocalDate birthDate;
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
 
     public Long getUserId() {
         return userId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setUserId(Long userId) {
@@ -67,39 +80,8 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Collection<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Collection<Role> roles) {
-        this.roles = roles;
-    }
-
-    public User(String firstName, String lastName, String email, String password, Collection<Role> roles) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.roles = roles;
-    }
-
     public User() {
     }
 
+    
 }
