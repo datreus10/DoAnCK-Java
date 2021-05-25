@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "Users")
@@ -17,10 +18,10 @@ public class User {
     @Column(name = "Id")
     private Long userId;
 
-    @Column(name = "FirstName", nullable = false,columnDefinition = "nvarchar(50)")
+    @Column(name = "FirstName", nullable = false, columnDefinition = "nvarchar(50)")
     private String firstName;
 
-    @Column(name = "LastName", nullable = false,columnDefinition = "nvarchar(50)")
+    @Column(name = "LastName", nullable = false, columnDefinition = "nvarchar(50)")
     private String lastName;
 
     @Column(name = "Email", nullable = false, unique = true)
@@ -29,8 +30,20 @@ public class User {
     @Column(name = "Password", nullable = false)
     private String password;
 
-    @Column(name="BirthDate")
+    @Column(name = "BirthDate")
     private LocalDate birthDate;
+
+    @Column(name = "Avatar")
+    private String avatar = "default_user_avatart.jpg";
+
+    @Column(name = "Enable")
+    private boolean enable;
+
+    @Column(name = "VerificationCode", nullable = true)
+    private String verificationCode;
+
+    @Column(name = "AuthProvider")
+    private String authProvider;
 
     public LocalDate getBirthDate() {
         return birthDate;
@@ -80,8 +93,44 @@ public class User {
         this.lastName = lastName;
     }
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public boolean isEnable() {
+        return enable;
+    }
+
+    public void setEnable(boolean enable) {
+        this.enable = enable;
+    }
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
+    }
+
+    public String getAuthProvider() {
+        return authProvider;
+    }
+
+    public void setAuthProvider(String authProvider) {
+        this.authProvider = authProvider;
+    }
+
+    @Transient
+    public String getFullName() {
+        return this.firstName + " " + this.lastName;
+    }
+
     public User() {
     }
 
-    
 }
