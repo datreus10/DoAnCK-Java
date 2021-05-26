@@ -139,7 +139,7 @@
                 <li class="nav-item s-nav">
                     <a href="profile.html" class="nav-link nav-links">
                         <div class="menu-user-image">
-                            <img th:src="@{/file-cloud/download/{image}(image=${user.avatar})}" class="menu-user-img ml-1" alt="Menu Image">
+                            <img th:src="@{/file-cloud/stream/{image}(image=${user.avatar})}" class="menu-user-img ml-1" alt="Menu Image">
                         </div>
                         <span th:text="${user.getFullName()}" class="ml-4"></span>
                     </a>

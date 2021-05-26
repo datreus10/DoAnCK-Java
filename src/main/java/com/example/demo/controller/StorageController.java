@@ -1,11 +1,14 @@
 package com.example.demo.controller;
 
+import java.io.ByteArrayOutputStream;
+
 import com.example.demo.service.StorageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/file-cloud")
+@CrossOrigin("*")
 public class StorageController{
     @Autowired
     private StorageService service;
@@ -26,8 +30,24 @@ public class StorageController{
         return new ResponseEntity<>(service.uploadFile(file), HttpStatus.OK);
     }
     
-    @GetMapping(value ="/download/{fileName}",produces = MediaType.IMAGE_JPEG_VALUE)
-    public @ResponseBody byte[] downloadUserProfileImage(@PathVariable String fileName) {
-        return service.downloadFile(fileName);     
+    @GetMapping("/stream/{filename}")
+    public ResponseEntity<byte[]> downloadFile(@PathVariable String filename) {
+        return ResponseEntity.ok().contentType(contentType(filename))
+                .body(service.downloadFile(filename));
+    }
+
+    private MediaType contentType(String keyname) {
+        String[] arr = keyname.split("\\.");
+        String type = arr[arr.length - 1];
+        switch (type) {
+        case "txt":
+            return MediaType.TEXT_PLAIN;
+        case "png":
+            return MediaType.IMAGE_PNG;
+        case "jpg":
+            return MediaType.IMAGE_JPEG;
+        default:
+            return MediaType.APPLICATION_OCTET_STREAM;
+        }
     }
 }

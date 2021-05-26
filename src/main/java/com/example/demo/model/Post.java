@@ -28,6 +28,9 @@ public class Post {
     @Column(name = "PostTime", nullable = false)
     private LocalDateTime postTime;
 
+    @Column(name = "PostMedia", nullable = true)
+    private String media;
+
     @ManyToOne
     @JoinColumn(name = "userId")  
     private User user;
@@ -63,6 +66,18 @@ public class Post {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public void setPostTime(LocalDateTime postTime) {
+        this.postTime = postTime;
+    }
+
+    public String getMedia() {
+        return media;
+    }
+
+    public void setMedia(String media) {
+        this.media = media;
     }
 
     public Post() {
