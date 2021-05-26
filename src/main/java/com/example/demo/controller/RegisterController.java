@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/register")
@@ -36,7 +35,7 @@ public class RegisterController {
     }
 
     @PostMapping()
-    public ResponseEntity<String> reply(@RequestParam Map<String, Object> body, HttpServletRequest request) {
+    public ResponseEntity<String> reply(@RequestBody Map<String, Object> body, HttpServletRequest request) {
         try {
             String siteURL = request.getRequestURL().toString();
             userService.registerUser(body, siteURL);

@@ -138,7 +138,8 @@
                 $.ajax({
                     method: 'post',
                     url: '/register',
-                    data: data,
+                    contentType : 'application/json',
+                    data: JSON.stringify(data),
                     success: function (msg) {
                         $("#alert-message").empty().append(
                             '<div class="alert alert-primary">' +
