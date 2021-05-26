@@ -39,7 +39,7 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) {
         User user = userRepo.findByEmail(email);
-        if(user == null){
+        if (user == null) {
             throw new UsernameNotFoundException("Tên đăng nhập không tồn tại");
         }
         if (!user.isEnable())
@@ -112,5 +112,27 @@ public class UserService implements UserDetailsService {
         user.setVerificationCode(null);
         user.setEnable(true);
         return true;
+    }
+
+    public User getUserByEmail(String email) {
+        return userRepo.findByEmail(email);
+    }
+
+    public void saveUserOAuth(String email, String fullName, String provider) {
+        User newUser = new User();
+        newUser.setEmail(email);
+        newUser.setPassword(passwordEncoder.encode("OAuth2"));
+        newUser.setFirstName(fullName);
+        newUser.setLastName("");
+        newUser.setEnable(true);
+        newUser.setAuthProvider(provider);
+        userRepo.save(newUser);
+    }
+
+    public void updateUserAfterOauthLogin(User user, String fullName, String oauthName) {
+        user.setFirstName(fullName);
+        user.setLastName("");
+        user.setAuthProvider(oauthName);
+        userRepo.save(user);
     }
 }
