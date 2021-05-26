@@ -30,10 +30,6 @@
             <div class="col-md-12 newsfeed-right-side">
                 
                 <nav th:replace="fragment :: navbar(${user})"></nav>
-                <video width="320" height="240" controls>
-                    <source th:src="@{/file-cloud/stream/demo.mp4}" type="video/mp4">
-                    Your browser does not support the video tag.
-                  </video>
                 <div class="row newsfeed-right-side-content mt-3">
                     <div class="col-md-3 newsfeed-left-side sticky-top shadow-sm" id="sidebar-wrapper">
                         <div class="card newsfeed-user-card h-100">
@@ -402,9 +398,9 @@
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis voluptatem veritatis harum, tenetur, quibusdam voluptatum, incidunt saepe minus maiores ea atque sequi illo veniam sint quaerat corporis totam et. Culpa?</p>
                                 </div>
                                 <div class="d-block mt-3">
-                                    <video id="my_video_1" class="video-js vjs-default-skin post-content" width="640px" height="400px" controls preload="none" poster='https://scontent.fevn1-2.fna.fbcdn.net/v/t1.0-9/53323455_587990788367325_4529827897430507520_n.jpg?_nc_cat=100&_nc_eui2=AeF-F6s-7bevnyjZs6JbGj3WPqHUIRKQ4uJ2vH8L-OD-3KZPZFJ7GVOVSYewqLB1928c3NeJ-OWQgN9et1oxB4kpONH0rFMSpp1H-lfjwH2tzA&_nc_ht=scontent.fevn1-2.fna&oh=ab0d869caefae1260b3ff755e2e031ba&oe=5D07FF32' data-setup='{ "aspectRatio":"640:400", "playbackRates": [1, 1.5, 2] }'>
-                                        <source src="https://vjs.zencdn.net/v/oceans.mp4" type='video/mp4' />
-                                        <source src="https://vjs.zencdn.net/v/oceans.webm" type='video/webm' />
+                                    <video id="my_video_1" class="video-js vjs-default-skin post-content" width="640px" height="400px" controls preload="none"  data-setup='{ "aspectRatio":"640:400", "playbackRates": [1, 1.5, 2] }'>
+                                        <source th:src="@{/file-cloud/stream/demo.mp4}" type='video/mp4' />
+                                        <!-- <source src="https://vjs.zencdn.net/v/oceans.webm" type='video/webm' /> -->
                                     </video>
                                 </div>
                                 <div class="mb-3">
