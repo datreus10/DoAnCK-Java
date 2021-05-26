@@ -29,12 +29,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests().antMatchers("/css/**","/js/**","/images/**", "/register","/register/verify","/oauth2/**").permitAll()
             .anyRequest().authenticated()
-            .and().formLogin().permitAll().loginPage("/login")
+            .and().formLogin().permitAll().loginPage("/login").failureUrl("/login-error")
             .and().logout()
                 .invalidateHttpSession(true).clearAuthentication(true)
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login?logout")
                 .permitAll();
-       http.formLogin().defaultSuccessUrl("/", true);
+       http.formLogin().defaultSuccessUrl("/login-success", true);
     }
 
     @Bean
@@ -42,6 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
         auth.setUserDetailsService(this.userService);
         auth.setPasswordEncoder(passwordEncoder());
+        auth.setHideUserNotFoundExceptions(false);
         return auth;
     }
 

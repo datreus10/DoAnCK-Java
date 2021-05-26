@@ -38,10 +38,12 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) {
-        User user = userRepo.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("Invalid username or password"));
+        User user = userRepo.findByEmail(email);
+        if(user == null){
+            throw new UsernameNotFoundException("Tên đăng nhập không tồn tại");
+        }
         if (!user.isEnable())
-            throw new IllegalStateException("User is not verify");
+            throw new IllegalStateException("Email chưa được xác thực");
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
                 Arrays.asList(new SimpleGrantedAuthority("Role_User")));
     }
@@ -71,7 +73,7 @@ public class UserService implements UserDetailsService {
                 user.setBirthDate(LocalDate.parse(value, formatter));
             }
         }
-        if (userRepo.findByEmail(user.getEmail()).isPresent()) {
+        if (userRepo.findByEmail(user.getEmail()) != null) {
             throw new IllegalStateException("Email đã được đăng kí");
         }
         user.setVerificationCode(RandomString.make(64));
@@ -83,7 +85,7 @@ public class UserService implements UserDetailsService {
             throws MessagingException, UnsupportedEncodingException {
         String toAddress = user.getEmail();
         String fromAddress = "bankhongphailanguoimay@gmail.com";
-        String senderName = "Bot Kute VN";
+        String senderName = "DM Social Network";
         String subject = "Please verify your registration";
         String content = "Dear [[name]],<br>" + "Please click the link below to verify your registration:<br>"
                 + "<h3><a href=\"[[URL]]\" target=\"_self\">VERIFY</a></h3>" + "Thank you,<br>" + "Your company name.";

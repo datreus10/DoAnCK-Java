@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+
     <meta name="_csrf" content="${_csrf.token}" />
     <!-- default header name is X-CSRF-TOKEN -->
     <meta name="_csrf_header" content="${_csrf.headerName}" />
-    
+
     <link rel="icon" type="image/png" href="images/logo-16x16.png" />
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Mạng xã hội - DM</title>
@@ -46,25 +46,24 @@
                 </div>
 
                 <!-- logout message -->
-                <div th:if="${param.logout}">
+                <!-- <div th:if="${param.logout}">
                     <div class="alert alert-info">You have been logged out.</div>
-                </div>
+                </div> -->
                 <!-- error message -->
-                <div th:if="${param.error}">
-                    <div class="alert alert-danger" th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}">
-                    </div>
-                </div>
+                <div id="alert-message"></div>
 
-                <form th:action="@{/login}" method="POST">
+                <form>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="username" placeholder="Email Address" required>
+                                <input type="text" class="form-control" name="username" placeholder="Email Address"
+                                    required>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <input type="password" class="form-control" name="password" placeholder="Password" required>
+                                <input type="password" class="form-control" name="password" placeholder="Password"
+                                    required>
                             </div>
                         </div>
                         <div class="col-md-12 mb-3">
@@ -144,6 +143,35 @@
     <script src="js/bootstrap/bootstrap.min.js"></script>
     <!-- Optional -->
     <script src="js/app.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("form").submit(function (event) {
+                var data = $(this).serializeArray().reduce(function (obj, item) {
+                    obj[item.name] = item.value;
+                    return obj;
+                }, {});
+                $.ajax({
+                    method: 'post',
+                    url: '/login',
+                    data: data,
+                    success: function (msg) {
+                        $("#alert-message").empty().append('<div class="alert alert-primary">' +
+                            msg + '</div>'
+                        ).hide().fadeIn(1000);
+                        window.setTimeout(function () {
+                            window.location.href = '/';
+                        }, 3000);
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        $("#alert-message").empty().append('<div class="alert alert-danger">' +
+                            XMLHttpRequest.responseText + '</div>'
+                        ).hide().fadeIn(1000);
+                    }
+                });
+                event.preventDefault();
+            })
+        });
+    </script>
 </body>
 
 </html>
