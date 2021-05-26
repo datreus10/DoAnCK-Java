@@ -10,13 +10,16 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.transaction.Transactional;
 
+import com.example.demo.model.CustomOAuth2User;
 import com.example.demo.model.User;
 import com.example.demo.repo.UserRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -134,5 +137,16 @@ public class UserService implements UserDetailsService {
         user.setLastName("");
         user.setAuthProvider(oauthName);
         userRepo.save(user);
+    }
+
+    public User getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof CustomOAuth2User) {
+            String email = ((CustomOAuth2User) principal).getEmail();
+            return userRepo.findByEmail(email);
+        }
+        String currentPrincipalName = authentication.getName();
+        return userRepo.findByEmail(currentPrincipalName);
     }
 }
