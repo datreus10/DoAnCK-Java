@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.service.PostService;
 import com.example.demo.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,13 @@ public class AppController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private PostService postService;
+
     @GetMapping()
     public String getMainPage(Model model) {
         model.addAttribute("user", userService.getCurrentUser());
+        model.addAttribute("listPost", postService.getAllPost());
         return "index";
     }
 }

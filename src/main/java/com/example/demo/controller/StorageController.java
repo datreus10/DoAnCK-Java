@@ -32,28 +32,31 @@ public class StorageController{
     
     @GetMapping("/stream/{filename}")
     public ResponseEntity<byte[]> downloadFile(@PathVariable String filename) {
-        return ResponseEntity.ok()
-                .header("Accept-Ranges", "bytes")
-                .header("Expires", "0")
-                .header("Cache-Control", "no-cache, no-store")
-                .header("Connection", "keep-alive")
-                .header("Content-Transfer-Encoding", "binary")
-                .contentType(contentType(filename))
+        // return ResponseEntity.ok()
+        //         .header("Accept-Ranges", "bytes")
+        //         .header("Expires", "0")
+        //         .header("Cache-Control", "no-cache, no-store")
+        //         .header("Connection", "keep-alive")
+        //         .header("Content-Transfer-Encoding", "binary")
+        //         .contentType(contentType(filename))
+        //         .body(service.downloadFile(filename));
+        return ResponseEntity.ok().contentType(contentType(filename))
                 .body(service.downloadFile(filename));
     }
 
+    // @GetMapping("/get/{filename}")
+    // public ResponseEntity<String> getPresignedURL(@PathVariable String filename) {
+    //     return ResponseEntity.ok().body(service.getPresignedURL(filename));
+    // }
+    
     private MediaType contentType(String keyname) {
         String[] arr = keyname.split("\\.");
         String type = arr[arr.length - 1];
         switch (type) {
-        case "txt":
-            return MediaType.TEXT_PLAIN;
         case "png":
             return MediaType.IMAGE_PNG;
         case "jpg":
             return MediaType.IMAGE_JPEG;
-        case "mp4":
-            return MediaType.valueOf("video/mp4");
         default:
             return MediaType.APPLICATION_OCTET_STREAM;
         }
