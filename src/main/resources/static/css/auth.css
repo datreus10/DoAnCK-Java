@@ -16,7 +16,7 @@
 }
 
 .auth-bg-image {
-    background: url(../images/background/auth-bg.png) no-repeat;
+    background: url(https://spring-project-image.s3-ap-southeast-1.amazonaws.com/images/background/auth-bg.png) no-repeat;
     background-size: cover;
 }
 
