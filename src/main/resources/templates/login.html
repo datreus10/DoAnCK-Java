@@ -63,7 +63,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <input type="password" class="form-control" name="password" placeholder="Password"
-                                    required>
+                                    minlength="6" maxlength="10" required>
                             </div>
                         </div>
                         <div class="col-md-12 mb-3">
@@ -155,7 +155,8 @@
                     url: '/login',
                     data: data,
                     success: function (msg) {
-                        $("#alert-message").empty().append('<div class="alert alert-primary">' +
+                        $("#alert-message").empty().append(
+                            '<div class="alert alert-primary">' +
                             msg + '</div>'
                         ).hide().fadeIn(1000);
                         window.setTimeout(function () {
@@ -163,7 +164,8 @@
                         }, 3000);
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        $("#alert-message").empty().append('<div class="alert alert-danger">' +
+                        $("#alert-message").empty().append(
+                            '<div class="alert alert-danger">' +
                             XMLHttpRequest.responseText + '</div>'
                         ).hide().fadeIn(1000);
                     }
