@@ -306,19 +306,22 @@
                 <!-- Reactions -->
                 <div class="argon-reaction">
                     <span class="like-btn">
-                        <a href="#" class="post-card-buttons" id="reactions"><i class="bx bxs-like mr-2"></i> 67</a>
-                        <ul class="reactions-box dropdown-shadow">
+                        <a href="javascript:void(0)" class="post-card-buttons" id="reactions"><i
+                                class="bx bxs-like mr-2"
+                                th:style="|${post.isCurrentUserLiked ? 'color: dodgerblue;' : 'color: #6C757D;'}|"></i>
+                            <span th:text="${post.reactions.size()}"></span></a>
+                        <!-- <ul class="reactions-box dropdown-shadow">
                             <li class="reaction reaction-like" data-reaction="Like"></li>
                             <li class="reaction reaction-love" data-reaction="Love"></li>
                             <li class="reaction reaction-haha" data-reaction="HaHa"></li>
                             <li class="reaction reaction-wow" data-reaction="Wow"></li>
                             <li class="reaction reaction-sad" data-reaction="Sad"></li>
                             <li class="reaction reaction-angry" data-reaction="Angry"></li>
-                        </ul>
+                        </ul> -->
                     </span>
                 </div>
                 <a href="javascript:void(0)" class="post-card-buttons show-comments"><i
-                        class="bx bx-message-rounded mr-2"></i> 5</a>
+                        class="bx bx-message-rounded mr-2"></i> <span th:text="${post.comments.size()}"></span></a>
                 <div class="dropdown dropup share-dropup">
                     <a href="#" class="post-card-buttons" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
@@ -367,35 +370,27 @@
                                     <ul class="media-list comments-list">
                                         <li class="media comment-form">
                                             <a href="#" class="pull-left">
+<<<<<<< HEAD
                                                 <img src="https://spring-project-image.s3-ap-southeast-1.amazonaws.com/images/users/user-4.jpg" alt="" class="img-circle">
+=======
+                                                <img th:src="@{/file-cloud/stream/{image}(image=${post.userAvatar})}"
+                                                    alt="" class="img-circle">
+>>>>>>> 61c0435cc82301e854ba96e9d46ccae6c1f74416
                                             </a>
                                             <div class="media-body">
-                                                <form action="" method="" role="form">
+                                                <form th:id="|form-comment-${post.postId}|" role="form">
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="input-group">
                                                                 <input type="text" class="form-control comment-input"
-                                                                    placeholder="Write a comment...">
-
-                                                                <div class="input-group-btn">
+                                                                    placeholder="Write a comment..." name="content">
+                                                                <input type="text" th:value="${post.postId}"
+                                                                    name="postId" style="display: none;">
+                                                                <div class="input-group-btn" style="margin: auto 0;">
                                                                     <button type="button" class="btn comment-form-btn"
                                                                         data-toggle="tooltip" data-placement="top"
                                                                         title="" data-original-title="Tooltip on top"><i
-                                                                            class="bx bxs-smiley-happy"></i></button>
-                                                                    <button type="button"
-                                                                        class="btn comment-form-btn comment-form-btn"
-                                                                        data-toggle="tooltip" data-placement="top"
-                                                                        title="" data-original-title="Tooltip on top"><i
-                                                                            class="bx bx-camera"></i></button>
-                                                                    <button type="button"
-                                                                        class="btn comment-form-btn comment-form-btn"
-                                                                        data-toggle="tooltip" data-placement="top"
-                                                                        title="" data-original-title="Tooltip on top"><i
-                                                                            class="bx bx-microphone"></i></button>
-                                                                    <button type="button" class="btn comment-form-btn"
-                                                                        data-toggle="tooltip" data-placement="top"
-                                                                        title="" data-original-title="Tooltip on top"><i
-                                                                            class="bx bx-file-blank"></i></button>
+                                                                            class="bx bxs-send btn-comment"></i></button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -403,6 +398,7 @@
                                                 </form>
                                             </div>
                                         </li>
+<<<<<<< HEAD
                                         <li class="media">
                                             <a href="#" class="pull-left">
                                                 <img src="https://spring-project-image.s3-ap-southeast-1.amazonaws.com/images/users/user-2.jpg" alt="" class="img-circle">
@@ -475,6 +471,16 @@
                                                 </div>
                                             </div>
                                         </li>
+=======
+                                        <th:block th:if="${post.comments !=null && post.comments.size()>0}">
+                                            <th:block th:each="comment : ${post.comments}">
+                                                <div th:replace="fragment :: comment(${comment})"></div>
+                                            </th:block>
+                                        </th:block>
+
+
+
+>>>>>>> 61c0435cc82301e854ba96e9d46ccae6c1f74416
                                     </ul>
                                 </div>
                             </div>
@@ -485,6 +491,27 @@
             </div>
         </div>
     </th:block>
+
+    <!-- comment -->
+    <li th:fragment="comment(comment)" class="media">
+        <a href="#" class="pull-left">
+            <img th:src="@{/file-cloud/stream/{image}(image=${comment.user.avatar})}" alt="" class="img-circle">
+        </a>
+        <div class="media-body">
+            <div class="d-flex justify-content-between align-items-center w-100">
+                <strong class="text-gray-dark"><a href="#" class="fs-8"
+                        th:text="${comment.user.getFullName()}"></a></strong>
+                <a href="#"><i class="bx bx-dots-horizontal-rounded"></i></a>
+            </div>
+            <span class="d-block comment-created-time" th:text="${comment.commentTime}"></span>
+            <p class="fs-8 pt-2" th:text="${comment.commentContent}"></p>
+            <!-- <div class="commentLR">
+                <button type="button" class="btn btn-link fs-8">Like</button>
+                <button type="button" class="btn btn-link fs-8">Reply</button>
+            </div> -->
+        </div>
+    </li>
+
 </body>
 
 </html>

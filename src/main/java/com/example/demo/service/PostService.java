@@ -23,6 +23,13 @@ public class PostService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ReactionService reactionService;
+
+    public Post getPostById(Long id) {
+        return postRepo.findById(id).orElseGet(() -> null);
+    }
+
     public boolean createPost(String postContent, MultipartFile multipartFile) {
         if (!postContent.isBlank()) {
             Post newPost = new Post();
@@ -37,16 +44,19 @@ public class PostService {
         return false;
     }
 
-    public List<Map<String, String>> getAllPost() {
-        List<Map<String, String>> result = new ArrayList<>();
+    public List<Map<String, Object>> getAllPost() {
+        List<Map<String, Object>> result = new ArrayList<>();
         for (Post post : postRepo.findAllByOrderByPostTimeDesc()) {
-            Map<String, String> temp = new HashMap<>();
+            Map<String, Object> temp = new HashMap<>();
             temp.put("postContent", post.getPostContent());
             temp.put("postDate", post.getPostTime());
             temp.put("userId", post.getUser().getUserId().toString());
             temp.put("userAvatar", post.getUser().getAvatar());
             temp.put("userName", post.getUser().getFullName());
             temp.put("postId", post.getPostId().toString());
+            temp.put("comments", post.getComments());
+            temp.put("reactions", post.getReactions());
+            temp.put("isCurrentUserLiked", reactionService.isCurrentUserLiked(post));
             if (post.getMedia() != null && !post.getMedia().isEmpty()) {
                 temp.put("postMediaUrl", storageService.getPresignedURL(post.getMedia()));
                 temp.put("postMediaType", getMediaType(post.getMedia()));
@@ -66,4 +76,5 @@ public class PostService {
             return "video";
         return "image";
     }
+
 }
