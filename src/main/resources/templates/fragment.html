@@ -175,7 +175,7 @@
                         </a>
                         <a class="dropdown-item" href="#">
                             <img src="/images/icons/navbar/gear-1.png" alt="Navbar icon"> Settings</a>
-                        <a class="dropdown-item logout-btn" href="#">
+                        <a class="dropdown-item logout-btn" href="/logout">
                             <img src="/images/icons/navbar/logout.png" alt="Navbar icon"> Log Out</a>
                     </div>
                 </li>
@@ -370,7 +370,7 @@
                                     <ul class="media-list comments-list">
                                         <li class="media comment-form">
                                             <a href="#" class="pull-left">
-                                                <img th:src="@{/file-cloud/stream/{image}(image=${post.userAvatar})}" height="30px" width="30px"
+                                                <img th:src="@{/file-cloud/stream/{image}(image=${post.currentUserAvatar})}" height="30px" width="30px"
                                                     alt="" class="img-circle">
                                             </a>
                                             <div class="media-body">

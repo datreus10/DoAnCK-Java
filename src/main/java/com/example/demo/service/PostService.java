@@ -61,6 +61,7 @@ public class PostService {
             temp.put("postDate", post.getPostTime());
             temp.put("userId", post.getUser().getUserId().toString());
             temp.put("userAvatar", post.getUser().getAvatar());
+            temp.put("currentUserAvatar", userService.getCurrentUser().getAvatar());
             temp.put("userName", post.getUser().getFullName());
             temp.put("postId", post.getPostId().toString());
             temp.put("comments", post.getComments());
