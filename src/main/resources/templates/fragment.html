@@ -60,7 +60,7 @@
                 </li>
             </ul>
             <ul class="navbar-nav mr-5 flex-row" id="main_menu">
-                <a class="navbar-brand nav-item mr-lg-5" href="index.html"><img src="/images/logo-64x64.png" width="40"
+                <a class="navbar-brand nav-item mr-lg-5" href="/"><img src="/images/logo-64x64.png" width="40"
                         height="40" class="mr-3" alt="Logo"></a>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <form class="w-30 mx-2 my-auto d-inline form-inline mr-5 dropdown search-form">
@@ -149,9 +149,9 @@
                     </ul>
                 </form>
                 <li class="nav-item s-nav">
-                    <a href="profile.html" class="nav-link nav-links">
+                    <a th:href="${'/profile?id=' + user.userId}" class="nav-link nav-links">
                         <div class="menu-user-image">
-                            <img th:src="@{/file-cloud/stream/{image}(image=${user.avatar})}" class="menu-user-img ml-1"
+                            <img th:src="@{/file-cloud/stream/{image}(image=${user.avatar})}" height="28px" width="28px" class="menu-user-img ml-1"
                                 alt="Menu Image">
                         </div>
                         <span th:text="${user.getFullName()}" class="ml-4"></span>
@@ -188,7 +188,7 @@
     </nav>
 
     <!-- create post -->
-    <form th:fragment="create_post" id="create-post" enctype="multipart/form-data">
+    <form th:fragment="create_post(user)" id="create-post" enctype="multipart/form-data">
         <ul class="list-unstyled" style="margin-bottom: 0;">
             <li class="media post-form">
                 <div class="media-body">
@@ -221,10 +221,10 @@
         <div class="post border-bottom p-3 bg-white" th:id="|post_${post.postId}|">
             <div class="media text-muted pt-3">
                 <img th:src="@{/file-cloud/stream/{image}(image=${post.userAvatar})}" alt="Online user"
-                    class="mr-3 post-user-image">
+                     height="56px" width="56px"  class="mr-3 post-user-image">
                 <div class="media-body pb-3 mb-0 small lh-125">
                     <div class="d-flex justify-content-between align-items-center w-100">
-                        <a href="#" class="text-gray-dark post-user-name" th:text="${post.userName}"></a>
+                        <a th:href="${'profile?id=' + post.userId}" class="text-gray-dark post-user-name" th:text="${post.userName}"></a>
                         <div class="dropdown">
                             <a href="#" class="post-more-settings" role="button" data-toggle="dropdown" id="postOptions"
                                 aria-haspopup="true" aria-expanded="false">
@@ -370,7 +370,7 @@
                                     <ul class="media-list comments-list">
                                         <li class="media comment-form">
                                             <a href="#" class="pull-left">
-                                                <img th:src="@{/file-cloud/stream/{image}(image=${post.userAvatar})}"
+                                                <img th:src="@{/file-cloud/stream/{image}(image=${post.userAvatar})}" height="30px" width="30px"
                                                     alt="" class="img-circle">
                                             </a>
                                             <div class="media-body">
@@ -416,7 +416,7 @@
     <!-- comment -->
     <li th:fragment="comment(comment)" class="media">
         <a href="#" class="pull-left">
-            <img th:src="@{/file-cloud/stream/{image}(image=${comment.user.avatar})}" alt="" class="img-circle">
+            <img th:src="@{/file-cloud/stream/{image}(image=${comment.user.avatar})}" height="30px" width="30px" alt="" class="img-circle">
         </a>
         <div class="media-body">
             <div class="d-flex justify-content-between align-items-center w-100">

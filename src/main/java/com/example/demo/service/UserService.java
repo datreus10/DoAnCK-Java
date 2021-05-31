@@ -149,4 +149,17 @@ public class UserService implements UserDetailsService {
         String currentPrincipalName = authentication.getName();
         return userRepo.findByEmail(currentPrincipalName);
     }
+
+    @Transactional
+    public void updateAvatar(String filename){
+        getCurrentUser().setAvatar(filename);
+    }
+
+    public User getUserById(Long id){
+        try {
+            return userRepo.findById(id).get();
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

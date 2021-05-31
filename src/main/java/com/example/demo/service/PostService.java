@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.example.demo.model.Post;
+import com.example.demo.model.User;
 import com.example.demo.repo.PostRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,8 +46,16 @@ public class PostService {
     }
 
     public List<Map<String, Object>> getAllPost() {
+        return fillter(postRepo.findAllByOrderByPostTimeDesc());
+    }
+
+    public List<Map<String, Object>> getPostByUser(User user) {
+        return fillter(postRepo.findPostByUserOrderByPostTimeDesc(user));
+    }
+
+    public List<Map<String, Object>> fillter(List<Post> posts) {
         List<Map<String, Object>> result = new ArrayList<>();
-        for (Post post : postRepo.findAllByOrderByPostTimeDesc()) {
+        for (Post post : posts) {
             Map<String, Object> temp = new HashMap<>();
             temp.put("postContent", post.getPostContent());
             temp.put("postDate", post.getPostTime());

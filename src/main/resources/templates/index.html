@@ -78,7 +78,7 @@
                     </div>
                     <div class="col-md-6 second-section" id="page-content-wrapper">
                         
-                        <form th:replace="fragment :: create_post"></form>
+                        <form th:replace="fragment :: create_post(${user})"></form>
 
                         <!-- Posts -->
                         <div class="posts-section mb-5">
