@@ -61,7 +61,7 @@
                                             @arthur_minasyan</p>
                                     </div>
                                     <div class="intro mt-4">
-                                        <div class="d-flex">
+                                        <div th:unless="${isCurrentUser}" class="d-flex">
                                             <button type="button" class="btn btn-follow mr-3"><i class='bx bx-plus'></i>
                                                 Follow</button>
                                             <button type="button" class="btn btn-start-chat" data-toggle="modal"

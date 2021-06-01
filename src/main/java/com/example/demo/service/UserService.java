@@ -156,10 +156,6 @@ public class UserService implements UserDetailsService {
         return userRepo.findByEmail(currentPrincipalName);
     }
 
-    @Transactional
-    public void updateAvatar(String filename) {
-        getCurrentUser().setAvatar(filename);
-    }
 
     public User getUserById(Long id) {
         try {
@@ -167,5 +163,17 @@ public class UserService implements UserDetailsService {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    @Transactional
+    public void updateAvatar(String filename) {
+        getCurrentUser().setAvatar(filename);
+    }
+
+    @Transactional
+    public void updateAccount(String firstName,String lastName){
+        User user = getCurrentUser();
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
     }
 }

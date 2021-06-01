@@ -108,17 +108,17 @@
                             <div class="content">
                                 <div class="settings-form p-4">
                                     <h2>Your Account</h2>
-                                    <form action="" method="" class="mt-4 settings-form">
+                                    <form action="/user/update-account" method="POST" class="mt-4 settings-form">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="settingsFirstName">First Name</label>
-                                                <input type="text" class="form-control" id="settingsFirstName" th:placeholder="${user.firstName}" required>
+                                                <input type="text" class="form-control" name="firstName" id="settingsFirstName" th:placeholder="${user.firstName}" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="settingsLastName">Last Name</label>
-                                                <input type="text" class="form-control" id="settingsLastName" th:placeholder="${user.lastName}" required>
+                                                <input type="text" class="form-control" name="lastName" id="settingsLastName" th:placeholder="${user.lastName}" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
