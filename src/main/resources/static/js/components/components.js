@@ -153,11 +153,12 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             success: function (data) {
-                $(".avatar.img-circle").attr("src",data);
-                $(".menu-user-img.ml-1").attr("src",data);
+                // $(".avatar.img-circle").attr("src",data);
+                // $(".menu-user-img.ml-1").attr("src",data);
+                location.reload();
             },
             error: function (e) {
-                console.log(e.responseText());
+                console.log(e.responseText);
             }
         });
     });

@@ -125,8 +125,14 @@ public class UserService implements UserDetailsService {
         User newUser = new User();
         newUser.setEmail(email);
         newUser.setPassword(passwordEncoder.encode("OAuth2"));
-        newUser.setFirstName(fullName);
-        newUser.setLastName("");
+        String[] names = fullName.split("\\s");
+        if (names.length > 1) {
+            newUser.setFirstName(names[0]);
+            newUser.setLastName(names[1]);
+        } else {
+            newUser.setFirstName(fullName);
+            newUser.setLastName("");
+        }
         newUser.setEnable(true);
         newUser.setAuthProvider(provider);
         userRepo.save(newUser);
@@ -151,11 +157,11 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public void updateAvatar(String filename){
+    public void updateAvatar(String filename) {
         getCurrentUser().setAvatar(filename);
     }
 
-    public User getUserById(Long id){
+    public User getUserById(Long id) {
         try {
             return userRepo.findById(id).get();
         } catch (Exception e) {
