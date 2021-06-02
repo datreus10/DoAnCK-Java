@@ -192,7 +192,7 @@ button:focus {
 .newsfeed {
     padding: 0;
     height: 100%;
-    background-color: #F2F4F5
+    background-color: #E9EBEE
 }
 
 .newsfeed-size {
@@ -297,10 +297,7 @@ button:focus {
 }
 
 .post-form {
-    /* background-color: #d1d3d6; */
     background-color: white;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px
 }
 
 #postForm {
@@ -311,7 +308,7 @@ button:focus {
     padding: 40px 30px;
     /* background-color: #d1d3d6; */
     background-color: white;
-
+    
     border-top-left-radius: 10px;
     border-top-right-radius: 10px
 }
@@ -348,7 +345,8 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .post-input {
-    margin-bottom: 1.5em
+    margin-bottom: 1.5em;
+    border-bottom: 1px solid #dddedf;
 }
 
 .post-form-btn {
@@ -362,7 +360,7 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .post-form-btn img {
-    width: 20px;
+    width: 28px;
 }
 
 .onlineUsers {
@@ -549,7 +547,7 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .menu-user-image {
-    width: 30px;
+    width: 35px;
     display: inline-block;
 }
 

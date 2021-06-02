@@ -28,7 +28,7 @@
 
 .profile-info-left {
     position: relative;
-    top: -92px;
+    top: 0px;
 }
 
 .cover-overlay {
@@ -70,7 +70,9 @@
 }
 
 .profile-info-left .profile-img {
-    position: relative;
+    position: absolute;
+    top: -92px;
+    left: 88px;
     overflow: hidden;
     width: 150px;
     border-radius: 50%;

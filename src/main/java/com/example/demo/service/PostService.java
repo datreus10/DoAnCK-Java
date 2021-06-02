@@ -53,6 +53,12 @@ public class PostService {
         return fillter(postRepo.findPostByUserOrderByPostTimeDesc(user));
     }
 
+    public List<Map<String, Object>> getPostByUserAndPostId(User user, Long postId) {
+        List<Post> posts = new ArrayList<>();
+        posts.add(postRepo.findByUserAndPostId(user, postId));
+        return fillter(posts);
+    }
+
     public List<Map<String, Object>> fillter(List<Post> posts) {
         List<Map<String, Object>> result = new ArrayList<>();
         for (Post post : posts) {

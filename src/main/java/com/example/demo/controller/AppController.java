@@ -31,7 +31,8 @@ public class AppController {
 
     // render profile
     @GetMapping("/profile")
-    public String getProfile(@RequestParam(name = "id") Long userId, Model model) {
+    public String getProfile(@RequestParam(name = "id") Long userId,
+            @RequestParam(name = "postId", required = false) Long postId, Model model) {
 
         User guestUser = userService.getUserById(userId);
         User currentUser = userService.getCurrentUser();
@@ -43,14 +44,19 @@ public class AppController {
 
         model.addAttribute("currentUser", currentUser);
         model.addAttribute("guestUser", guestUser);
-        model.addAttribute("listPost", postService.getPostByUser(guestUser));
+        if (postId != null) {
+            model.addAttribute("listPost", postService.getPostByUserAndPostId(guestUser, postId));
+        } else {
+            model.addAttribute("listPost", postService.getPostByUser(guestUser));
+        }
+
         return "profile";
     }
 
-    // render setting account 
+    // render setting account
     @GetMapping("/setting")
     public String getPage(Model model) {
-        model.addAttribute("user",userService.getCurrentUser());
+        model.addAttribute("user", userService.getCurrentUser());
         return "settings";
     }
 }

@@ -156,11 +156,10 @@
                     data: data,
                     success: function (msg) {
                         $("#alert-message").empty().append(
-                            '<div class="alert alert-primary">' +
-                            msg + '</div>'
+                            '<div class="alert alert-primary">Đăng nhập thành công</div>'
                         ).hide().fadeIn(1000);
                         window.setTimeout(function () {
-                            window.location.href = '/';
+                            window.location.href = msg;
                         }, 3000);
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
