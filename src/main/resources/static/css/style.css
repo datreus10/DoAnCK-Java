@@ -192,7 +192,9 @@ button:focus {
 .newsfeed {
     padding: 0;
     height: 100%;
-    background-color: #E9EBEE
+    /* background-color: #E9EBEE */
+    /* background-color:#F0F2F5; */
+    background-color: #E9EAEF;
 }
 
 .newsfeed-size {
@@ -591,7 +593,8 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .comment-wrapper .media-list .media img {
-    width: 30px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     margin-right: 10px;
     vertical-align: -webkit-baseline-middle;
@@ -635,8 +638,8 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .comment-form-btn:hover {
-    background-color: #6c757d;
-    color: #d1d3d6;
+    background-color:#6c757d;
+    color:  #d1d3d6;
 }
 
 .commentLR button {
@@ -1522,3 +1525,75 @@ img.settings-icon {
     border-right: 0px;
 }
 
+
+.we-comet > li {
+    display: inline-block;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.comet-avatar {
+    display: table-cell;
+    max-width: 7.6%;
+    vertical-align: top;
+    width: 7.6%;
+}
+
+.we-comment {
+    border: 1px solid #ede9e9;
+    display: table-cell;
+    margin-left: 20px;
+    padding: 10px;
+    vertical-align: top;
+    position: relative;
+    width: 65%;
+}
+
+.we-comment::before, .peoples-mesg-box > ul > li p:before {
+    border-bottom: 10px solid transparent;
+    border-right: 11px solid #ede9e9;
+    border-top: 10px solid transparent;
+    left: -11px;
+    top: 10px;
+    position: absolute;
+    content: '';
+}
+
+.we-comment::after, .peoples-mesg-box > ul > li p:after {
+    border-bottom: 8px solid transparent;
+    border-right: 9px solid #fff;
+    border-top: 8px solid transparent;
+    left: -9px;
+    top: 12px;
+    position: absolute;
+    content: '';
+}
+
+.coment-head {
+    display: inline-block;
+    width: 100%;
+}
+.coment-head > h5 {
+    font-size: 15px;
+    font-weight: 600;
+    padding-bottom: 5px;
+    text-transform: capitalize;
+    display: inline-block;
+    margin-bottom: 0;
+    color: #2a2a2a;
+}
+
+.coment-head > span {
+    color: #999;
+    font-size: 12px;
+    padding-left: 10px;
+    display: inline-block;
+}
+.we-comment > p {
+    font-size: 14px;
+    line-height: 26px;
+    margin-bottom: 0;
+    max-width: 100%;
+    margin-top: 5px;
+    color: #8c8b8b
+}

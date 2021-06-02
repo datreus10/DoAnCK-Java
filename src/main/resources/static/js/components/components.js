@@ -96,7 +96,7 @@ $(document).ready(function () {
             contentType: false,
             success: function (data) {
                 alert("SUCCESS !!");
-                $(form).closest('ul').append(data);
+                $('#post_' + id).find('ul.we-comet.mt-4').append(data);
                 $(".form-control.comment-input").val("");
                 $(".btn.comment-form-btn").prop("disabled", false);
                 $(`#post_${id} .post-card-buttons.show-comments span`).text(function (index, currentContent) {
@@ -162,6 +162,15 @@ $(document).ready(function () {
             }
         });
     });
+
+    $(".btn-share").on('click', function (e) {
+        e.preventDefault();
+        var $temp = $("<input>");
+        $("body").append($temp);
+        $temp.val($(this).attr('href')).select();
+        document.execCommand('copy');
+        $temp.remove();
+    })
 });
 
 // Video.js
