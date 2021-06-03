@@ -382,6 +382,7 @@ body::-webkit-scrollbar-thumb:hover {
 .post {
     width: 100%;
     margin: 20px 0;
+    border-radius: 8px;
 }
 
 .post-user-image {
@@ -1540,33 +1541,37 @@ img.settings-icon {
 }
 
 .we-comment {
-    border: 1px solid #ede9e9;
+    border: 1px solid #dee2e6;
     display: table-cell;
     margin-left: 20px;
     padding: 10px;
     vertical-align: top;
     position: relative;
     width: 65%;
+    background-color: #F0F2F5;
+    border-radius: 10px;
 }
 
 .we-comment::before, .peoples-mesg-box > ul > li p:before {
     border-bottom: 10px solid transparent;
-    border-right: 11px solid #ede9e9;
+    border-right: 11px solid #F0F2F5;
     border-top: 10px solid transparent;
     left: -11px;
     top: 10px;
     position: absolute;
     content: '';
+    
 }
 
 .we-comment::after, .peoples-mesg-box > ul > li p:after {
     border-bottom: 8px solid transparent;
-    border-right: 9px solid #fff;
+    border-right: 9px solid #F0F2F5;
     border-top: 8px solid transparent;
     left: -9px;
     top: 12px;
     position: absolute;
     content: '';
+    
 }
 
 .coment-head {
@@ -1597,3 +1602,4 @@ img.settings-icon {
     margin-top: 5px;
     color: #8c8b8b
 }
+

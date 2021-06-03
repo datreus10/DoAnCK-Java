@@ -131,7 +131,7 @@
 
 
                 <li class="nav-item s-nav dropdown message-drop-li">
-                    <a href="/" class="nav-link nav-links" role="button">
+                    <a href="/" class="nav-link nav-links" role="button" >
                         <img src="/images/icons/navbar/home.png" class="message-dropdown" alt="navbar icon">
                     </a>
 
@@ -419,13 +419,13 @@
 
 
                 <li class="nav-item s-nav">
-                    <a th:href="${'/profile?id=' + user.userId}" class="nav-link nav-links">
+                    <a th:href="${'/profile?id=' + user.userId}" class="nav-link nav-links" style="border-radius: 30px;background-color: #E9EAEF;">
                         <div class="menu-user-image">
                             <img th:src="@{/file-cloud/stream/{image}(image=${user.avatar})}" height="35px" width="35px"
                                 class="menu-user-img" alt="Menu Image">
                         </div>
-                        <span th:text="${user.getFullName()}" style="color:#646464;font-size:medium;font-weight:600;"
-                            class="ml-3"></span>
+                        <span th:text="${user.getFullName()}" style="color:black;font-size:medium;font-weight:600;"
+                            class="ml-2 mr-2"></span>
                     </a>
                 </li>
                 <li class="nav-item s-nav nav-icon dropdown">
