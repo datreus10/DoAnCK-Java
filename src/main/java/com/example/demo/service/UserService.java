@@ -187,7 +187,7 @@ public class UserService implements UserDetailsService {
 
     public List<Map<String, Object>> searchUsers(String keyword) {
         List<Map<String, Object>> result = new ArrayList<>();
-        List<User> users = userRepo.search(keyword);
+        List<User> users = userRepo.search(keyword,getCurrentUser().getUserId());
         for (User user : users) {
             Map<String, Object> temp = new HashMap<>();
             temp.put("userId", user.getUserId());

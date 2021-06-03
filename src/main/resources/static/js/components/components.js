@@ -214,7 +214,14 @@ $(document).ready(function () {
             result.removeClass();
             result.empty();
         }
-    })
+    });
+
+    $("#input-search").focusout(function () {
+        $(this).val('');
+        var result = $('#result-search');
+        result.removeClass();
+        result.empty();
+    });
 });
 
 // Video.js

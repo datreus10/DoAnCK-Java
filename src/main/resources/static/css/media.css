@@ -224,7 +224,7 @@
         display: none
     }
 
-    .navbar {
+    .navbar :not("navbar-main"){
         padding-right: 3rem !important;
     }
 
