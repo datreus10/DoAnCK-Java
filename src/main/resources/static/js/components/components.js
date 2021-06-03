@@ -170,6 +170,50 @@ $(document).ready(function () {
         $temp.val($(this).attr('href')).select();
         document.execCommand('copy');
         $temp.remove();
+    });
+
+
+    $("#input-search").on("input", function () {
+        var keyword = $(this).val();
+        var result = $('#result-search');
+        if (keyword.trim() != '') {
+            result.addClass("dropdown-menu notify-drop nav-drop shadow-sm show");
+            if (!result.has(".spinner-border").length)
+                result.append('<div class="text-center"><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div>');
+            $.ajax({
+                url: "/user/search?keyword=" + keyword,
+                type: "GET",
+                success: function (data) {
+                    result.empty();
+                    result.append(`<div class="notify-drop-title"><div class="row"><div class="col-md-6 col-sm-6 col-xs-6 fs-8">Search Results <span class="badge badge-pill badge-primary ml-2">${data.length}</span></div></div>
+                </div><div class="drop-content"><h6 class="dropdown-header">Peoples</h6>`);
+                    data.forEach(function (e) {
+                        result.append(`<li class="dropdown-item">
+                        <div class="col-md-2 col-sm-2 col-xs-2">
+                            <div class="notify-img">
+                                <img src="${e.avatarLink}" height="40" width="40" class="rounded-circle" alt="Search result">
+                            </div>
+                        </div>
+                        <div class="col-md-10 col-sm-10 col-xs-10">
+                            <a href="/profile?id=${e.userId}" class="notification-user">${e.fullName}</a>
+                            <a href="#" class="btn btn-quick-link join-group-btn border text-right float-right" style="font-size: 12px;
+                            font-weight: normal;">
+                                Add Friend
+                            </a>
+                            
+                        </div>
+                    </li>`)
+                    });
+                    result.append('</div></ul>')
+                },
+                error: function (e) {
+                    console.log(e.e.responseText);
+                }
+            });
+        } else {
+            result.removeClass();
+            result.empty();
+        }
     })
 });
 

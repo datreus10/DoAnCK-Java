@@ -3,7 +3,10 @@ package com.example.demo.service;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.mail.MessagingException;
@@ -38,6 +41,9 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private JavaMailSender mailSender;
+
+    @Autowired
+    private StorageService storageService;
 
     @Override
     public UserDetails loadUserByUsername(String email) {
@@ -177,5 +183,18 @@ public class UserService implements UserDetailsService {
         User user = getCurrentUser();
         user.setFirstName(firstName);
         user.setLastName(lastName);
+    }
+
+    public List<Map<String, Object>> searchUsers(String keyword) {
+        List<Map<String, Object>> result = new ArrayList<>();
+        List<User> users = userRepo.search(keyword);
+        for (User user : users) {
+            Map<String, Object> temp = new HashMap<>();
+            temp.put("userId", user.getUserId());
+            temp.put("fullName", user.getFullName());
+            temp.put("avatarLink", storageService.getPresignedURL(user.getAvatar()));
+            result.add(temp);
+        }
+        return result;
     }
 }

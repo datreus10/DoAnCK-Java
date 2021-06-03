@@ -19,6 +19,7 @@
     <link href="/css/components.css" rel="stylesheet">
     <link href="/css/media.css" rel="stylesheet">
     <link href="/css/chat.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://vjs.zencdn.net/7.4.1/video-js.css" rel="stylesheet">
     <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js" type="text/javascript"></script>
     <script src="/js/load.js" type="text/javascript"></script>
@@ -30,9 +31,9 @@
             <div class="col-md-12 newsfeed-right-side">
                 
                 <nav th:replace="fragment :: navbar(${user})"></nav>
-                <div class="row newsfeed-right-side-content mt-3">
-                    <div class="col-md-3 newsfeed-left-side sticky-top shadow-sm" id="sidebar-wrapper">
-                        <div class="card newsfeed-user-card h-100">
+                <div class="row newsfeed-right-side-content mt-3 justify-content-between">
+                    <div class="col-md-3 newsfeed-left-side sticky-top shadow-sm" id="sidebar-wrapper" style="border-radius: 10px;">
+                        <div class="card newsfeed-user-card h-100" style="border-radius: 10px;">
                             <ul class="list-group list-group-flush newsfeed-left-sidebar">
                                 <li class="list-group-item">
                                     <h6>Home</h6>
@@ -61,7 +62,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-md-6 second-section" id="page-content-wrapper">
+                    <div class="col-md-5 second-section" id="page-content-wrapper">
                         <div style="padding-top: 0.2rem;border-radius: 8px;">
                             <form th:replace="fragment :: create_post(${user})"></form>
                         </div>
@@ -84,10 +85,10 @@
                                 <img src="https://demos.creative-tim.com/argon-dashboard-pro/assets/img/theme/team-4.jpg" alt="Online user" class="mr-2 online-user-image">
                                 <div class="media-body pb-3 mb-0 small lh-125">
                                     <div class="d-flex justify-content-between align-items-center w-100">
-                                        <strong class="text-gray-dark" style="line-height: 0;"><a href="#" class="smFLname">John Michael</a></strong>
+                                        <strong class="text-gray-dark" style="font-size: 1rem;"><a href="#" class="smFLname">John Michael</a></strong>
                                         <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Follow"><i class="bx bxs-plus-circle" style="font-size: 2.5em; color: #969696;"></i></a>
                                     </div>
-                                    <span class="d-block" style="line-height: 8px;">4 mutual friends</span>
+                                    <span class="d-block" style="font-size: 0.8rem;">4 mutual friends</span>
                                 </div>
                             </div>
                             <div class="media text-muted pt-3">

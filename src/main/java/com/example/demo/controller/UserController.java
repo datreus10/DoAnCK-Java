@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -43,5 +42,14 @@ public class UserController {
     public String updateAccount(@RequestParam Map<String,String> body){
         userService.updateAccount(body.get("firstName"), body.get("lastName"));
         return "redirect:/setting";
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<?> searchUser(@RequestParam(name = "keyword") String keyword){
+        try {
+            return new ResponseEntity<>(userService.searchUsers(keyword),HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("User not found",HttpStatus.NOT_FOUND);
+        }
     }
 }
