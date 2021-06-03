@@ -14,4 +14,5 @@ public interface PostRepo extends JpaRepository<Post, Long>{
 
     List<Post> findAllByOrderByPostTimeDesc();
 
+    Post  findByUserAndPostId(User user,Long postId);
 }

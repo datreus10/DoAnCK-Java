@@ -1,5 +1,6 @@
 package com.example.demo.config;
 
+import com.example.demo.component.MyAuthenticationSuccessHandler;
 import com.example.demo.component.Oauth2SuccessHandler;
 import com.example.demo.service.CustomOAuth2UserService;
 import com.example.demo.service.UserService;
@@ -28,6 +29,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private CustomOAuth2UserService customOAuth2UserService;
 
+    @Autowired
+    private MyAuthenticationSuccessHandler myAuthenticationSuccessHandler;
+
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -37,14 +41,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().disable().csrf().disable().authorizeRequests().antMatchers("/css/**","/js/**","/images/**", "/register","/register/verify","/oauth2/**").permitAll()
             .anyRequest().authenticated()
-            .and().formLogin().permitAll().loginPage("/login").failureUrl("/login-error")
+            .and().formLogin().permitAll().loginPage("/login").failureUrl("/login-error").successHandler(myAuthenticationSuccessHandler)
             .and().oauth2Login().loginPage("/login").userInfoEndpoint().userService(customOAuth2UserService)
             .and().successHandler(successHandler)
             .and().logout()
                 .invalidateHttpSession(true).clearAuthentication(true)
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login?logout")
                 .permitAll();
-       http.formLogin().defaultSuccessUrl("/login-success", true);
+       //http.formLogin().defaultSuccessUrl("/login-success", true);
     }
 
     @Bean
