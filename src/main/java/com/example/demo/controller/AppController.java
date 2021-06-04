@@ -24,7 +24,7 @@ public class AppController {
     // render main page
     @GetMapping()
     public String getMainPage(Model model) {
-        model.addAttribute("user", userService.getCurrentUser());
+        model.addAttribute("user", userService.getCurrentUserFill());
         model.addAttribute("listPost", postService.getAllPost());
         return "index";
     }
@@ -35,7 +35,7 @@ public class AppController {
             @RequestParam(name = "postId", required = false) Long postId, Model model) {
 
         User guestUser = userService.getUserById(userId);
-        User currentUser = userService.getCurrentUser();
+        User currentUser = userService.getCurrentUserFill();
         if (guestUser.equals(currentUser)) {
             model.addAttribute("isCurrentUser", true);
         } else {

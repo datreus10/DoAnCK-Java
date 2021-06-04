@@ -1,8 +1,6 @@
 package com.example.demo.controller;
 
-import java.io.ByteArrayOutputStream;
-
-import com.example.demo.service.StorageService;
+import com.example.demo.service.AzureBlobService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,32 +20,19 @@ import org.springframework.web.multipart.MultipartFile;
 @CrossOrigin("*")
 public class StorageController{
     @Autowired
-    private StorageService service;
+    private AzureBlobService service;
 
     @PostMapping("/upload")
     public ResponseEntity<String> uploadFile(@RequestParam(value = "file") MultipartFile file) {
-        return new ResponseEntity<>(service.uploadFile(file), HttpStatus.OK);
+        return new ResponseEntity<>(service.upload(file), HttpStatus.OK);
     }
     
     @GetMapping("/stream/{filename}")
     public ResponseEntity<byte[]> downloadFile(@PathVariable String filename) {
-        // return ResponseEntity.ok()
-        //         .header("Accept-Ranges", "bytes")
-        //         .header("Expires", "0")
-        //         .header("Cache-Control", "no-cache, no-store")
-        //         .header("Connection", "keep-alive")
-        //         .header("Content-Transfer-Encoding", "binary")
-        //         .contentType(contentType(filename))
-        //         .body(service.downloadFile(filename));
         return ResponseEntity.ok().contentType(contentType(filename))
-                .body(service.downloadFile(filename));
+                .body(service.getFile(filename));
     }
 
-    // @GetMapping("/get/{filename}")
-    // public ResponseEntity<String> getPresignedURL(@PathVariable String filename) {
-    //     return ResponseEntity.ok().body(service.getPresignedURL(filename));
-    // }
-    
     private MediaType contentType(String keyname) {
         String[] arr = keyname.split("\\.");
         String type = arr[arr.length - 1];

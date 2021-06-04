@@ -43,7 +43,7 @@ public class UserService implements UserDetailsService {
     private JavaMailSender mailSender;
 
     @Autowired
-    private StorageService storageService;
+    private AzureBlobService storageService;
 
     @Override
     public UserDetails loadUserByUsername(String email) {
@@ -165,6 +165,12 @@ public class UserService implements UserDetailsService {
         return userRepo.findByEmail(currentPrincipalName);
     }
 
+    public User getCurrentUserFill() {
+       User user = getCurrentUser();
+       user.setAvatar(storageService.getFileLink(user.getAvatar()));
+       return user;
+    }
+
     public User getUserById(Long id) {
         try {
             return userRepo.findById(id).get();
@@ -192,7 +198,7 @@ public class UserService implements UserDetailsService {
             Map<String, Object> temp = new HashMap<>();
             temp.put("userId", user.getUserId());
             temp.put("fullName", user.getFullName());
-            temp.put("avatarLink", storageService.getPresignedURL(user.getAvatar()));
+            temp.put("avatarLink", storageService.getFileLink(user.getAvatar()));
             result.add(temp);
         }
         return result;

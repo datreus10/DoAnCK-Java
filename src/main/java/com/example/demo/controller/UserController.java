@@ -2,7 +2,7 @@ package com.example.demo.controller;
 
 import java.util.Map;
 
-import com.example.demo.service.StorageService;
+import com.example.demo.service.AzureBlobService;
 import com.example.demo.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +23,16 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    private StorageService storageService;
+    private AzureBlobService storageService;
 
     @PostMapping("/update-avatar")
     public ResponseEntity<String> updateAvatar(@RequestParam(value = "file", required = false) MultipartFile file){
         try {
             String oldAvatar = userService.getCurrentUser().getAvatar();
-            String newAvatar = storageService.uploadFile(file);
+            String newAvatar = storageService.upload(file);
             userService.updateAvatar(newAvatar);
             storageService.deleteFile(oldAvatar);
-            return new ResponseEntity<>(storageService.getPresignedURL(newAvatar),HttpStatus.OK);
+            return new ResponseEntity<>(storageService.getFileLink(newAvatar),HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Error while update avatar",HttpStatus.INTERNAL_SERVER_ERROR);
         }

@@ -48,7 +48,7 @@
                                         <div class="text-center">
                                             <div class="profile-img w-shadow">
                                                 <div class="profile-img-overlay"></div>
-                                                <img th:src="@{/file-cloud/stream/{image}(image=${guestUser.avatar})}"
+                                                <img th:src="${guestUser.avatar}"
                                                     height="146px" width="146px" alt="Avatar" class="avatar img-circle">
                                                 <div th:if="${isCurrentUser}" class="profile-img-caption">
                                                     <label for="updateProfilePic" class="upload">

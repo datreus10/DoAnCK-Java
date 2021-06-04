@@ -19,7 +19,7 @@ public class PostService {
     private PostRepo postRepo;
 
     @Autowired
-    private StorageService storageService;
+    private AzureBlobService storageService;
 
     @Autowired
     private UserService userService;
@@ -37,7 +37,7 @@ public class PostService {
             newPost.setPostContent(postContent);
             newPost.setUser(userService.getCurrentUser());
             if (multipartFile != null && !multipartFile.isEmpty()) {
-                newPost.setMedia(storageService.uploadFile(multipartFile));
+                newPost.setMedia(storageService.upload(multipartFile));
             }
             postRepo.save(newPost);
             return true;
@@ -67,14 +67,14 @@ public class PostService {
             temp.put("postDate", post.getPostTime());
             temp.put("userId", post.getUser().getUserId().toString());
             temp.put("userAvatar", post.getUser().getAvatar());
-            temp.put("currentUserAvatar", userService.getCurrentUser().getAvatar());
+            temp.put("currentUserAvatar", userService.getCurrentUserFill().getAvatar());
             temp.put("userName", post.getUser().getFullName());
             temp.put("postId", post.getPostId().toString());
             temp.put("comments", post.getComments());
             temp.put("reactions", post.getReactions());
             temp.put("isCurrentUserLiked", reactionService.isCurrentUserLiked(post));
             if (post.getMedia() != null && !post.getMedia().isEmpty()) {
-                temp.put("postMediaUrl", storageService.getPresignedURL(post.getMedia()));
+                temp.put("postMediaUrl", storageService.getFileLink(post.getMedia()));
                 temp.put("postMediaType", getMediaType(post.getMedia()));
             } else {
                 temp.put("postMediaUrl", "");
