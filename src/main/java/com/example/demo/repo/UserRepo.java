@@ -18,6 +18,6 @@ public interface UserRepo extends JpaRepository<User, Long> {
     @Query("SELECT u FROM User u WHERE CONCAT(u.firstName,u.lastName,u.email) LIKE %?1% AND u.userId != ?2")
     List<User> search(String keyword, Long userId);
 
-    @Query(nativeQuery = true, value = "SELECT TOP 3 * FROM Users u where u.Id != :id ORDER BY NEWID()")
+    @Query(nativeQuery = true, value = "SELECT TOP 3 * FROM Users u where u.Id != :id and u.Id not in (select f.friend_id from friendship f where f.requester_Id = :id and f.friend_id = u.Id) ORDER BY NEWID()")
     List<User> getRandomUsersExcept(@Param("id") Long userId);
 }
