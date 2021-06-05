@@ -1,9 +1,7 @@
 package com.example.demo.controller;
 
-import java.util.List;
 import java.util.Map;
 
-import com.example.demo.model.Post;
 import com.example.demo.service.PostService;
 import com.example.demo.service.UserService;
 

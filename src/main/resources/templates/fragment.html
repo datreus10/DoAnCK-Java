@@ -631,7 +631,7 @@
                     <a th:href="${'/profile?id=' + user.userId}" class="nav-links"
                         style="border-radius: 30px;background-color: #E9EAEF;">
                         <div class="menu-user-image">
-                            <img th:src="@{/file-cloud/stream/{image}(image=${user.avatar})}" height="35px" width="35px"
+                            <img th:src="${user.avatar}" height="35px" width="35px"
                                 class="menu-user-img" alt="Menu Image">
                         </div>
                         <span th:text="${user.getFullName()}" style="color:black;font-size:medium;font-weight:600;"
@@ -717,7 +717,7 @@
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <div class="p-3 d-flex align-items-center w-100" href="#">
                     <div class="dropdown-list-image mr-3">
-                        <img class="rounded-circle" th:src="${'/file-cloud/stream/'+user.avatar}" width="60" height="60"
+                        <img class="rounded-circle" th:src="${user.avatar}" width="60" height="60"
                             alt="">
                         <div class="status-indicator bg-success"></div>
                     </div>
@@ -764,7 +764,7 @@
     <th:block th:fragment="list_post" th:if="${listPost.size()>0}" th:each="post : ${listPost}">
         <div class="post border-bottom p-3 bg-white" th:id="|post_${post.postId}|">
             <div class="media text-muted pt-3">
-                <img th:src="@{/file-cloud/stream/{image}(image=${post.userAvatar})}" alt="Online user" height="56px"
+                <img th:src="${post.userAvatar}" alt="Online user" height="56px"
                     width="56px" class="mr-3 rounded-circle">
                 <div class="media-body pb-3 mb-0 small lh-125">
                     <div class="d-flex justify-content-between align-items-center w-100">
@@ -946,7 +946,7 @@
                                     <ul class="media-list comments-list">
                                         <li class="media comment-form">
                                             <a href="#" class="pull-left">
-                                                <img th:src="@{/file-cloud/stream/{image}(image=${post.currentUserAvatar})}"
+                                                <img th:src="${post.currentUserAvatar}"
                                                     height="30px" width="30px" alt="" class="img-circle">
                                             </a>
                                             <div class="media-body">
@@ -983,7 +983,7 @@
     <!-- comment -->
     <li th:fragment="comment(comment)" class="media" style="border-bottom: 0;">
         <div class="comet-avatar">
-            <img th:src="@{/file-cloud/stream/{image}(image=${comment.user.avatar})}" alt="">
+            <img th:src="${comment.user.avatar}" alt="">
         </div>
         <div class="we-comment">
             <div class="coment-head">

@@ -3,57 +3,61 @@ package com.example.demo.model;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "FriendShip")
-public class FriendShip {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    public Long friendShipId;
+public class Friendship {
 
-    @JoinColumn(name = "fs_fromuser", referencedColumnName = "Id"/*, nullable = false, updatable = false*/)
-    @OneToOne(optional = false, targetEntity = User.class)
-    public User fromUserId;
+    @EmbeddedId
+    private FriendshipId friendshipId = new FriendshipId();
 
-    @JoinColumn(name = "fs_touser", referencedColumnName = "Id"/*, nullable = false, updatable = false*/)
-    @OneToOne(optional = false, targetEntity = User.class)
-    public User toUserId;
+    
+    @ManyToOne
+    @MapsId("requester")
+    @JoinColumn(name = "requester_id")
+    private User requester;
+
+
+    @ManyToOne
+    @MapsId("friend")
+    @JoinColumn(name = "friend_id")
+    private User friend;
 
     @Column(name = "TimeCreated", nullable = false)
     private LocalDateTime time;
 
-    public Long getFriendShipId() {
-        return friendShipId;
+    @Column(name = "Active", nullable = false)
+    private String status;
+
+    public User getRequester() {
+        return requester;
     }
 
-    public void setFriendShipId(Long friendShipId) {
-        this.friendShipId = friendShipId;
+    public FriendshipId getFriendshipId() {
+        return friendshipId;
     }
 
-    public User getFromUserId() {
-        return fromUserId;
+    public void setFriendshipId(FriendshipId friendshipId) {
+        this.friendshipId = friendshipId;
     }
 
-    public void setFromUserId(User fromUserId) {
-        this.fromUserId = fromUserId;
+    public void setRequester(User requester) {
+        this.requester = requester;
     }
 
-    public User getToUserId() {
-        return toUserId;
+    public User getFriend() {
+        return friend;
     }
 
-    public void setToUserId(User toUserId) {
-        this.toUserId = toUserId;
+    public void setFriend(User friend) {
+        this.friend = friend;
     }
-    
 
     public LocalDateTime getTime() {
         return time;
@@ -63,8 +67,22 @@ public class FriendShip {
         this.time = time;
     }
 
-    public FriendShip() {
+    public String getStatus() {
+        return status;
     }
 
-    
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Friendship() {
+    }
+
+    public Friendship(User requester, User friend, String status) {
+        this.requester = requester;
+        this.friend = friend;
+        this.status = status;
+        this.time = LocalDateTime.now();
+    }
+
 }

@@ -48,7 +48,7 @@
                                         <div class="text-center">
                                             <div class="profile-img w-shadow">
                                                 <div class="profile-img-overlay"></div>
-                                                <img th:src="@{/file-cloud/stream/{image}(image=${guestUser.avatar})}"
+                                                <img th:src="${guestUser.avatar}"
                                                     height="146px" width="146px" alt="Avatar" class="avatar img-circle">
                                                 <div th:if="${isCurrentUser}" class="profile-img-caption">
                                                     <label for="updateProfilePic" class="upload">
@@ -187,7 +187,7 @@
                                                 </th:block>
     
                                                 <div
-                                                    class="bg-white profile-posts-options mt-5 mb-4 py-3 d-flex justify-content-between shadow-sm">
+                                                    class="bg-white profile-posts-options mb-4 py-3 d-flex justify-content-between shadow-sm">
                                                     <div class="col-md-3 col-sm-12">
                                                         <h6 class="timeline-title">Posts</h6>
                                                     </div>

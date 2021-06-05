@@ -80,30 +80,20 @@
                     </div>
                     <div class="col-md-3 sticky-top third-section" id="sidebar-wrapper">
                         <div class="p-3 bg-white" style="border-radius: 8px;">
-                            <h6 class="card-title border-bottom border-gray pb-2 mb-0">People You May Know</h6>
-                            <div class="media text-muted pt-3">
-                                <img src="https://demos.creative-tim.com/argon-dashboard-pro/assets/img/theme/team-4.jpg" alt="Online user" class="mr-2 online-user-image">
-                                <div class="media-body pb-3 mb-0 small lh-125">
-                                    <div class="d-flex justify-content-between align-items-center w-100">
-                                        <strong class="text-gray-dark" style="font-size: 1rem;"><a href="#" class="smFLname">John Michael</a></strong>
-                                        <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Follow"><i class="bx bxs-plus-circle" style="font-size: 2.5em; color: #969696;"></i></a>
+                            <h6 class="card-title border-bottom border-gray pb-2 mb-0">Những người bạn có thể biết</h6>
+                            <th:block th:each="user : ${recommedUsers}">
+                                <div class="media text-muted pt-3">
+                                    <img th:src="${user.avatar}" alt="Online user" class="mr-2 online-user-image" height="58px" width="58px">
+                                    <div class="media-body pb-3 pt-3 pl-1 mb-0 small lh-125">
+                                        <div class="d-flex justify-content-between align-items-center w-100">
+                                            <strong class="text-gray-dark" style="font-size: 0.9rem;"><a th:href="${'/profile?id='+user.userId}" class="smFLname" th:text="${user.getFullName()}"></a></strong>
+                                            <a th:href="${'/user/add-friend?id='+user.userId}" class="add-friend" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add Friend"><i class="bx bxs-plus-circle" style="font-size: 2.5em; color: #969696;"></i></a>
+                                        </div>
+                                        <!-- <span class="d-block" style="font-size: 0.74rem;">4 mutual friends</span> -->
                                     </div>
-                                    <span class="d-block" style="font-size: 0.8rem;">4 mutual friends</span>
                                 </div>
-                            </div>
-                            <div class="media text-muted pt-3">
-                                <img src="https://demos.creative-tim.com/argon-dashboard-pro/assets/img/theme/team-3.jpg" alt="Online user" class="mr-2 online-user-image">
-                                <div class="media-body pb-3 mb-0 small lh-125">
-                                    <div class="d-flex justify-content-between align-items-center w-100">
-                                        <strong class="text-gray-dark" style="line-height: 0;"><a href="#" class="smFLname">Samantha Ivy</a></strong>
-                                        <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Follow"><i class="bx bxs-plus-circle" style="font-size: 2.5em; color: #969696;"></i></a>
-                                    </div>
-                                    <span class="d-block" style="line-height: 8px;">1 mutual friends</span>
-                                </div>
-                            </div>
-                            <small class="d-block text-right mt-3">
-                                <a href="#">See More</a>
-                            </small>
+                            </th:block>
+                            
                         </div>
 
                         <div class="mt-4 p-3 bg-white" style="border-radius: 8px;">
