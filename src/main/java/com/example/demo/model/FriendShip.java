@@ -11,7 +11,7 @@ import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "FriendShip")
+@Table(name = "Friendship")
 public class Friendship {
 
     @EmbeddedId
