@@ -17,27 +17,21 @@ public class Friendship {
     @EmbeddedId
     private FriendshipId friendshipId = new FriendshipId();
 
-    
     @ManyToOne
-    @MapsId("requester")
-    @JoinColumn(name = "requester_id")
-    private User requester;
-
+    @MapsId("request")
+    @JoinColumn(name = "request_id")
+    private User request;
 
     @ManyToOne
-    @MapsId("friend")
-    @JoinColumn(name = "friend_id")
-    private User friend;
+    @MapsId("receive")
+    @JoinColumn(name = "receive_id")
+    private User receive;
 
     @Column(name = "TimeCreated", nullable = false)
     private LocalDateTime time;
 
     @Column(name = "Active", nullable = false)
     private String status;
-
-    public User getRequester() {
-        return requester;
-    }
 
     public FriendshipId getFriendshipId() {
         return friendshipId;
@@ -47,16 +41,20 @@ public class Friendship {
         this.friendshipId = friendshipId;
     }
 
-    public void setRequester(User requester) {
-        this.requester = requester;
+    public User getRequest() {
+        return request;
     }
 
-    public User getFriend() {
-        return friend;
+    public void setRequest(User request) {
+        this.request = request;
     }
 
-    public void setFriend(User friend) {
-        this.friend = friend;
+    public User getReceive() {
+        return receive;
+    }
+
+    public void setReceive(User receive) {
+        this.receive = receive;
     }
 
     public LocalDateTime getTime() {
@@ -75,14 +73,14 @@ public class Friendship {
         this.status = status;
     }
 
-    public Friendship() {
-    }
-
-    public Friendship(User requester, User friend, String status) {
-        this.requester = requester;
-        this.friend = friend;
+    public Friendship(User request, User receive, String status) {
+        this.request = request;
+        this.receive = receive;
         this.status = status;
         this.time = LocalDateTime.now();
+    }
+
+    public Friendship() {
     }
 
 }

@@ -8,28 +8,32 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class FriendshipId implements Serializable {
 
-    private Long requester;
-    private Long friend;
+    private Long request;
+    private Long receive;
 
-    public Long getRequester() {
-        return requester;
+    
+
+    public Long getRequest() {
+        return request;
     }
 
-    public void setRequester(Long requester) {
-        this.requester = requester;
+    public void setRequest(Long request) {
+        this.request = request;
     }
 
-    public Long getFriend() {
-        return friend;
+    public Long getReceive() {
+        return receive;
     }
 
-    public void setFriend(Long friend) {
-        this.friend = friend;
+    public void setReceive(Long receive) {
+        this.receive = receive;
     }
 
-    public FriendshipId(Long requester, Long friend) {
-        this.requester = requester;
-        this.friend = friend;
+    
+
+    public FriendshipId(Long request, Long receive) {
+        this.request = request;
+        this.receive = receive;
     }
 
     public FriendshipId() {
@@ -42,11 +46,11 @@ public class FriendshipId implements Serializable {
         if (o == null || getClass() != o.getClass())
             return false;
         FriendshipId friendshipId = (FriendshipId) o;
-        return friend.equals(friendshipId.friend) && requester.equals(friendshipId.requester);
+        return request.equals(friendshipId.request) && receive.equals(friendshipId.receive);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(friend, requester);
+        return Objects.hash(request,receive);
     }
 }

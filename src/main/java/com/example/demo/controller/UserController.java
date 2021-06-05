@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
+import java.util.List;
 import java.util.Map;
 
+import com.example.demo.model.Friendship;
 import com.example.demo.service.AzureBlobService;
 import com.example.demo.service.UserService;
 
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -65,6 +68,13 @@ public class UserController {
     public String friendCheck(Model model){
         model.addAttribute("user", userService.getCurrentUser());
         model.addAttribute("recommedUsers",userService.getRecommendUsers());
+        model.addAttribute("requesters", userService.getFriendRequests());
         return "friend-check";
     }
+
+    // @GetMapping("/friend-request")
+    // public String getFriendRequest(Model model){
+    //     model.addAttribute("requesters", userService.getFriendRequests());
+    //     return "friend-check";
+    // }
 }

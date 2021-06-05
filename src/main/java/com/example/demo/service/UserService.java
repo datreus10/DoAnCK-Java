@@ -228,9 +228,22 @@ public class UserService implements UserDetailsService {
     public void addFriend(Long friendId) {
         Optional<User> userOptional = userRepo.findById(friendId);
         if (userOptional.isPresent()) {
-            Optional<Friendship> f = friendshipRepo.findById(new FriendshipId(getCurrentUser().getUserId(), userOptional.get().getUserId()));
+            Optional<Friendship> f = friendshipRepo
+                    .findById(new FriendshipId(getCurrentUser().getUserId(), userOptional.get().getUserId()));
             if (!f.isPresent())
                 friendshipRepo.save(new Friendship(getCurrentUser(), userOptional.get(), "wait"));
         }
+    }
+
+    public List<User> getFriendRequests() {
+        List<User> result = new ArrayList<>();
+        for (Friendship f : getCurrentUser().getReceive()) {
+            if (f.getStatus().equals("wait")) {
+                User u = f.getReceive();
+                u.setAvatar(storageService.getFileLink(u.getAvatar()));
+                result.add(u);
+            }
+        }
+        return result;
     }
 }
