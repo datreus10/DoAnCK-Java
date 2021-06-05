@@ -60,11 +60,17 @@ public class AzureBlobService {
     }
 
     public String getFileLink(String fileName) {
-        BlobClient blobClient = client.blobName(fileName).buildClient();
-        BlobSasPermission blobSasPermission = new BlobSasPermission().setReadPermission(true); // grant read permission
-        OffsetDateTime expiryTime = OffsetDateTime.now().plusDays(1); // after 1 days expire
-        BlobServiceSasSignatureValues values = new BlobServiceSasSignatureValues(expiryTime, blobSasPermission)
-                .setStartTime(OffsetDateTime.now());
-        return blobClient.getBlobUrl() + "?" + blobClient.generateSas(values);
+        if (fileName.contains("http")) {
+            return fileName;
+        } else {
+            BlobClient blobClient = client.blobName(fileName).buildClient();
+            BlobSasPermission blobSasPermission = new BlobSasPermission().setReadPermission(true); // grant read
+                                                                                                   // permission
+            OffsetDateTime expiryTime = OffsetDateTime.now().plusDays(1); // after 1 days expire
+            BlobServiceSasSignatureValues values = new BlobServiceSasSignatureValues(expiryTime, blobSasPermission)
+                    .setStartTime(OffsetDateTime.now());
+            return blobClient.getBlobUrl() + "?" + blobClient.generateSas(values);
+        }
+
     }
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
@@ -51,5 +52,11 @@ public class UserController {
         } catch (Exception e) {
             return new ResponseEntity<>("User not found",HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/add-friend")
+    @ResponseStatus(value = HttpStatus.OK)
+    public void addFriend(@RequestParam(name = "id") Long friendId){
+        userService.addFriend(friendId);
     }
 }

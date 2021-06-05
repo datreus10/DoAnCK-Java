@@ -222,6 +222,13 @@ $(document).ready(function () {
         result.removeClass();
         result.empty();
     });
+
+
+    $(".add-friend").on('click', function (e) {
+        e.preventDefault();
+        $.get($(this).attr('href'));
+        $(this).closest('.media.text-muted.pt-3').remove();
+    });
 });
 
 // Video.js
