@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" type="image/png" href="/https://spring-project-image.s3-ap-southeast-1.amazonaws.com/images/logo-16x16.png" />
+    <link rel="icon" type="image/png" href="/images/logo-16x16.png" />
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Argon - Social Network</title>
 
@@ -19,6 +19,7 @@
     <link href="/css/components.css" rel="stylesheet">
     <link href="/css/profile.css" rel="stylesheet">
     <link href="/css/media.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="/js/load.js" type="text/javascript"></script>
 </head>
 
@@ -33,21 +34,21 @@
                     <div class="user-profile">
                         <div class="profile-header-background">
                             <a href="#" class="profile-cover">
-                                <img src="https://spring-project-image.s3-ap-southeast-1.amazonaws.com/images/users/cover/cover-1.gif" alt="Profile Header Background">
+                                <img src="/images/users/cover/cover-1.gif" alt="Profile Header Background">
                                 <div th:if="${isCurrentUser}" class="cover-overlay">
                                     <a href="#" class="btn btn-update-cover"><i class='bx bxs-camera'></i> Update Cover
                                         Photo</a>
                                 </div>
                             </a>
                         </div>
-                        <div style="width: 90%; margin:0 auto;">
-                            <div class="row profile-rows">
+                        <div style="width: 90%; margin:0 auto; ">
+                            <div class="row profile-rows justify-content-center">
                                 <div class="col-md-3" >
                                     <div class="profile-info-left" style="background-color: white;">
                                         <div class="text-center">
                                             <div class="profile-img w-shadow">
                                                 <div class="profile-img-overlay"></div>
-                                                <img th:src="@{/file-cloud/stream/{image}(image=${guestUser.avatar})}"
+                                                <img th:src="${guestUser.avatar}"
                                                     height="146px" width="146px" alt="Avatar" class="avatar img-circle">
                                                 <div th:if="${isCurrentUser}" class="profile-img-caption">
                                                     <label for="updateProfilePic" class="upload">
@@ -114,13 +115,13 @@
                                             </div>
                                             <div class="intro mt-5 row justify-content-around mv-hidden">
                                                 <div class="col-md-4">
-                                                    <img src="https://spring-project-image.s3-ap-southeast-1.amazonaws.com/images/users/album/album-1.jpg" width="80" alt="">
+                                                    <img src="/images/users/album/album-1.jpg" width="80" alt="">
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <img src="https://spring-project-image.s3-ap-southeast-1.amazonaws.com/images/users/album/album-2.jpg" width="80" alt="">
+                                                    <img src="/images/users/album/album-2.jpg" width="80" alt="">
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <img src="https://spring-project-image.s3-ap-southeast-1.amazonaws.com/images/users/album/album-3.jpg" width="80" alt="">
+                                                    <img src="/images/users/album/album-3.jpg" width="80" alt="">
                                                 </div>
                                             </div>
                                             <div class="intro mt-5 pb-4 mv-hidden">
@@ -147,14 +148,14 @@
                                         
                                     </div>
                                 </div>
-                                <div class="col-md-9 p-0">
+                                <div class="col-md-6 ">
                                     <div class="profile-info-right">
     
                                         <!-- Posts section -->
                                         <div class="row">
-                                            <div class="col-md-9 profile-center">
+                                            <div class="profile-center">
                                                 <ul
-                                                    class="list-inline profile-links d-flex justify-content-between w-shadow rounded">
+                                                    class="list-inline profile-links d-flex justify-content-between w-shadow rounded" style="min-width: 687px;">
                                                     <li class="list-inline-item profile-active">
                                                         <a href="#">Timeline</a>
                                                     </li>
@@ -186,7 +187,7 @@
                                                 </th:block>
     
                                                 <div
-                                                    class="bg-white profile-posts-options mt-5 mb-4 py-3 d-flex justify-content-between shadow-sm">
+                                                    class="bg-white profile-posts-options mb-4 py-3 d-flex justify-content-between shadow-sm">
                                                     <div class="col-md-3 col-sm-12">
                                                         <h6 class="timeline-title">Posts</h6>
                                                     </div>
@@ -195,177 +196,11 @@
                                                 <div th:replace="fragment :: list_post"></div>
     
                                             </div>
-                                            <div class="col-md-3 profile-quick-media">
-                                                <h6 class="text-muted timeline-title">Recent Media</h6>
-                                                <div class="quick-media">
-                                                    <div class="media-overlay"></div>
-                                                    <a href="#" class="quick-media-img"><img
-                                                            src="https://spring-project-image.s3-ap-southeast-1.amazonaws.com/images/users/album/album-1.jpg" alt="Quick media"></a>
-                                                    <div class="media-overlay-content">
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <div class="media-overlay-owner">
-                                                                <img src="https://spring-project-image.s3-ap-southeast-1.amazonaws.com/images/users/user-12.png"
-                                                                    alt="Media owner image">
-                                                                <span class="overlay-owner-name fs-9">Irwin M. Spelle</span>
-                                                            </div>
-                                                            <div class="dropdown">
-                                                                <a href="#" class="overlay-more" data-toggle="dropdown"
-                                                                    role="button" aria-haspopup="true"
-                                                                    aria-expanded="false"><i
-                                                                        class='bx bx-dots-horizontal-rounded'></i></a>
-                                                                <div
-                                                                    class="dropdown-menu dropdown-menu-right nav-drop dropdown-shadow">
-                                                                    <a class="dropdown-item" href="#">Save post</a>
-                                                                    <a class="dropdown-item" href="#">Turn on
-                                                                        notifications</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-    
-                                                        <div
-                                                            class="overlay-bottom d-flex justify-content-between align-items-center">
-                                                            <div class="argon-reaction">
-                                                                <span class="like-btn">
-                                                                    <a href="#" class="post-card-buttons" id="reactions"><i
-                                                                            class='bx bxs-like mr-1'></i> 67</a>
-                                                                    <ul class="reactions-box dropdown-shadow">
-                                                                        <li class="reaction reaction-like"
-                                                                            data-reaction="Like"></li>
-                                                                        <li class="reaction reaction-love"
-                                                                            data-reaction="Love"></li>
-                                                                        <li class="reaction reaction-haha"
-                                                                            data-reaction="HaHa"></li>
-                                                                        <li class="reaction reaction-wow"
-                                                                            data-reaction="Wow"></li>
-                                                                        <li class="reaction reaction-sad"
-                                                                            data-reaction="Sad"></li>
-                                                                        <li class="reaction reaction-angry"
-                                                                            data-reaction="Angry"></li>
-                                                                    </ul>
-                                                                </span>
-                                                            </div>
-                                                            <div class="liked-users">
-                                                                <img src="https://spring-project-image.s3-ap-southeast-1.amazonaws.com/images/users/user-9.png" alt="Liked users">
-                                                                <img src="https://spring-project-image.s3-ap-southeast-1.amazonaws.com/images/users/user-6.png" alt="Liked users">
-                                                                <img src="https://spring-project-image.s3-ap-southeast-1.amazonaws.com/images/users/user-12.png" alt="Liked users">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="quick-media">
-                                                    <div class="media-overlay"></div>
-                                                    <a href="#" class="quick-media-img"><img
-                                                            src="https://spring-project-image.s3-ap-southeast-1.amazonaws.com/images/users/album/album-2.jpg" alt="Quick media"></a>
-                                                    <div class="media-overlay-content">
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <div class="media-overlay-owner">
-                                                                <img src="https://spring-project-image.s3-ap-southeast-1.amazonaws.com/images/users/user-12.png"
-                                                                    alt="Media owner image">
-                                                                <span class="overlay-owner-name fs-9">Irwin M. Spelle</span>
-                                                            </div>
-                                                            <div class="dropdown">
-                                                                <a href="#" class="overlay-more" data-toggle="dropdown"
-                                                                    role="button" aria-haspopup="true"
-                                                                    aria-expanded="false"><i
-                                                                        class='bx bx-dots-horizontal-rounded'></i></a>
-                                                                <div
-                                                                    class="dropdown-menu dropdown-menu-right nav-drop dropdown-shadow">
-                                                                    <a class="dropdown-item" href="#">Save post</a>
-                                                                    <a class="dropdown-item" href="#">Turn on
-                                                                        notifications</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-    
-                                                        <div
-                                                            class="overlay-bottom d-flex justify-content-between align-items-center">
-                                                            <div class="argon-reaction">
-                                                                <span class="like-btn">
-                                                                    <a href="#" class="post-card-buttons" id="reactions"><i
-                                                                            class='bx bxs-like mr-1'></i> 67</a>
-                                                                    <ul class="reactions-box dropdown-shadow">
-                                                                        <li class="reaction reaction-like"
-                                                                            data-reaction="Like"></li>
-                                                                        <li class="reaction reaction-love"
-                                                                            data-reaction="Love"></li>
-                                                                        <li class="reaction reaction-haha"
-                                                                            data-reaction="HaHa"></li>
-                                                                        <li class="reaction reaction-wow"
-                                                                            data-reaction="Wow"></li>
-                                                                        <li class="reaction reaction-sad"
-                                                                            data-reaction="Sad"></li>
-                                                                        <li class="reaction reaction-angry"
-                                                                            data-reaction="Angry"></li>
-                                                                    </ul>
-                                                                </span>
-                                                            </div>
-                                                            <div class="liked-users">
-                                                                <img src="https://spring-project-image.s3-ap-southeast-1.amazonaws.com/images/users/user-9.png" alt="Liked users">
-                                                                <img src="https://spring-project-image.s3-ap-southeast-1.amazonaws.com/images/users/user-6.png" alt="Liked users">
-                                                                <img src="https://spring-project-image.s3-ap-southeast-1.amazonaws.com/images/users/user-12.png" alt="Liked users">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="quick-media">
-                                                    <div class="media-overlay"></div>
-                                                    <a href="#" class="quick-media-img"><img
-                                                            src="https://spring-project-image.s3-ap-southeast-1.amazonaws.com/images/users/album/album-3.jpg" alt="Quick media"></a>
-                                                    <div class="media-overlay-content">
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <div class="media-overlay-owner">
-                                                                <img src="https://spring-project-image.s3-ap-southeast-1.amazonaws.com/images/users/user-12.png"
-                                                                    alt="Media owner image">
-                                                                <span class="overlay-owner-name fs-9">Irwin M. Spelle</span>
-                                                            </div>
-                                                            <div class="dropdown">
-                                                                <a href="#" class="overlay-more" data-toggle="dropdown"
-                                                                    role="button" aria-haspopup="true"
-                                                                    aria-expanded="false"><i
-                                                                        class='bx bx-dots-horizontal-rounded'></i></a>
-                                                                <div
-                                                                    class="dropdown-menu dropdown-menu-right nav-drop dropdown-shadow">
-                                                                    <a class="dropdown-item" href="#">Save post</a>
-                                                                    <a class="dropdown-item" href="#">Turn on
-                                                                        notifications</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-    
-                                                        <div
-                                                            class="overlay-bottom d-flex justify-content-between align-items-center">
-                                                            <div class="argon-reaction">
-                                                                <span class="like-btn">
-                                                                    <a href="#" class="post-card-buttons" id="reactions"><i
-                                                                            class='bx bxs-like mr-1'></i> 67</a>
-                                                                    <ul class="reactions-box dropdown-shadow">
-                                                                        <li class="reaction reaction-like"
-                                                                            data-reaction="Like"></li>
-                                                                        <li class="reaction reaction-love"
-                                                                            data-reaction="Love"></li>
-                                                                        <li class="reaction reaction-haha"
-                                                                            data-reaction="HaHa"></li>
-                                                                        <li class="reaction reaction-wow"
-                                                                            data-reaction="Wow"></li>
-                                                                        <li class="reaction reaction-sad"
-                                                                            data-reaction="Sad"></li>
-                                                                        <li class="reaction reaction-angry"
-                                                                            data-reaction="Angry"></li>
-                                                                    </ul>
-                                                                </span>
-                                                            </div>
-                                                            <div class="liked-users">
-                                                                <img src="https://spring-project-image.s3-ap-southeast-1.amazonaws.com/images/users/user-9.png" alt="Liked users">
-                                                                <img src="https://spring-project-image.s3-ap-southeast-1.amazonaws.com/images/users/user-6.png" alt="Liked users">
-                                                                <img src="https://spring-project-image.s3-ap-southeast-1.amazonaws.com/images/users/user-12.png" alt="Liked users">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
+                                
                             </div>
                         </div>
                         

@@ -51,7 +51,7 @@ public class Comment {
     }
 
     public String getCommentTime() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm dd-MM-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy");
         return commentTime.format(formatter);
     }
 

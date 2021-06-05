@@ -2,7 +2,7 @@ package com.example.demo.controller;
 
 import java.util.Map;
 
-import com.example.demo.service.StorageService;
+import com.example.demo.service.AzureBlobService;
 import com.example.demo.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
@@ -24,16 +24,16 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    private StorageService storageService;
+    private AzureBlobService storageService;
 
     @PostMapping("/update-avatar")
     public ResponseEntity<String> updateAvatar(@RequestParam(value = "file", required = false) MultipartFile file){
         try {
             String oldAvatar = userService.getCurrentUser().getAvatar();
-            String newAvatar = storageService.uploadFile(file);
+            String newAvatar = storageService.upload(file);
             userService.updateAvatar(newAvatar);
             storageService.deleteFile(oldAvatar);
-            return new ResponseEntity<>(storageService.getPresignedURL(newAvatar),HttpStatus.OK);
+            return new ResponseEntity<>(storageService.getFileLink(newAvatar),HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Error while update avatar",HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -43,5 +43,20 @@ public class UserController {
     public String updateAccount(@RequestParam Map<String,String> body){
         userService.updateAccount(body.get("firstName"), body.get("lastName"));
         return "redirect:/setting";
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<?> searchUser(@RequestParam(name = "keyword") String keyword){
+        try {
+            return new ResponseEntity<>(userService.searchUsers(keyword),HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("User not found",HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/add-friend")
+    @ResponseStatus(value = HttpStatus.OK)
+    public void addFriend(@RequestParam(name = "id") Long friendId){
+        userService.addFriend(friendId);
     }
 }
