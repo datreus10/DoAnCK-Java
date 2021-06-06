@@ -59,24 +59,33 @@ public class UserController {
         }
     }
 
-    @GetMapping("/add-friend")
-    @ResponseStatus(value = HttpStatus.OK)
-    public void addFriend(@RequestParam(name = "id") Long friendId) {
-        // userService.addFriend(friendId);
-        friendService.addFriend(userService.getCurrentUser().getUserId(), friendId);
-    }
 
     @GetMapping("/friend-check")
     public String friendCheck(Model model) {
         model.addAttribute("user", userService.getCurrentUser());
         // model.addAttribute("recommedUsers",userService.getRecommendUsers());
         model.addAttribute("requesters", friendService.getFriendsRequest());
+        model.addAttribute("friends",friendService.getListFriends());
         return "friend-check";
     }
 
-    // @GetMapping("/friend-request")
-    // public String getFriendRequest(Model model){
-    // model.addAttribute("requesters", userService.getFriendRequests());
-    // return "friend-check";
-    // }
+    @GetMapping("/add-friend")
+    @ResponseStatus(value = HttpStatus.OK)
+    public void addFriend(@RequestParam(name = "id") Long friendId) {
+        friendService.addFriend(userService.getCurrentUser().getUserId(), friendId);
+    }
+
+    @GetMapping("/accept-friend")
+    public String acceptFriend(@RequestParam(name = "id") Long friendId) {
+        friendService.acceptFriend(userService.getCurrentUser().getUserId(), friendId);
+        return "friend-check";
+    }
+
+    
+
+    // // @GetMapping("/friend-request")
+    // // public String getFriendRequest(Model model){
+    // // model.addAttribute("requesters", userService.getFriendRequests());
+    // // return "friend-check";
+    // // }
 }

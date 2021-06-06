@@ -71,10 +71,13 @@
                                             <div class="intro pt-4">
                                                 <div th:unless="${isCurrentUser}" class="d-flex">
 
-                                                    <a th:href="${'/user/add-friend?id='+guestUser.userId}"
+                                                    <a th:if="${friendShip.status=='wait'}"
+                                                        th:href="${'/user/add-friend?id='+guestUser.userId}"
                                                         class="btn btn-follow mr-3"><i class='bx bx-plus'></i>
                                                         Add Friend</a>
-
+                                                    <div th:if="${friendShip.status=='accept'}" 
+                                                        class="btn btn-follow mr-3"><i class="fal fa-user-check"></i></i>
+                                                        Friend</div>
 
                                                     <button type="button" class="btn btn-start-chat" data-toggle="modal"
                                                         data-target="#newMessageModal"><i
