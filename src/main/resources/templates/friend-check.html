@@ -42,7 +42,8 @@
 
         .people-nearby .nearby-user {
             padding: 20px 0;
-            border: 2px solid #f1f2f2;;
+            border: 2px solid #f1f2f2;
+            ;
             margin-bottom: 20px;
         }
 
@@ -119,13 +120,13 @@
                             <!-- <form th:replace="fragment :: create_post(${user})"></form> -->
 
                             <ul class="nav nav-pills m-3 pt-3" id="pills-tab" role="tablist">
-                                <li class="nav-item w-25">
+                                <li class="nav-item w-30">
                                     <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home"
                                         role="tab" aria-controls="pills-home" aria-selected="true">Lời mời kết bạn</a>
                                 </li>
-                                <li class="nav-item w-25">
+                                <li class="nav-item w-30">
                                     <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile"
-                                        role="tab" aria-controls="pills-profile" aria-selected="false">Profile</a>
+                                        role="tab" aria-controls="pills-profile" aria-selected="false">Yêu cầu đã gửi</a>
                                 </li>
 
                             </ul>
@@ -135,25 +136,35 @@
                                     <div class="container">
                                         <div class="w-100">
 
-                                            <div th:each="r : ${requesters}" class="people-nearby">
+                                            <div th:each="r : ${receive}" class="people-nearby">
 
                                                 <div class="nearby-user">
-                                                    <div class="row">
+                                                    <div class="row align-items-center">
                                                         <div class="col-md-2 col-sm-2">
-                                                            <img th:src="${r.avatar}"
-                                                                alt="user" class="profile-photo-lg">
+                                                            <img th:src="${r.avatarLink}" height="50px" width="50px"
+                                                                alt="user" class="profile-photo-lg ml-2">
                                                         </div>
-                                                        <div class="col-md-7 col-sm-7">
-                                                            <h5><a th:href="${'/profile?id='+r.userId}" class="profile-link">Sophia Page</a>
-                                                            </h5>
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <h6><a th:href="${'/profile?id='+r.userId}"
+                                                                    class="profile-link ml-2"
+                                                                    th:text="${r.getFullName()}"></a>
+                                                            </h6>
                                                         </div>
-                                                        <div class="col-md-3 col-sm-3">
-                                                            <button class="btn btn-primary pull-right">Add
-                                                                Friend</button>
+                                                        <div class="col-md-4 col-sm-4 justify-content-around row">
+                                                            <a th:href="${'/user/deny-friend?id='+r.userId}"
+                                                                class="btn btn-quick-link join-group-btn border text-right float-right"
+                                                                style="font-size: 0.9rem;font-weight: normal;">
+                                                                Từ chối
+                                                            </a>
+                                                            <a th:href="${'/user/accept-friend?id='+r.userId}"
+                                                                class="btn btn-quick-link join-group-btn border text-right float-right"
+                                                                style="font-size: 0.9rem;font-weight: normal;background:#007BFF;color: white;">
+                                                                Đồng ý
+                                                            </a>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
+
                                             </div>
 
                                         </div>
@@ -162,189 +173,33 @@
                                 <div class="tab-pane fade" id="pills-profile" role="tabpanel"
                                     aria-labelledby="pills-profile-tab">
                                     <div class="container">
-                                        <div class="w-100 p-2">
+                                        <div class="w-100">
 
-                                            <div class="people-nearby">
+                                            <div th:each="r : ${request}" class="people-nearby">
 
                                                 <div class="nearby-user">
-                                                    <div class="row">
+                                                    <div class="row align-items-center">
                                                         <div class="col-md-2 col-sm-2">
-                                                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png"
-                                                                alt="user" class="profile-photo-lg">
+                                                            <img th:src="${r.avatarLink}" height="50px" width="50px"
+                                                                alt="user" class="profile-photo-lg ml-2">
                                                         </div>
-                                                        <div class="col-md-7 col-sm-7">
-                                                            <h5><a href="#" class="profile-link">Sophia Page</a>
-                                                            </h5>
-                                                            <p>Software Engineer</p>
-                                                            <p class="text-muted">500m away</p>
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <h6><a th:href="${'/profile?id='+r.userId}"
+                                                                    class="profile-link ml-2"
+                                                                    th:text="${r.getFullName()}"></a>
+                                                            </h6>
                                                         </div>
-                                                        <div class="col-md-3 col-sm-3">
-                                                            <button class="btn btn-primary pull-right">Add
-                                                                Friend</button>
+                                                        <div class="col-md-4 col-sm-4 justify-content-end row">
+                                                            
+                                                            <a href="#"
+                                                                class="btn btn-quick-link join-group-btn border text-right float-right"
+                                                                style="font-size: 0.9rem;font-weight: normal;background:#007BFF;color: white;">
+                                                                Hủy yêu cầu
+                                                            </a>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="nearby-user">
-                                                    <div class="row">
-                                                        <div class="col-md-2 col-sm-2">
-                                                            <img src="https://bootdey.com/img/Content/avatar/avatar6.png"
-                                                                alt="user" class="profile-photo-lg">
-                                                        </div>
-                                                        <div class="col-md-7 col-sm-7">
-                                                            <h5><a href="#" class="profile-link">Emma Johnson</a>
-                                                            </h5>
-                                                            <p>Model at Fashion</p>
-                                                            <p class="text-muted">800m away</p>
-                                                        </div>
-                                                        <div class="col-md-3 col-sm-3">
-                                                            <button class="btn btn-primary pull-right">Add
-                                                                Friend</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="nearby-user">
-                                                    <div class="row">
-                                                        <div class="col-md-2 col-sm-2">
-                                                            <img src="https://bootdey.com/img/Content/avatar/avatar5.png"
-                                                                alt="user" class="profile-photo-lg">
-                                                        </div>
-                                                        <div class="col-md-7 col-sm-7">
-                                                            <h5><a href="#" class="profile-link">Nora Wilson</a>
-                                                            </h5>
-                                                            <p>Writer at Newspaper</p>
-                                                            <p class="text-muted">2.5km away</p>
-                                                        </div>
-                                                        <div class="col-md-3 col-sm-3">
-                                                            <button class="btn btn-primary pull-right">Add
-                                                                Friend</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="nearby-user">
-                                                    <div class="row">
-                                                        <div class="col-md-2 col-sm-2">
-                                                            <img src="https://bootdey.com/img/Content/avatar/avatar4.png"
-                                                                alt="user" class="profile-photo-lg">
-                                                        </div>
-                                                        <div class="col-md-7 col-sm-7">
-                                                            <h5><a href="#" class="profile-link">Diana Amber</a>
-                                                            </h5>
-                                                            <p>Student</p>
-                                                            <p class="text-muted">700m away</p>
-                                                        </div>
-                                                        <div class="col-md-3 col-sm-3">
-                                                            <button class="btn btn-primary pull-right">Add
-                                                                Friend</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="nearby-user">
-                                                    <div class="row">
-                                                        <div class="col-md-2 col-sm-2">
-                                                            <img src="https://bootdey.com/img/Content/avatar/avatar3.png"
-                                                                alt="user" class="profile-photo-lg">
-                                                        </div>
-                                                        <div class="col-md-7 col-sm-7">
-                                                            <h5><a href="#" class="profile-link">Addison Thomas</a>
-                                                            </h5>
-                                                            <p>Barber at Fashion</p>
-                                                            <p class="text-muted">1.5km away</p>
-                                                        </div>
-                                                        <div class="col-md-3 col-sm-3">
-                                                            <button class="btn btn-primary pull-right">Add
-                                                                Friend</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="nearby-user">
-                                                    <div class="row">
-                                                        <div class="col-md-2 col-sm-2">
-                                                            <img src="https://bootdey.com/img/Content/avatar/avatar2.png"
-                                                                alt="user" class="profile-photo-lg">
-                                                        </div>
-                                                        <div class="col-md-7 col-sm-7">
-                                                            <h5><a href="#" class="profile-link">Jonathon
-                                                                    Thompson</a></h5>
-                                                            <p>Fashion Designer</p>
-                                                            <p class="text-muted">2km away</p>
-                                                        </div>
-                                                        <div class="col-md-3 col-sm-3">
-                                                            <button class="btn btn-primary pull-right">Add
-                                                                Friend</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="nearby-user">
-                                                    <div class="row">
-                                                        <div class="col-md-2 col-sm-2">
-                                                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png"
-                                                                alt="user" class="profile-photo-lg">
-                                                        </div>
-                                                        <div class="col-md-7 col-sm-7">
-                                                            <h5><a href="#" class="profile-link">Olivia Steward</a>
-                                                            </h5>
-                                                            <p>Creative Director</p>
-                                                            <p class="text-muted">2km away</p>
-                                                        </div>
-                                                        <div class="col-md-3 col-sm-3">
-                                                            <button class="btn btn-primary pull-right">Add
-                                                                Friend</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="nearby-user">
-                                                    <div class="row">
-                                                        <div class="col-md-2 col-sm-2">
-                                                            <img src="https://bootdey.com/img/Content/avatar/avatar6.png"
-                                                                alt="user" class="profile-photo-lg">
-                                                        </div>
-                                                        <div class="col-md-7 col-sm-7">
-                                                            <h5><a href="#" class="profile-link">Elena Foster</a>
-                                                            </h5>
-                                                            <p>Executive Officer</p>
-                                                            <p class="text-muted">4km away</p>
-                                                        </div>
-                                                        <div class="col-md-3 col-sm-3">
-                                                            <button class="btn btn-primary pull-right">Add
-                                                                Friend</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="nearby-user">
-                                                    <div class="row">
-                                                        <div class="col-md-2 col-sm-2">
-                                                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                                                                alt="user" class="profile-photo-lg">
-                                                        </div>
-                                                        <div class="col-md-7 col-sm-7">
-                                                            <h5><a href="#" class="profile-link">Brian Walton</a>
-                                                            </h5>
-                                                            <p>Designer at Designer</p>
-                                                            <p class="text-muted">3km away</p>
-                                                        </div>
-                                                        <div class="col-md-3 col-sm-3">
-                                                            <button class="btn btn-primary pull-right">Add
-                                                                Friend</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="nearby-user">
-                                                    <div class="row">
-                                                        <div class="col-md-2 col-sm-2">
-                                                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png"
-                                                                alt="user" class="profile-photo-lg">
-                                                        </div>
-                                                        <div class="col-md-7 col-sm-7">
-                                                            <h5><a href="#" class="profile-link">Cris Haris</a></h5>
-                                                            <p>General Manager at Manager</p>
-                                                            <p class="text-muted">1km away</p>
-                                                        </div>
-                                                        <div class="col-md-3 col-sm-3">
-                                                            <button class="btn btn-primary pull-right">Add
-                                                                Friend</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
+
                                             </div>
 
                                         </div>
@@ -362,7 +217,7 @@
                             <h6 class="card-title border-bottom border-gray pb-2 mb-0">Những người bạn có thể biết</h6>
                             <th:block th:each="user : ${recommedUsers}">
                                 <div class="media text-muted pt-3">
-                                    <img th:src="${user.avatar}" alt="Online user" class="mr-2 online-user-image"
+                                    <img th:src="${user.avatarLink}" alt="Online user" class="mr-2 online-user-image"
                                         height="58px" width="58px">
                                     <div class="media-body pb-3 pt-3 pl-1 mb-0 small lh-125">
                                         <div class="d-flex justify-content-between align-items-center w-100">

@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.User;
+import com.example.demo.service.FriendService;
 import com.example.demo.service.PostService;
 import com.example.demo.service.UserService;
 
@@ -21,11 +22,14 @@ public class AppController {
     @Autowired
     private PostService postService;
 
+    @Autowired
+    private FriendService friendService;
+
     // render main page
     @GetMapping()
     public String getMainPage(Model model) {
         model.addAttribute("user", userService.getCurrentUser());
-        model.addAttribute("recommedUsers",userService.getRecommendUsers());
+        // model.addAttribute("recommedUsers",userService.getRecommendUsers());
         model.addAttribute("listPost", postService.getAllPost());
         return "index";
     }
@@ -41,6 +45,8 @@ public class AppController {
             model.addAttribute("isCurrentUser", true);
         } else {
             model.addAttribute("isCurrentUser", false);
+            model.addAttribute("friendShip",
+                    friendService.getFriendShip(userId, userService.getCurrentUser().getUserId()));
         }
 
         model.addAttribute("currentUser", currentUser);
