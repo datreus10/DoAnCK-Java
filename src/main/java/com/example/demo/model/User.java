@@ -52,33 +52,15 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private List<Post> posts;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "request")
-    private List<Friendship> request;
+    @Transient
+    private String avatarLink;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "receive")
-    private List<Friendship> receive;
-
-
-    
-
-    
-
-    
-
-    public List<Friendship> getRequest() {
-        return request;
+    public String getAvatarLink() {
+        return avatarLink;
     }
 
-    public void setRequest(List<Friendship> request) {
-        this.request = request;
-    }
-
-    public List<Friendship> getReceive() {
-        return receive;
-    }
-
-    public void setReceive(List<Friendship> receive) {
-        this.receive = receive;
+    public void setAvatarLink(String avatarLink) {
+        this.avatarLink = avatarLink;
     }
 
     public LocalDate getBirthDate() {

@@ -8,18 +8,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.transaction.Transactional;
 
 import com.example.demo.model.CustomOAuth2User;
-import com.example.demo.model.Friendship;
-import com.example.demo.model.FriendshipId;
 import com.example.demo.model.User;
-import com.example.demo.repo.FriendshipRepo;
 import com.example.demo.repo.UserRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,8 +39,7 @@ public class UserService implements UserDetailsService {
     @Autowired
     private UserRepo userRepo;
 
-    @Autowired
-    private FriendshipRepo friendshipRepo;
+    
 
     @Autowired
     private JavaMailSender mailSender;
@@ -139,15 +133,7 @@ public class UserService implements UserDetailsService {
         User newUser = new User();
         newUser.setEmail(email);
         newUser.setPassword(passwordEncoder.encode("OAuth2"));
-        // String[] names = fullName.split("\\s");
-        // if (names.length > 1) {
-        // newUser.setFirstName(names[0]);
-        // newUser.setLastName(names[1]);
-        // } else {
-        // newUser.setFirstName(fullName);
-        // newUser.setLastName("");
-        // }
-
+        
         newUser.setFirstName(fullName);
         newUser.setLastName("");
         newUser.setEnable(true);
@@ -173,20 +159,15 @@ public class UserService implements UserDetailsService {
             String currentPrincipalName = authentication.getName();
             user = userRepo.findByEmail(currentPrincipalName);
         }
-        user.setAvatar(storageService.getFileLink(user.getAvatar()));
+        user.setAvatarLink(storageService.getFileLink(user.getAvatar()));
         return user;
     }
 
-    // public User getCurrentUserFill() {
-    // User user = getCurrentUser();
-    // user.setAvatar(storageService.getFileLink(user.getAvatar()));
-    // return user;
-    // }
 
     public User getUserById(Long id) {
         try {
             User user = userRepo.findById(id).get();
-            user.setAvatar(storageService.getFileLink(user.getAvatar()));
+            user.setAvatarLink(storageService.getFileLink(user.getAvatar()));
             return user;
         } catch (Exception e) {
             return null;
@@ -218,32 +199,5 @@ public class UserService implements UserDetailsService {
         return result;
     }
 
-    public List<User> getRecommendUsers() {
-        return userRepo.getRandomUsersExcept(getCurrentUser().getUserId()).stream().map(user -> {
-            user.setAvatar(storageService.getFileLink(user.getAvatar()));
-            return user;
-        }).collect(Collectors.toList());
-    }
-
-    public void addFriend(Long friendId) {
-        Optional<User> userOptional = userRepo.findById(friendId);
-        if (userOptional.isPresent()) {
-            Optional<Friendship> f = friendshipRepo
-                    .findById(new FriendshipId(getCurrentUser().getUserId(), userOptional.get().getUserId()));
-            if (!f.isPresent())
-                friendshipRepo.save(new Friendship(getCurrentUser(), userOptional.get(), "wait"));
-        }
-    }
-
-    public List<User> getFriendRequests() {
-        List<User> result = new ArrayList<>();
-        for (Friendship f : getCurrentUser().getReceive()) {
-            if (f.getStatus().equals("wait")) {
-                User u = f.getReceive();
-                u.setAvatar(storageService.getFileLink(u.getAvatar()));
-                result.add(u);
-            }
-        }
-        return result;
-    }
+    
 }
