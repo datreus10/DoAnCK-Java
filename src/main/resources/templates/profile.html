@@ -71,13 +71,26 @@
                                             <div class="intro pt-4">
                                                 <div th:unless="${isCurrentUser}" class="d-flex">
 
-                                                    <a th:if="${friendShip.status=='wait'}"
-                                                        th:href="${'/user/add-friend?id='+guestUser.userId}"
-                                                        class="btn btn-follow mr-3"><i class='bx bx-plus'></i>
-                                                        Add Friend</a>
-                                                    <div th:if="${friendShip.status=='accept'}" 
-                                                        class="btn btn-follow mr-3"><i class="fal fa-user-check"></i></i>
-                                                        Friend</div>
+                                                    <th:block th:switch="${friendShip}">
+                                                        <a th:case="null"
+                                                            th:href="${'/user/add-friend?id='+guestUser.userId}"
+                                                            class="btn btn-follow mr-3"><i class='bx bx-plus'></i>
+                                                            Add Friend</a>
+                                                        <a th:case="'nhan'"
+                                                            class="btn btn-follow mr-3"><i
+                                                                class="fal fa-user-check"></i></i>
+                                                            Chấp nhận yêu cầu kết bạn</a>
+                                                        <a th:case="'gui'"
+                                                            th:href="${'/user/add-friend?id='+guestUser.userId}"
+                                                            class="btn btn-follow mr-3"><i class='bx bx-plus'></i>
+                                                            Hủy yêu cầu kết bạn</a>
+                                                        <div th:case="*"
+                                                            th:href="${'/user/add-friend?id='+guestUser.userId}"
+                                                            class="btn btn-follow mr-3"><i class='bx bx-plus'></i>
+                                                            Friend</div>
+                                                    </th:block>
+
+
 
                                                     <button type="button" class="btn btn-start-chat" data-toggle="modal"
                                                         data-target="#newMessageModal"><i

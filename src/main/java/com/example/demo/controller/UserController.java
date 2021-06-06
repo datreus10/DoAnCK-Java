@@ -63,16 +63,16 @@ public class UserController {
     @GetMapping("/friend-check")
     public String friendCheck(Model model) {
         model.addAttribute("user", userService.getCurrentUser());
-        // model.addAttribute("recommedUsers",userService.getRecommendUsers());
-        model.addAttribute("requesters", friendService.getFriendsRequest());
-        model.addAttribute("friends",friendService.getListFriends());
+        //model.addAttribute("recommedUsers",userService.getRecommendUsers());
+        model.addAttribute("receive",friendService.getFriendReceive());
+        model.addAttribute("request",friendService.getFriendRequest());
         return "friend-check";
     }
 
     @GetMapping("/add-friend")
-    @ResponseStatus(value = HttpStatus.OK)
-    public void addFriend(@RequestParam(name = "id") Long friendId) {
-        friendService.addFriend(userService.getCurrentUser().getUserId(), friendId);
+    public String addFriend(@RequestParam(name = "id") Long friendId) {
+        friendService.addFriend(friendId, userService.getCurrentUser().getUserId());
+        return "friend-check";
     }
 
     @GetMapping("/accept-friend")
