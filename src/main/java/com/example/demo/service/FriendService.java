@@ -108,4 +108,37 @@ public class FriendService {
         }
     }
 
+    public void denyFriend(Long userId1, Long userId2) throws NullPointerException {
+        Optional<User> user1 = userRepo.findById(userId1); // nhận
+        Optional<User> user2 = userRepo.findById(userId2); // gửi
+        if (user1.isPresent() && user2.isPresent()) {
+            User firstuser = user1.get();
+            User seconduser = user2.get();
+            if (friendRepo.existsByFirstUserAndSecondUser(firstuser, seconduser)) {
+                Friend f = friendRepo.findByFirstUserAndSecondUserAndStatus(firstuser, seconduser, "wait");
+                friendRepo.delete(f);
+            }
+        }
+    }
+
+    
+
+    public List<User> getListFriend() {
+        List<Friend> l1 = friendRepo.findByFirstUserAndStatus(userService.getCurrentUser(), "accept");
+        List<Friend> l2 = friendRepo.findBySecondUserAndStatus(userService.getCurrentUser(), "accept");
+        List<User> result = new ArrayList<>();
+
+        for (Friend f : l1) {
+            User u = f.getSecondUser();
+            u.setAvatarLink(storageService.getFileLink(u.getAvatar()));
+            result.add(u);
+        }
+        for (Friend f : l2) {
+            User u = f.getFirstUser();
+            u.setAvatarLink(storageService.getFileLink(u.getAvatar()));
+            result.add(u);
+        }
+        return result;
+    }
+
 }

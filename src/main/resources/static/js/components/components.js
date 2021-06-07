@@ -60,7 +60,7 @@ $(document).ready(function () {
             timeout: 600000,
             success: function (data) {
                 $("#create-post textarea").val('');
-                alert("SUCCESS : " + data);
+                //alert("SUCCESS : " + data);
                 $("#btn-createPost").prop("disabled", false);
                 location.reload();
             },

@@ -77,16 +77,15 @@
                                                             class="btn btn-follow mr-3"><i class='bx bx-plus'></i>
                                                             Add Friend</a>
                                                         <a th:case="'nhan'"
-                                                            class="btn btn-follow mr-3"><i
-                                                                class="fal fa-user-check"></i></i>
+                                                        th:href="${'/user/accept-friend?id='+guestUser.userId}"
+                                                            class="btn btn-follow mr-3"><i class="fal fa-user-check"></i>
                                                             Chấp nhận yêu cầu kết bạn</a>
                                                         <a th:case="'gui'"
-                                                            th:href="${'/user/add-friend?id='+guestUser.userId}"
-                                                            class="btn btn-follow mr-3"><i class='bx bx-plus'></i>
+                                                            th:href="${'/user/decline-friend?id='+guestUser.userId}"
+                                                            class="btn btn-follow mr-3"><i class="fal fa-user-times"></i>
                                                             Hủy yêu cầu kết bạn</a>
                                                         <div th:case="*"
-                                                            th:href="${'/user/add-friend?id='+guestUser.userId}"
-                                                            class="btn btn-follow mr-3"><i class='bx bx-plus'></i>
+                                                            class="btn btn-follow mr-3"><i class="fal fa-user-check"></i></i>
                                                             Friend</div>
                                                     </th:block>
 

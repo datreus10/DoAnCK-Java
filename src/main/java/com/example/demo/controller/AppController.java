@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.User;
+import com.example.demo.service.AzureBlobService;
 import com.example.demo.service.FriendService;
 import com.example.demo.service.PostService;
 import com.example.demo.service.UserService;
@@ -24,6 +25,9 @@ public class AppController {
 
     @Autowired
     private FriendService friendService;
+
+    @Autowired
+    private AzureBlobService storageService;
 
     // render main page
     @GetMapping()
@@ -51,6 +55,7 @@ public class AppController {
 
         model.addAttribute("currentUser", currentUser);
         model.addAttribute("guestUser", guestUser);
+        model.addAttribute("storageService", storageService);
         if (postId != null) {
             model.addAttribute("listPost", postService.getPostByUserAndPostId(guestUser, postId));
         } else {

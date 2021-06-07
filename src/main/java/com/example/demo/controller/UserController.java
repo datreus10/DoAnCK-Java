@@ -59,33 +59,38 @@ public class UserController {
         }
     }
 
-
     @GetMapping("/friend-check")
     public String friendCheck(Model model) {
         model.addAttribute("user", userService.getCurrentUser());
-        //model.addAttribute("recommedUsers",userService.getRecommendUsers());
-        model.addAttribute("receive",friendService.getFriendReceive());
-        model.addAttribute("request",friendService.getFriendRequest());
+        // model.addAttribute("recommedUsers",userService.getRecommendUsers());
+        model.addAttribute("receive", friendService.getFriendReceive());
+        model.addAttribute("request", friendService.getFriendRequest());
+        model.addAttribute("listFriend", friendService.getListFriend());
         return "friend-check";
     }
 
-    @GetMapping("/add-friend")
+    @GetMapping("/add-friend") // tạo lời mời kết bạn
     public String addFriend(@RequestParam(name = "id") Long friendId) {
         friendService.addFriend(friendId, userService.getCurrentUser().getUserId());
-        return "friend-check";
+        return "redirect:/user/friend-check";
     }
 
-    @GetMapping("/accept-friend")
+    @GetMapping("/accept-friend") // chấp nhận lời mời kết bạn
     public String acceptFriend(@RequestParam(name = "id") Long friendId) {
         friendService.acceptFriend(userService.getCurrentUser().getUserId(), friendId);
-        return "friend-check";
+        return "redirect:/user/friend-check";
     }
 
-    
+    @GetMapping("/deny-friend") // từ chối lời mời kết bạn
+    public String denyFriend(@RequestParam(name = "id") Long friendId) {
+        friendService.denyFriend(userService.getCurrentUser().getUserId(), friendId);
+        return "redirect:/user/friend-check";
+    }
 
-    // // @GetMapping("/friend-request")
-    // // public String getFriendRequest(Model model){
-    // // model.addAttribute("requesters", userService.getFriendRequests());
-    // // return "friend-check";
-    // // }
+    @GetMapping("/decline-friend") // hủy yêu cầu kết bạn
+    public String declineFriend(@RequestParam(name = "id") Long friendId) {
+        friendService.denyFriend(friendId, userService.getCurrentUser().getUserId());
+        return "redirect:/user/friend-check";
+    }
+
 }

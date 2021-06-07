@@ -52,6 +52,12 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private List<Post> posts;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "firstUser")
+    private List<Friend> friendRequest;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "secondUser")
+    private List<Friend> friendReceive;
+
     @Transient
     private String avatarLink;
 

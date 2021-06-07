@@ -52,6 +52,11 @@
             width: 80px;
             border-radius: 50%;
         }
+
+        .people-nearby:hover {
+            cursor: pointer;
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+        }
     </style>
 
     <!-- Styles -->
@@ -119,14 +124,21 @@
                         <div class="posts-section mb-5 bg-white" style="border-radius: 8px;">
                             <!-- <form th:replace="fragment :: create_post(${user})"></form> -->
 
-                            <ul class="nav nav-pills m-3 pt-3" id="pills-tab" role="tablist">
-                                <li class="nav-item w-30">
-                                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home"
-                                        role="tab" aria-controls="pills-home" aria-selected="true">Lời mời kết bạn</a>
+                            <ul class="nav nav-pills nav-fill nav-tabs m-3 pt-3" id="pills-tab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active text-center" id="pills-home-tab" data-toggle="pill"
+                                        href="#pills-home" role="tab" aria-controls="pills-home"
+                                        aria-selected="true">Lời mời kết bạn</a>
                                 </li>
-                                <li class="nav-item w-30">
-                                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile"
-                                        role="tab" aria-controls="pills-profile" aria-selected="false">Yêu cầu đã gửi</a>
+                                <li class="nav-item">
+                                    <a class="nav-link text-center" id="pills-profile-tab" data-toggle="pill"
+                                        href="#pills-profile" role="tab" aria-controls="pills-profile"
+                                        aria-selected="false">Yêu cầu đã gửi</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-center" id="pills-friend-tab" data-toggle="pill"
+                                        href="#pills-friend" role="tab" aria-controls="pills-friend"
+                                        aria-selected="false">Danh sách bạn bè</a>
                                 </li>
 
                             </ul>
@@ -190,8 +202,8 @@
                                                             </h6>
                                                         </div>
                                                         <div class="col-md-4 col-sm-4 justify-content-end row">
-                                                            
-                                                            <a href="#"
+
+                                                            <a th:href="${'/user/decline-friend?id='+r.userId}"
                                                                 class="btn btn-quick-link join-group-btn border text-right float-right"
                                                                 style="font-size: 0.9rem;font-weight: normal;background:#007BFF;color: white;">
                                                                 Hủy yêu cầu
@@ -205,7 +217,34 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="tab-pane fade" id="pills-friend" role="tabpanel"
+                                    aria-labelledby="pills-profile-tab">
+                                    <div class="container">
+                                        <div class="w-100">
 
+                                            <div th:each="r : ${listFriend}" class="people-nearby">
+
+                                                <div class="nearby-user">
+                                                    <div class="row align-items-center">
+                                                        <div class="col-md-2 col-sm-2">
+                                                            <img th:src="${r.avatarLink}" height="50px" width="50px"
+                                                                alt="user" class="profile-photo-lg ml-2">
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <h6><a th:href="${'/profile?id='+r.userId}"
+                                                                    class="profile-link ml-2"
+                                                                    th:text="${r.getFullName()}"></a>
+                                                            </h6>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
