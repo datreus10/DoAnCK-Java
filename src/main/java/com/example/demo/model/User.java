@@ -52,31 +52,21 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private List<Post> posts;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "requester")
-    private List<Friendship> friendRequests;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "firstUser")
+    private List<Friend> friendRequest;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "friend")
-    private List<Friendship> friends;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "secondUser")
+    private List<Friend> friendReceive;
 
+    @Transient
+    private String avatarLink;
 
-    
-
-    
-
-    public List<Friendship> getFriendRequests() {
-        return friendRequests;
+    public String getAvatarLink() {
+        return avatarLink;
     }
 
-    public void setFriendRequests(List<Friendship> friendRequests) {
-        this.friendRequests = friendRequests;
-    }
-
-    public List<Friendship> getFriends() {
-        return friends;
-    }
-
-    public void setFriends(List<Friendship> friends) {
-        this.friends = friends;
+    public void setAvatarLink(String avatarLink) {
+        this.avatarLink = avatarLink;
     }
 
     public LocalDate getBirthDate() {

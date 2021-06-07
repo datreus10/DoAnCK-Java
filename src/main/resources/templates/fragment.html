@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:fragment="index_head">
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -10,6 +10,7 @@
     <!-- default header name is X-CSRF-TOKEN -->
     <meta name="_csrf_header" content="${_csrf.headerName}" />
 
+<<<<<<< HEAD
     <link rel="icon" type="image/png" href="https://spring-project-image.s3-ap-southeast-1.amazonaws.com/images/logo-16x16.png" />
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>DM - Social Network</title>
@@ -27,12 +28,16 @@
     <link href="https://vjs.zencdn.net/7.4.1/video-js.css" rel="stylesheet">
     <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js" type="text/javascript"></script>
     <script src="js/load.js" type="text/javascript"></script>
+=======
+
+    
+>>>>>>> 34fb0179174302c845b1b6d0d6aaa9df80e50b3d
 </head>
 
 
 <body>
     <!-- Nav Bar -->
-    <nav th:fragment="navbar(user)" id="navbar-main" class="navbar navbar-expand-lg shadow-sm sticky-top">
+    <nav th:fragment="navbar(user,selected)" id="navbar-main" class="navbar navbar-expand-lg shadow-sm sticky-top">
         <div class="w-100 justify-content-md-center">
 
             <ul class="navbar-nav mr-5 flex-row" id="main_menu">
@@ -59,16 +64,27 @@
                     <div class="nav-item s-nav dropdown message-drop-li">
                         <a href="/" class="nav-link nav-links" role="button">
                             
-                            <i class="fas fa-home fa-2x" style="color:#007bff"></i>
+                            <i class="fa-home fa-2x"  th:classappend="${'home' == selected ? 'fas' : 'fal'}" th:style="${'home' == selected ? 'color:#007bff;' : ''}" ></i>
                         </a>
 
                     </div>
+
+                    <div class="nav-item s-nav dropdown notification">
+                        <a href="/user/friend-check" class="nav-link nav-links" role="button">
+                            <!-- <img src="/images/icons/navbar/notification.png" class="notification-bell"
+                                alt="navbar icon">
+                            <span class="badge badge-pill badge-primary">3</span> -->
+                            <i class="fa-user-friends fa-2x" th:classappend="${'friend' == selected ? 'fas' : 'fal'}" th:style="${'friend' == selected ? 'color:#007bff;' : ''}"></i>
+                        </a>
+                        
+                    </div>
+
                     <div class="nav-item s-nav dropdown message-drop-li">
                         <a href="#" class="nav-link nav-links message-drop drop-w-tooltip" data-toggle="dropdown"
                             data-placement="bottom" role="button" aria-haspopup="true" aria-expanded="false">
                             <!-- <img src="/images/icons/navbar/message.png" class="message-dropdown" alt="navbar icon"> -->
                             <!-- <span class="badge badge-pill badge-primary">1</span> -->
-                            <i class="far fa-comment-dots fa-2x"></i>
+                            <i class="fa-comment-dots fa-2x" th:classappend="${'message' == selected ? 'fas' : 'fal'}" th:style="${'message' == selected ? 'color:#007bff;' : ''}"></i>
                         </a>
                         <ul class="dropdown-menu notify-drop dropdown-menu-right nav-drop shadow-sm">
                             <div class="notify-drop-title">
@@ -194,152 +210,7 @@
                             <!-- <img src="/images/icons/navbar/notification.png" class="notification-bell"
                                 alt="navbar icon">
                             <span class="badge badge-pill badge-primary">3</span> -->
-                            <i class="far fa-bell fa-2x"></i>
-                        </a>
-                        <ul class="dropdown-menu notify-drop dropdown-menu-right nav-drop shadow-sm">
-                            <div class="notify-drop-title">
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-6 col-xs-6 fs-8">Notifications <span
-                                            class="badge badge-pill badge-primary ml-2">3</span></div>
-                                    <div class="col-md-6 col-sm-6 col-xs-6 text-right">
-                                        <a href="#" class="notify-right-icon">
-                                            Mark All as Read
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end notify title -->
-                            <!-- notify content -->
-                            <div class="drop-content">
-                                <li>
-                                    <div class="col-md-2 col-sm-2 col-xs-2">
-                                        <div class="notify-img">
-                                            <img src="/images/users/user-10.png" alt="notification user image">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-10 col-sm-10 col-xs-10">
-                                        <a href="#" class="notification-user">Sean</a> <span
-                                            class="notification-type">replied to your comment on a post in </span><a
-                                            href="#" class="notification-for">PHP</a>
-                                        <a href="#" class="notify-right-icon">
-                                            <i class='bx bx-radio-circle-marked'></i>
-                                        </a>
-                                        <p class="time">
-                                            <span class="badge badge-pill badge-primary"><i
-                                                    class='bx bxs-group'></i></span>
-                                            3h
-                                        </p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="col-md-2 col-sm-2 col-xs-2">
-                                        <div class="notify-img">
-                                            <img src="/images/users/user-7.png" alt="notification user image">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-10 col-sm-10 col-xs-10">
-                                        <a href="#" class="notification-user">Kimberly</a> <span
-                                            class="notification-type">likes your comment "I would really... </span>
-                                        <a href="#" class="notify-right-icon">
-                                            <i class='bx bx-radio-circle-marked'></i>
-                                        </a>
-                                        <p class="time">
-                                            <span class="badge badge-pill badge-primary"><i
-                                                    class='bx bxs-like'></i></span>
-                                            7h
-                                        </p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="col-md-2 col-sm-2 col-xs-2">
-                                        <div class="notify-img">
-                                            <img src="/images/users/user-8.png" alt="notification user image">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-10 col-sm-10 col-xs-10">
-                                        <span class="notification-type">10 people saw your story before it disappeared.
-                                            See
-                                            who saw it.</span>
-                                        <a href="#" class="notify-right-icon">
-                                            <i class='bx bx-radio-circle-marked'></i>
-                                        </a>
-                                        <p class="time">
-                                            <span class="badge badge-pill badge-primary"><i
-                                                    class='bx bx-images'></i></span>
-                                            23h
-                                        </p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="col-md-2 col-sm-2 col-xs-2">
-                                        <div class="notify-img">
-                                            <img src="/images/users/user-11.png" alt="notification user image">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-10 col-sm-10 col-xs-10">
-                                        <a href="#" class="notification-user">Michelle</a> <span
-                                            class="notification-type">posted in </span><a href="#"
-                                            class="notification-for">Argon Social Design System</a>
-                                        <a href="#" class="notify-right-icon">
-                                            <i class='bx bx-radio-circle-marked'></i>
-                                        </a>
-                                        <p class="time">
-                                            <span class="badge badge-pill badge-primary"><i
-                                                    class='bx bxs-quote-right'></i></span> 1d
-                                        </p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="col-md-2 col-sm-2 col-xs-2">
-                                        <div class="notify-img">
-                                            <img src="/images/users/user-5.png" alt="notification user image">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-10 col-sm-10 col-xs-10">
-                                        <a href="#" class="notification-user">Karen</a> <span
-                                            class="notification-type">likes your comment "Sure, here... </span>
-                                        <a href="#" class="notify-right-icon">
-                                            <i class='bx bx-radio-circle-marked'></i>
-                                        </a>
-                                        <p class="time">
-                                            <span class="badge badge-pill badge-primary"><i
-                                                    class='bx bxs-like'></i></span>
-                                            2d
-                                        </p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="col-md-2 col-sm-2 col-xs-2">
-                                        <div class="notify-img">
-                                            <img src="/images/users/user-12.png" alt="notification user image">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-10 col-sm-10 col-xs-10">
-                                        <a href="#" class="notification-user">Irwin</a> <span
-                                            class="notification-type">posted in </span><a href="#"
-                                            class="notification-for">Themeforest</a>
-                                        <a href="#" class="notify-right-icon">
-                                            <i class='bx bx-radio-circle-marked'></i>
-                                        </a>
-                                        <p class="time">
-                                            <span class="badge badge-pill badge-primary"><i
-                                                    class='bx bxs-quote-right'></i></span> 3d
-                                        </p>
-                                    </div>
-                                </li>
-                            </div>
-                            <div class="notify-drop-footer text-center">
-                                <a href="#">See More</a>
-                            </div>
-                        </ul>
-                    </div>
-                    <div class="nav-item s-nav dropdown notification">
-                        <a href="#" class="nav-link nav-links rm-drop-mobile drop-w-tooltip" data-toggle="dropdown"
-                            data-placement="bottom" role="button" aria-haspopup="true" aria-expanded="false">
-                            <!-- <img src="/images/icons/navbar/notification.png" class="notification-bell"
-                                alt="navbar icon">
-                            <span class="badge badge-pill badge-primary">3</span> -->
-                            <i class="far fa-flag fa-2x"></i>
+                            <i class="fa-bell fa-2x" th:classappend="${'notify' == selected ? 'fas' : 'fal'}" th:style="${'notify' == selected ? 'color:#007bff;' : ''}"></i>
                         </a>
                         <ul class="dropdown-menu notify-drop dropdown-menu-right nav-drop shadow-sm">
                             <div class="notify-drop-title">
@@ -479,13 +350,14 @@
                         </ul>
                     </div>
                     
+                    
                     <div class="nav-item s-nav dropdown notification">
                         <a href="#" class="nav-link nav-links rm-drop-mobile drop-w-tooltip" data-toggle="dropdown"
                             data-placement="bottom" role="button" aria-haspopup="true" aria-expanded="false">
                             <!-- <img src="/images/icons/navbar/notification.png" class="notification-bell"
                                 alt="navbar icon">
                             <span class="badge badge-pill badge-primary">3</span> -->
-                            <i class="fas fa-store-alt fa-2x"></i>
+                            <i class="fa-store fa-2x" th:classappend="${'market' == selected ? 'fas' : 'fal'}" th:style="${'market' == selected ? 'color:#007bff;' : ''}"></i>
                         </a>
                         <ul class="dropdown-menu notify-drop dropdown-menu-right nav-drop shadow-sm">
                             <div class="notify-drop-title">
@@ -631,7 +503,7 @@
                     <a th:href="${'/profile?id=' + user.userId}" class="nav-links"
                         style="border-radius: 30px;background-color: #E9EAEF;">
                         <div class="menu-user-image">
-                            <img th:src="${user.avatar}" height="35px" width="35px"
+                            <img th:src="${user.avatarLink}" height="35px" width="35px"
                                 class="menu-user-img" alt="Menu Image">
                         </div>
                         <span th:text="${user.getFullName()}" style="color:black;font-size:medium;font-weight:600;"
@@ -717,7 +589,7 @@
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <div class="p-3 d-flex align-items-center w-100" href="#">
                     <div class="dropdown-list-image mr-3">
-                        <img class="rounded-circle" th:src="${user.avatar}" width="60" height="60"
+                        <img class="rounded-circle" th:src="${user.avatarLink}" width="60" height="60"
                             alt="">
                         <div class="status-indicator bg-success"></div>
                     </div>
@@ -983,7 +855,7 @@
     <!-- comment -->
     <li th:fragment="comment(comment)" class="media" style="border-bottom: 0;">
         <div class="comet-avatar">
-            <img th:src="${comment.user.avatar}" alt="">
+            <img th:src="${comment.user.avatarLink}" alt="">
         </div>
         <div class="we-comment">
             <div class="coment-head">

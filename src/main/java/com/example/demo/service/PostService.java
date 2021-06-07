@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.example.demo.model.Comment;
 import com.example.demo.model.Post;
 import com.example.demo.model.User;
 import com.example.demo.repo.PostRepo;
@@ -66,11 +67,11 @@ public class PostService {
             temp.put("postContent", post.getPostContent());
             temp.put("postDate", post.getPostTime());
             temp.put("userId", post.getUser().getUserId().toString());
-            temp.put("userAvatar", post.getUser().getAvatar());
-            temp.put("currentUserAvatar", userService.getCurrentUser().getAvatar());
+            temp.put("userAvatar", storageService.getFileLink(post.getUser().getAvatar()));
+            temp.put("currentUserAvatar", storageService.getFileLink(userService.getCurrentUser().getAvatar()));
             temp.put("userName", post.getUser().getFullName());
             temp.put("postId", post.getPostId().toString());
-            temp.put("comments", post.getComments());
+            temp.put("comments", addLinkAvatarToComment(post.getComments()));
             temp.put("reactions", post.getReactions());
             temp.put("isCurrentUserLiked", reactionService.isCurrentUserLiked(post));
             if (post.getMedia() != null && !post.getMedia().isEmpty()) {
@@ -84,6 +85,12 @@ public class PostService {
             result.add(temp);
         }
         return result;
+    }
+
+    public List<Comment> addLinkAvatarToComment(List<Comment> comments) {
+        for (int i = 0; i < comments.size(); i++)
+            comments.get(i).getUser().setAvatarLink(storageService.getFileLink(comments.get(i).getUser().getAvatar()));
+        return comments;
     }
 
     public String getMediaType(String fileName) {

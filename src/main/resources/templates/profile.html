@@ -6,8 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" type="image/png" href="/images/logo-16x16.png" />
+
+    <meta name="_csrf" content="${_csrf.token}" />
+    <!-- default header name is X-CSRF-TOKEN -->
+    <meta name="_csrf_header" content="${_csrf.headerName}" />
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Argon - Social Network</title>
+    <title>Mạng xã hội - DM</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Major+Mono+Display" rel="stylesheet">
@@ -19,7 +23,7 @@
     <link href="/css/components.css" rel="stylesheet">
     <link href="/css/profile.css" rel="stylesheet">
     <link href="/css/media.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" href="/css/fontawesome/css/all.min.css">
     <script src="/js/load.js" type="text/javascript"></script>
 </head>
 
@@ -28,7 +32,7 @@
         <div class="row newsfeed-size" style="width: 100%;">
             <div class="col-md-12 p-0">
 
-                <nav th:replace="fragment :: navbar(${currentUser})"></nav>
+                <nav th:replace="fragment :: navbar(${currentUser},${'profile'})"></nav>
 
                 <div class="row profile-right-side-content">
                     <div class="user-profile">
@@ -43,13 +47,13 @@
                         </div>
                         <div style="width: 90%; margin:0 auto; ">
                             <div class="row profile-rows justify-content-center">
-                                <div class="col-md-3" >
+                                <div class="col-md-3">
                                     <div class="profile-info-left" style="background-color: white;">
                                         <div class="text-center">
                                             <div class="profile-img w-shadow">
                                                 <div class="profile-img-overlay"></div>
-                                                <img th:src="${guestUser.avatar}"
-                                                    height="146px" width="146px" alt="Avatar" class="avatar img-circle">
+                                                <img th:src="${guestUser.avatarLink}" height="146px" width="146px"
+                                                    alt="Avatar" class="avatar img-circle">
                                                 <div th:if="${isCurrentUser}" class="profile-img-caption">
                                                     <label for="updateProfilePic" class="upload">
                                                         <i class='bx bxs-camera'></i> Update
@@ -58,20 +62,42 @@
                                                     </label>
                                                 </div>
                                             </div>
-                                            <p class="profile-fullname" th:text="${guestUser.getFullName()}" style="padding-top:4rem"></p>
+                                            <p class="profile-fullname" th:text="${guestUser.getFullName()}"
+                                                style="padding-top:4rem"></p>
                                             <div class="profile-username pb-3 text-muted" th:text="${guestUser.email}">
                                                 @arthur_minasyan</div>
                                         </div>
                                         <div style="background-color:white;">
                                             <div class="intro pt-4">
                                                 <div th:unless="${isCurrentUser}" class="d-flex">
-                                                    <button type="button" class="btn btn-follow mr-3"><i class='bx bx-plus'></i>
-                                                        Follow</button>
+
+                                                    <th:block th:switch="${friendShip}">
+                                                        <a th:case="null"
+                                                            th:href="${'/user/add-friend?id='+guestUser.userId}"
+                                                            class="btn btn-follow mr-3"><i class='bx bx-plus'></i>
+                                                            Add Friend</a>
+                                                        <a th:case="'nhan'"
+                                                        th:href="${'/user/accept-friend?id='+guestUser.userId}"
+                                                            class="btn btn-follow mr-3"><i class="fal fa-user-check"></i>
+                                                            Chấp nhận yêu cầu kết bạn</a>
+                                                        <a th:case="'gui'"
+                                                            th:href="${'/user/decline-friend?id='+guestUser.userId}"
+                                                            class="btn btn-follow mr-3"><i class="fal fa-user-times"></i>
+                                                            Hủy yêu cầu kết bạn</a>
+                                                        <div th:case="*"
+                                                            class="btn btn-follow mr-3"><i class="fal fa-user-check"></i></i>
+                                                            Friend</div>
+                                                    </th:block>
+
+
+
                                                     <button type="button" class="btn btn-start-chat" data-toggle="modal"
-                                                        data-target="#newMessageModal"><i class='bx bxs-message-rounded'></i>
+                                                        data-target="#newMessageModal"><i
+                                                            class='bx bxs-message-rounded'></i>
                                                         <span class="fs-8">Message</span></button>
                                                     <button type="button" class="btn btn-follow" id="moreMobile"
-                                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
+                                                        data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false"><i
                                                             class='bx bx-dots-horizontal-rounded'></i> <span
                                                             class="fs-8">More</span></button>
                                                     <div class="dropdown-menu dropdown-menu-right profile-ql-dropdown"
@@ -89,26 +115,33 @@
                                                 </div>
                                             </div>
                                             <div class="intro mt-1 mv-hidden">
-                                                <div class="intro-item d-flex justify-content-between align-items-center">
+                                                <div
+                                                    class="intro-item d-flex justify-content-between align-items-center">
                                                     <h3 class="intro-about">Intro</h3>
                                                 </div>
-                                                <div class="intro-item d-flex justify-content-between align-items-center">
+                                                <div
+                                                    class="intro-item d-flex justify-content-between align-items-center">
                                                     <p class="intro-title text-muted"><i
-                                                            class='bx bx-briefcase text-primary'></i> Web Developer at <a
-                                                            href="#">Company Name</a></p>
+                                                            class='bx bx-briefcase text-primary'></i> Web Developer at
+                                                        <a href="#">Company Name</a></p>
                                                 </div>
-                                                <div class="intro-item d-flex justify-content-between align-items-center">
-                                                    <p class="intro-title text-muted"><i class='bx bx-map text-primary'></i>
+                                                <div
+                                                    class="intro-item d-flex justify-content-between align-items-center">
+                                                    <p class="intro-title text-muted"><i
+                                                            class='bx bx-map text-primary'></i>
                                                         Lives in <a href="#">City, Country</a></p>
                                                 </div>
-                                                <div class="intro-item d-flex justify-content-between align-items-center">
-                                                    <p class="intro-title text-muted"><i class='bx bx-time text-primary'></i>
+                                                <div
+                                                    class="intro-item d-flex justify-content-between align-items-center">
+                                                    <p class="intro-title text-muted"><i
+                                                            class='bx bx-time text-primary'></i>
                                                         Last Login <a href="#">Online <span
                                                                 class="ml-1 online-status bg-success"></span></a></p>
                                                 </div>
                                                 <div th:if="${isCurrentUser}"
                                                     class="intro-item d-flex justify-content-between align-items-center">
-                                                    <a href="/setting" class="btn btn-quick-link join-group-btn border w-100"
+                                                    <a href="/setting"
+                                                        class="btn btn-quick-link join-group-btn border w-100"
                                                         style="background-color: #1DA1F2;color:white">Edit
                                                         Details</a>
                                                 </div>
@@ -125,37 +158,41 @@
                                                 </div>
                                             </div>
                                             <div class="intro mt-5 pb-4 mv-hidden">
-                                                <div class="intro-item d-flex justify-content-between align-items-center">
+                                                <div
+                                                    class="intro-item d-flex justify-content-between align-items-center">
                                                     <h3 class="intro-about">Other Social Accounts</h3>
                                                 </div>
-                                                <div class="intro-item d-flex justify-content-between align-items-center">
+                                                <div
+                                                    class="intro-item d-flex justify-content-between align-items-center">
                                                     <p class="intro-title text-muted"><i
-                                                            class='bx bxl-facebook-square facebook-color'></i> <a href="#"
-                                                            target="_blank">facebook.com/username</a></p>
+                                                            class='bx bxl-facebook-square facebook-color'></i> <a
+                                                            href="#" target="_blank">facebook.com/username</a></p>
                                                 </div>
-                                                <div class="intro-item d-flex justify-content-between align-items-center">
+                                                <div
+                                                    class="intro-item d-flex justify-content-between align-items-center">
                                                     <p class="intro-title text-muted"><i
                                                             class='bx bxl-twitter twitter-color'></i> <a href="#"
                                                             target="_blank">twitter.com/username</a></p>
                                                 </div>
-                                                <div class="intro-item d-flex justify-content-between align-items-center">
+                                                <div
+                                                    class="intro-item d-flex justify-content-between align-items-center">
                                                     <p class="intro-title text-muted"><i
                                                             class='bx bxl-instagram instagram-color'></i> <a href="#"
                                                             target="_blank">instagram.com/username</a></p>
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                                 <div class="col-md-6 ">
                                     <div class="profile-info-right">
-    
+
                                         <!-- Posts section -->
                                         <div class="row">
                                             <div class="profile-center">
-                                                <ul
-                                                    class="list-inline profile-links d-flex justify-content-between w-shadow rounded" style="min-width: 687px;">
+                                                <ul class="list-inline profile-links d-flex justify-content-between w-shadow rounded"
+                                                    style="min-width: 687px;">
                                                     <li class="list-inline-item profile-active">
                                                         <a href="#">Timeline</a>
                                                     </li>
@@ -172,7 +209,8 @@
                                                             aria-expanded="false">
                                                             <i class='bx bx-dots-vertical-rounded'></i>
                                                         </a>
-                                                        <div class="dropdown-menu dropdown-menu-right profile-ql-dropdown">
+                                                        <div
+                                                            class="dropdown-menu dropdown-menu-right profile-ql-dropdown">
                                                             <a href="#" class="dropdown-item">Activity Log</a>
                                                             <a href="#" class="dropdown-item">Videos</a>
                                                             <a href="#" class="dropdown-item">Check-Ins</a>
@@ -181,29 +219,29 @@
                                                         </div>
                                                     </li>
                                                 </ul>
-    
+
                                                 <th:block th:if="${isCurrentUser}">
                                                     <form th:replace="fragment :: create_post(${currentUser})"></form>
                                                 </th:block>
-    
+
                                                 <div
                                                     class="bg-white profile-posts-options mb-4 py-3 d-flex justify-content-between shadow-sm">
                                                     <div class="col-md-3 col-sm-12">
                                                         <h6 class="timeline-title">Posts</h6>
                                                     </div>
-    
+
                                                 </div>
                                                 <div th:replace="fragment :: list_post"></div>
-    
+
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
