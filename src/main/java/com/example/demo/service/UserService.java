@@ -28,6 +28,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import net.bytebuddy.utility.RandomString;
 
@@ -38,8 +39,6 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepo userRepo;
-
-    
 
     @Autowired
     private JavaMailSender mailSender;
@@ -133,7 +132,7 @@ public class UserService implements UserDetailsService {
         User newUser = new User();
         newUser.setEmail(email);
         newUser.setPassword(passwordEncoder.encode("OAuth2"));
-        
+
         newUser.setFirstName(fullName);
         newUser.setLastName("");
         newUser.setEnable(true);
@@ -163,7 +162,6 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-
     public User getUserById(Long id) {
         try {
             User user = userRepo.findById(id).get();
@@ -175,8 +173,13 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public void updateAvatar(String filename) {
-        getCurrentUser().setAvatar(filename);
+    public String updateAvatar(MultipartFile file) {
+        String oldAvatar = getCurrentUser().getAvatar();
+        String newAvatar = storageService.upload(file);
+        if (!oldAvatar.equals("default_user_avatart.jpg"))
+            storageService.deleteFile(oldAvatar);
+        getCurrentUser().setAvatar(newAvatar);
+        return newAvatar;
     }
 
     @Transactional
@@ -199,5 +202,4 @@ public class UserService implements UserDetailsService {
         return result;
     }
 
-    
 }

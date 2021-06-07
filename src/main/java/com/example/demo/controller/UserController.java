@@ -34,10 +34,7 @@ public class UserController {
     @PostMapping("/update-avatar")
     public ResponseEntity<String> updateAvatar(@RequestParam(value = "file", required = false) MultipartFile file) {
         try {
-            String oldAvatar = userService.getCurrentUser().getAvatar();
-            String newAvatar = storageService.upload(file);
-            userService.updateAvatar(newAvatar);
-            storageService.deleteFile(oldAvatar);
+            String newAvatar = userService.updateAvatar(file);
             return new ResponseEntity<>(storageService.getFileLink(newAvatar), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Error while update avatar", HttpStatus.INTERNAL_SERVER_ERROR);
