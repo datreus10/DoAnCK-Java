@@ -1,37 +1,64 @@
-# This is a Header
+# Mạng xã hội đơn giản - DM Social Network
 
-## This is a Smaller Header
+Mạng xã hội đơn giản phục vụ cho đồ án cuối kì Java.
 
-### This is an Even Smaller Header
+## Mô tả về project
 
-Here is some normal text. A paragraph, even!
+An in-depth paragraph about your project and overview of use.
 
-_This text is in italics._
+## Getting Started
 
-**This text is in bold.**
+### Dependencies
 
-**_This text is in both._**
+* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
+* ex. Windows 10
 
-~~This text is rendered with a strikethrough.~~
+### Installing
 
-- Item
-- Item
-- Another item
+* How/where to download your program
+* Any modifications needed to be made to files/folders
 
-1. Item one
-2. Item two
-3. Item three
+### Executing program
 
-1. Item one
-2. Item two
-3. Item three 
-    1. Sub-item 
-    2. Sub-item
-4. Item four
+* How to run the program
+* Step-by-step bullets
+```
+code blocks for commands
+```
 
----
+## Help
 
-[I'm a link to a web page!](http://www.google.com)
-![alt text](https://i.imgur.com/81qyN1y.jpg)`
+Any advise for common problems or issues.
+```
+command to run if program contains helper info
+```
 
-[link font-end template](https://github.com/ArtMin96/argon-social)
+## Tác giả
+
+Contributors names and contact info
+
+[@Datreus10](https://github.com/datreus10) Sinh viên UIT
+
+[@minh286](https://github.com/minh286) Sinh viên UIT
+
+
+## Version History
+
+* 0.2
+    * Various bug fixes and optimizations
+    * See [commit change]() or See [release history]()
+* 0.1
+    * Initial Release
+
+## License
+
+This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
+
+## Acknowledgments
+
+Inspiration, code snippets, etc.
+* [awesome-readme](https://github.com/matiassingers/awesome-readme)
+* [PurpleBooth](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
+* [dbader](https://github.com/dbader/readme-template)
+* [zenorocha](https://gist.github.com/zenorocha/4526327)
+* [fvcproductions](https://gist.github.com/fvcproductions/1bfc2d4aecb01a834b46)
