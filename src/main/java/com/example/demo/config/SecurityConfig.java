@@ -47,7 +47,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and().logout()
                 .invalidateHttpSession(true).clearAuthentication(true)
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login?logout")
-                .permitAll();
+                .permitAll()
+            .and().rememberMe().key("uniqueAndSecret").tokenValiditySeconds(86400);  //2 weeks
        //http.formLogin().defaultSuccessUrl("/login-success", true);
     }
 

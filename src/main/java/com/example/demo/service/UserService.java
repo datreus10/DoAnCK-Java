@@ -15,6 +15,8 @@ import javax.transaction.Transactional;
 
 import com.example.demo.model.CustomOAuth2User;
 import com.example.demo.model.User;
+import com.example.demo.model.UserDetail;
+import com.example.demo.repo.UserDetailRepo;
 import com.example.demo.repo.UserRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,9 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private AzureBlobService storageService;
+
+    @Autowired
+    private UserDetailRepo userDetailRepo;
 
     @Override
     public UserDetails loadUserByUsername(String email) {
@@ -132,9 +137,14 @@ public class UserService implements UserDetailsService {
         User newUser = new User();
         newUser.setEmail(email);
         newUser.setPassword(passwordEncoder.encode("OAuth2"));
-
-        newUser.setFirstName(fullName);
-        newUser.setLastName("");
+        String[] names = fullName.split("\\s+");
+        if (names.length == 2) {
+            newUser.setFirstName(names[0]);
+            newUser.setLastName(names[1]);
+        } else {
+            newUser.setFirstName(fullName);
+            newUser.setLastName("");
+        }
         newUser.setEnable(true);
         newUser.setAuthProvider(provider);
         userRepo.save(newUser);
@@ -143,6 +153,16 @@ public class UserService implements UserDetailsService {
     public void updateUserAfterOauthLogin(User user, String fullName, String oauthName) {
         user.setFirstName(fullName);
         user.setLastName("");
+
+        String[] names = fullName.split("\\s+");
+        if (names.length == 2) {
+            user.setFirstName(names[0]);
+            user.setLastName(names[1]);
+        } else {
+            user.setFirstName(fullName);
+            user.setLastName("");
+        }
+
         user.setAuthProvider(oauthName);
         userRepo.save(user);
     }
@@ -160,6 +180,10 @@ public class UserService implements UserDetailsService {
         }
         user.setAvatarLink(storageService.getFileLink(user.getAvatar()));
         return user;
+    }
+
+    public UserDetail getUserDetail() {
+        return userDetailRepo.findByUser(getCurrentUser());
     }
 
     public User getUserById(Long id) {
@@ -183,10 +207,57 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public void updateAccount(String firstName, String lastName) {
+    public void updateAccount(String firstName, String lastName, String birthDate) {
         User user = getCurrentUser();
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
+        if (!firstName.isEmpty())
+            user.setFirstName(firstName);
+        if (!lastName.isEmpty())
+            user.setLastName(lastName);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try {
+            LocalDate localDate = LocalDate.parse(birthDate, formatter);
+            if (localDate != null) {
+                user.setBirthDate(localDate);
+            }
+        } catch (Exception e) {
+            System.out.println("Error");
+        }
+
+    }
+
+    public void updateUserDetails(Map<String, String> data) {
+        UserDetail u = userDetailRepo.findByUser(getCurrentUser());
+        if (u == null) {
+            u = new UserDetail();
+            u.setUser(getCurrentUser());
+        }
+        if (isNotNullEmptyBlank(data.get("job"))) {
+            u.setJob(data.get("job"));
+        }
+        if (isNotNullEmptyBlank(data.get("jobLocation"))) {
+            u.setJobLocation(data.get("jobLocation"));
+        }
+        if (isNotNullEmptyBlank(data.get("phone"))) {
+            u.setPhone(data.get("phone"));
+        }
+        if (isNotNullEmptyBlank(data.get("intro"))) {
+            u.setAbout(data.get("intro"));
+        }
+        if (isNotNullEmptyBlank(data.get("facebook"))) {
+            u.setFacebook(data.get("facebook"));
+        }
+        if (isNotNullEmptyBlank(data.get("twitter"))) {
+            u.setTwitter(data.get("twitter"));
+        }
+        if (isNotNullEmptyBlank(data.get("instagram"))) {
+            u.setInstagram(data.get("instagram"));
+        }
+        userDetailRepo.save(u);
+    }
+
+    public boolean isNotNullEmptyBlank(String s) {
+        return !(s.isEmpty() && s.isBlank());
     }
 
     public List<Map<String, Object>> searchUsers(String keyword) {

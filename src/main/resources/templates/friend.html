@@ -38,18 +38,17 @@
                     <div class="user-profile">
                         <div class="profile-header-background">
                             <a href="#" class="profile-cover">
-                                <img src="/images/users/cover/cover-1.jpg" alt="Profile Header Background">
+                                <img src="/images/users/cover/cover-1.gif" alt="Profile Header Background">
                                 <div th:if="${isCurrentUser}" class="cover-overlay">
                                     <a href="#" class="btn btn-update-cover"><i class='bx bxs-camera'></i> Update Cover
                                         Photo</a>
-                                        <!-- <input type="file" name="bg-image" id="bg-image" style="display: none;"> -->
                                 </div>
                             </a>
                         </div>
                         <div style="width: 90%; margin:0 auto; ">
                             <div class="row profile-rows justify-content-center">
                                 <div class="col-md-3">
-                                    <div class="profile-info-left" style="background-color: white;position: sticky;top: -105px;">
+                                    <div class="profile-info-left" style="background-color: white;">
                                         <div class="text-center">
                                             <div class="profile-img w-shadow">
                                                 <div class="profile-img-overlay"></div>
@@ -149,16 +148,16 @@
                                                         Details</a>
                                                 </div>
                                             </div>
-                                            <div class="intro mt-5 row justify-content-start mv-hidden">
-                                                <th:block th:if="${listPost.size()>0}" th:each="post : ${listPost}">
-                                                    <div th:if="${post.postMediaUrl!='' && post.postMediaType!='video'}"
-                                                        class="col-md-4">
-                                                        <img th:src="${post.postMediaUrl}" width="80" height="80"
-                                                            alt="">
-                                                    </div>
-
-                                                </th:block>
-
+                                            <div class="intro mt-5 row justify-content-around mv-hidden">
+                                                <div class="col-md-4">
+                                                    <img src="/images/users/album/album-1.jpg" width="80" alt="">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <img src="/images/users/album/album-2.jpg" width="80" alt="">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <img src="/images/users/album/album-3.jpg" width="80" alt="">
+                                                </div>
                                             </div>
                                             <div class="intro mt-5 pb-4 mv-hidden">
                                                 <div
@@ -194,20 +193,20 @@
                                         <!-- Posts section -->
                                         <div class="row">
                                             <div class="profile-center">
-                                                <ul class="list-inline profile-links d-flex justify-content-around w-shadow rounded"
+                                                <ul class="list-inline profile-links d-flex justify-content-between w-shadow rounded"
                                                     style="min-width: 687px;">
-                                                    <li class="list-inline-item profile-active w-25 text-center">
+                                                    <li class="list-inline-item profile-active">
                                                         <a href="#">Timeline</a>
                                                     </li>
-                                                    <li class="list-inline-item w-25 text-center">
+                                                    <li class="list-inline-item">
                                                         <a href="#">About</a></li>
-                                                    <li class="list-inline-item w-25 text-center">
-                                                        <a>Friends</a>
+                                                    <li class="list-inline-item">
+                                                        <a href="friends.html">Friends</a>
                                                     </li>
-                                                    <li class="list-inline-item w-25 text-center">
+                                                    <li class="list-inline-item">
                                                         <a href="#">Photos</a>
                                                     </li>
-                                                    <!-- <li class="list-inline-item dropdown">
+                                                    <li class="list-inline-item dropdown">
                                                         <a href="#" data-toggle="dropdown" aria-haspopup="true"
                                                             aria-expanded="false">
                                                             <i class='bx bx-dots-vertical-rounded'></i>
@@ -220,10 +219,10 @@
                                                             <a href="#" class="dropdown-item">Events</a>
                                                             <a href="#" class="dropdown-item">Likes</a>
                                                         </div>
-                                                    </li> -->
+                                                    </li>
                                                 </ul>
 
-                                                <th:block th:if="${isCurrentUser}">
+                                                <!-- <th:block th:if="${isCurrentUser}">
                                                     <form th:replace="fragment :: create_post(${currentUser})"></form>
                                                 </th:block>
 
@@ -234,8 +233,90 @@
                                                     </div>
 
                                                 </div>
-                                                <div th:replace="fragment :: list_post"></div>
-
+                                                <div th:replace="fragment :: list_post"></div> -->
+                                                <div class="bg-white py-3 px-4 shadow-sm">
+                                                    <div class="card-head d-flex justify-content-between">
+                                                        <h5 class="mb-4">Latest Active Friends</h5>
+                                                        <a href="#" class="btn btn-link">See All</a>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4 col-sm-6">
+                                                            <div class="card group-card shadow-sm">
+                                                                <img src="assets/images/groups/group-1.png"
+                                                                    class="card-img-top group-card-image"
+                                                                    alt="Group image">
+                                                                <div class="card-body">
+                                                                    <h5 class="card-title">Ruth D. Greene <img
+                                                                            src="assets/images/theme/verify.png"
+                                                                            width="10px" class="verify"
+                                                                            alt="Group verified"></h5>
+                                                                    <p class="card-text">10k Members 20+ post a week</p>
+                                                                    <div class="btn-group w-100" role="group">
+                                                                        <a href="#"
+                                                                            class="btn btn-quick-link join-group-btn border w-100">Message</a>
+                                                                        <div class="btn-group" role="group">
+                                                                            <button id="friendsMore" type="button"
+                                                                                class="btn btn-quick-link join-group-btn border btn-group-drop"
+                                                                                data-toggle="dropdown"
+                                                                                aria-haspopup="true"
+                                                                                aria-expanded="false">
+                                                                                <i
+                                                                                    class="bx bx-dots-horizontal-rounded"></i>
+                                                                            </button>
+                                                                            <div class="dropdown-menu"
+                                                                                aria-labelledby="friendsMore">
+                                                                                <a class="dropdown-item"
+                                                                                    href="#">Dropdown link</a>
+                                                                                <a class="dropdown-item"
+                                                                                    href="#">Dropdown link</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4 col-sm-6">
+                                                            <div class="card group-card shadow-sm">
+                                                                <img src="assets/images/groups/group-2.jpg"
+                                                                    class="card-img-top group-card-image"
+                                                                    alt="Group image">
+                                                                <div class="card-body">
+                                                                    <h5 class="card-title">Tourism</h5>
+                                                                    <p class="card-text">2.5k Members 35+ post a week
+                                                                    </p>
+                                                                    <a href="#"
+                                                                        class="btn btn-quick-link join-group-btn border w-100">Join</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4 col-sm-6">
+                                                            <div class="card group-card shadow-sm">
+                                                                <img src="assets/images/groups/group-3.jpg"
+                                                                    class="card-img-top group-card-image"
+                                                                    alt="Group image">
+                                                                <div class="card-body">
+                                                                    <h5 class="card-title">Reading Books</h5>
+                                                                    <p class="card-text">1.3k Members 10+ post a day</p>
+                                                                    <a href="#"
+                                                                        class="btn btn-quick-link join-group-btn border w-100">Join</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4 col-sm-6">
+                                                            <div class="card group-card shadow-sm">
+                                                                <img src="assets/images/groups/group-4.jpg"
+                                                                    class="card-img-top group-card-image"
+                                                                    alt="Group image">
+                                                                <div class="card-body">
+                                                                    <h5 class="card-title">Capture The Best</h5>
+                                                                    <p class="card-text">2.8k Members 8+ post a day</p>
+                                                                    <a href="#"
+                                                                        class="btn btn-quick-link join-group-btn border w-100">Join</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
 
                                         </div>

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" type="image/png" href="https://spring-project-image.s3-ap-southeast-1.amazonaws.com/images/logo-16x16.png" />
+    <link rel="icon" type="image/png" href="/images/logo-16x16.png" />
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Argon - Social Network</title>
 
@@ -20,6 +20,7 @@
     <link href="/css/settings.css" rel="stylesheet">
     <link href="/css/forms.css" rel="stylesheet">
     <link href="/css/media.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/fontawesome/css/all.min.css">
 </head>
 
 <body class="messenger">
@@ -27,7 +28,7 @@
         <div class="row newsfeed-size f-width">
             <div class="col-md-12 message-right-side">
                 
-                <nav th:replace="fragment :: navbar(${user})"></nav>
+                <nav th:replace="fragment :: navbar(${user},${''})"></nav>
 
                 <div class="row message-right-side-content">
                     <div class="col-md-12">
@@ -37,108 +38,75 @@
                                     <ul class="conversations">
                                         <h6 class="p-3">General Settings</h6>
                                         <li class="contact setting-active">
-                                            <a href="settings.html" class="wrap d-flex align-items-center">
-                                                <img src="https://spring-project-image.s3-ap-southeast-1.amazonaws.com/images/icons/settings/account.png" class="settings-icon" alt="Settings left sidebar">
+                                            <a href="setting" class="wrap d-flex align-items-center">
+                                                <img src="/images/icons/settings/account.png" class="settings-icon" alt="Settings left sidebar">
                                                 <div class="meta">
                                                     <p>Your Account</p>
                                                 </div>
                                             </a>
                                         </li>
                                         <li class="contact">
-                                            <a href="settings-contact.html" class="wrap d-flex align-items-center">
-                                                <img src="https://spring-project-image.s3-ap-southeast-1.amazonaws.com/images/icons/settings/contact.png" class="settings-icon" alt="Settings left sidebar">
+                                            <a href="/setting-about" class="wrap d-flex align-items-center">
+                                                <img src="/images/icons/settings/contact.png" class="settings-icon" alt="Settings left sidebar">
                                                 <div class="meta">
                                                     <p>Contact Info</p>
                                                 </div>
                                             </a>
                                         </li>
-                                        <li class="contact">
-                                            <a href="#" class="wrap d-flex align-items-center">
-                                                <img src="https://spring-project-image.s3-ap-southeast-1.amazonaws.com/images/icons/settings/privacy.png" class="settings-icon" alt="Settings left sidebar">
-                                                <div class="meta">
-                                                    <p>Privacy</p>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <h6 class="p-3">Security &#38; Login</h6>
+                                        
+                                        
                                         <li class="contact">
                                             <a href="settings-password.html" class="wrap d-flex align-items-center">
-                                                <img src="https://spring-project-image.s3-ap-southeast-1.amazonaws.com/images/icons/settings/account.png" class="settings-icon" alt="Settings left sidebar">
+                                                <img src="/images/icons/settings/account.png" class="settings-icon" alt="Settings left sidebar">
                                                 <div class="meta">
                                                     <p>Password</p>
                                                 </div>
                                             </a>
                                         </li>
-                                        <li class="contact">
-                                            <a href="#" class="wrap d-flex align-items-center">
-                                                <img src="https://spring-project-image.s3-ap-southeast-1.amazonaws.com/images/icons/settings/security-question.png" class="settings-icon" alt="Settings left sidebar">
-                                                <div class="meta">
-                                                    <p>Security Question</p>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li class="contact">
-                                            <a href="settings-fingerprint.html" class="wrap d-flex align-items-center">
-                                                <div class="meta"></div>
-                                                <p><img src="https://spring-project-image.s3-ap-southeast-1.amazonaws.com/images/icons/settings/fingerprint.png" class="settings-icon" alt="Settings left sidebar"> Fingerprint Lock</p>
-                                            </a>
-                                        </li>
-                                        <li class="contact">
-                                            <a href="settings-location.html" class="wrap d-flex align-items-center">
-                                                <div class="meta"></div>
-                                                <p><img src="https://spring-project-image.s3-ap-southeast-1.amazonaws.com/images/icons/settings/location.png" class="settings-icon" alt="Settings left sidebar"> Location</p>
-                                            </a>
-                                        </li>
-                                        <h6 class="p-3">Billing &#38; Payment</h6>
-                                        <li class="contact">
-                                            <a href="settings-billing-method.html" class="wrap d-flex align-items-center">
-                                                <div class="meta"></div>
-                                                <p><img src="https://spring-project-image.s3-ap-southeast-1.amazonaws.com/images/icons/settings/wallet.png" class="settings-icon" alt="Settings left sidebar"> Billing Method</p>
-                                            </a>
-                                        </li>
-                                        <li class="contact">
-                                            <a href="#" class="wrap d-flex align-items-center">
-                                                <div class="meta"></div>
-                                                <p><img src="https://spring-project-image.s3-ap-southeast-1.amazonaws.com/images/icons/settings/credit-card.png" class="settings-icon" alt="Settings left sidebar"> Automatic Payments</p>
-                                            </a>
-                                        </li>
+                                        
                                     </ul>
                                 </div>
                             </div>
+                            
                             <div class="content">
                                 <div class="settings-form p-4">
                                     <h2>Your Account</h2>
                                     <form action="/user/update-account" method="POST" class="mt-4 settings-form">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="settingsFirstName">First Name</label>
-                                                <input type="text" class="form-control" name="firstName" id="settingsFirstName" th:placeholder="${user.firstName}" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="settingsLastName">Last Name</label>
-                                                <input type="text" class="form-control" name="lastName" id="settingsLastName" th:placeholder="${user.lastName}" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-row mb-3 align-items-center">
-                                                <div class="col">
-                                                    <label for="settingsUsername">Email for login</label>
-                                                    <input type="email" class="form-control" id="settingsUsername" aria-describedby="usernameHelp" th:value="${user.email}" readonly style="background-color: white;">
-                                                    <!-- <small id="usernameHelp" class="form-text text-muted">Your public username is the same as your timeline address.</small> -->
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="firstName">First Name</label>
+                                                    <input type="text" class="form-control" name="firstName" id="firstName" th:placeholder="${user.firstName}">
                                                 </div>
-                                                <!-- <div class="col check-username">
-                                                    <span><i class='bx bx-check success'></i> Username is available</span>
-                                                </div> -->
                                             </div>
-                                        </div>
-                                        <div class="col-md-6 text-right">
-                                            <button type="submit" class="btn btn-primary btn-sm">Save Changes</button>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="lastName">Last Name</label>
+                                                    <input type="text" class="form-control" name="lastName" id="lastName" th:placeholder="${user.lastName}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="email">Email Address</label>
+                                                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp"  th:value="${user.email}" readonly style="background-color: white;">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="birthDate">Birth Date</label>
+                                                    <input type="date" id="birthDate" class="form-control" name="birthDate" th:value="${user.birthDate}">
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-12 text-right">
+                                                <button type="submit" class="btn btn-primary btn-sm">Save Changes</button>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>

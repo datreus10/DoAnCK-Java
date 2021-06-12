@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.User;
+import com.example.demo.model.UserDetail;
 import com.example.demo.service.AzureBlobService;
 import com.example.demo.service.FriendService;
 import com.example.demo.service.PostService;
@@ -70,5 +71,17 @@ public class AppController {
     public String getPage(Model model) {
         model.addAttribute("user", userService.getCurrentUser());
         return "settings";
+    }
+
+    // render setting account
+    @GetMapping("/setting-about")
+    public String getPageAboutSettings(Model model) {
+        model.addAttribute("user", userService.getCurrentUser());
+        if (userService.getUserDetail() == null) {
+            model.addAttribute("userDetail", new UserDetail());
+        } else {
+            model.addAttribute("userDetail", userService.getUserDetail());
+        }
+        return "settings-contact";
     }
 }
