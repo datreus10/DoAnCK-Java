@@ -20,4 +20,6 @@ public interface UserRepo extends JpaRepository<User, Long> {
 
     @Query(nativeQuery = true, value = "SELECT TOP 3 * FROM Users u where u.Id != :id and u.Id not in (select f.friend_id from friendship f where f.requester_Id = :id and f.friend_id = u.Id) ORDER BY NEWID()")
     List<User> getRandomUsersExcept(@Param("id") Long userId);
+
+    public User findByResetPasswordToken(String token);
 }

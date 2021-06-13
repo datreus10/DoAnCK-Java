@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/css/**","/js/**","/images/**", "/register","/register/verify","/oauth2/**").permitAll()
+        http.authorizeRequests().antMatchers("/css/**","/js/**","/images/**", "/register","/register/verify","/oauth2/**","/forgot_password","/reset_password").permitAll()
             .anyRequest().authenticated()
             .and().formLogin().permitAll().loginPage("/login").failureUrl("/login-error").successHandler(myAuthenticationSuccessHandler)
             .and().oauth2Login().loginPage("/login").userInfoEndpoint().userService(customOAuth2UserService)

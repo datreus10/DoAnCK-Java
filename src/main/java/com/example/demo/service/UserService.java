@@ -119,6 +119,52 @@ public class UserService implements UserDetailsService {
         mailSender.send(message);
     }
 
+    public String updateResetPasswordToken(String email) throws UsernameNotFoundException {
+        String token = RandomString.make(30);
+        User user = userRepo.findByEmail(email);
+        if (user != null) {
+            user.setResetPasswordToken(token);
+            userRepo.save(user);
+            return token;
+        } else {
+            throw new UsernameNotFoundException("Could not find any user with the email " + email);
+        }
+    }
+
+    public User getByResetPasswordToken(String token) {
+        return userRepo.findByResetPasswordToken(token);
+    }
+
+    public void updatePassword(User user, String newPassword) {
+
+        String encodedPassword = passwordEncoder.encode(newPassword);
+        user.setPassword(encodedPassword);
+
+        user.setResetPasswordToken(null);
+        userRepo.save(user);
+    }
+
+    public void sendEmail(String recipientEmail, String link) throws MessagingException, UnsupportedEncodingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setFrom("bankhongphailanguoimay@gmail.com", "DM Social Network Support");
+        helper.setTo(recipientEmail);
+
+        String subject = "Here's the link to reset your password";
+
+        String content = "<p>Hello,</p>" + "<p>You have requested to reset your password.</p>"
+                + "<p>Click the link below to change your password:</p>" + "<p><a href=\"" + link
+                + "\">Change my password</a></p>" + "<br>" + "<p>Ignore this email if you do remember your password, "
+                + "or you have not made the request.</p>";
+
+        helper.setSubject(subject);
+
+        helper.setText(content, true);
+
+        mailSender.send(message);
+    }
+
     @Transactional
     public boolean verifyUser(String code) {
         User user = userRepo.findByVerificationCode(code);

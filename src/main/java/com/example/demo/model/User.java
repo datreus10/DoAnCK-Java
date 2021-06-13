@@ -54,6 +54,9 @@ public class User {
     @Column(name = "AuthProvider")
     private String authProvider;
 
+    @Column(name = "ResetPasswordToken")
+    private String resetPasswordToken;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private List<Post> posts;
 
@@ -83,6 +86,14 @@ public class User {
 
     public LocalDate getBirthDate() {
         return birthDate;
+    }
+
+    public String getResetPasswordToken() {
+        return resetPasswordToken;
+    }
+
+    public void setResetPasswordToken(String resetPasswordToken) {
+        this.resetPasswordToken = resetPasswordToken;
     }
 
     public void setBirthDate(LocalDate birthDate) {

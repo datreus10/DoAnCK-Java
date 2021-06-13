@@ -51,7 +51,7 @@
                             </div>
                         </div>
                         <div class="col-md-12 mb-3">
-                            <a href="forgot-password.html">Forgot password?</a>
+                            <a href="/forgot_password">Forgot password?</a>
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control material-checkbox">
@@ -140,15 +140,15 @@
                     data: data,
                     success: function (msg) {
                         $("#alert-message").empty().append(
-                            '<div class="alert alert-primary">Đăng nhập thành công</div>'
+                            '<div class="alert alert-primary alert-dismissible">Đăng nhập thành công</div>'
                         ).hide().fadeIn(1000);
                         window.setTimeout(function () {
                             window.location.href = msg;
-                        }, 3000);
+                        }, 2000);
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         $("#alert-message").empty().append(
-                            '<div class="alert alert-danger">' +
+                            '<div class="alert alert-danger alert-dismissible">' +
                             XMLHttpRequest.responseText + '</div>'
                         ).hide().fadeIn(1000);
                     }
