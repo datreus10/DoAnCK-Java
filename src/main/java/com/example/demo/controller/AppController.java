@@ -48,10 +48,12 @@ public class AppController {
         User currentUser = userService.getCurrentUser();
         if (guestUser.equals(currentUser)) {
             model.addAttribute("isCurrentUser", true);
+            model.addAttribute("detailUser", userService.getUserDetail());
         } else {
             model.addAttribute("isCurrentUser", false);
             model.addAttribute("friendShip",
                     friendService.getFriendShip(userId, userService.getCurrentUser().getUserId()));
+            model.addAttribute("detailUser", userService.getUserDetailByUser(guestUser));
         }
 
         model.addAttribute("currentUser", currentUser);

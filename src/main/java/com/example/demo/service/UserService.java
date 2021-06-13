@@ -232,6 +232,10 @@ public class UserService implements UserDetailsService {
         return userDetailRepo.findByUser(getCurrentUser());
     }
 
+    public UserDetail getUserDetailByUser(User user) {
+        return userDetailRepo.findByUser(user);
+    }
+
     public User getUserById(Long id) {
         try {
             User user = userRepo.findById(id).get();
