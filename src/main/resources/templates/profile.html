@@ -42,14 +42,15 @@
                                 <div th:if="${isCurrentUser}" class="cover-overlay">
                                     <a href="#" class="btn btn-update-cover"><i class='bx bxs-camera'></i> Update Cover
                                         Photo</a>
-                                        <!-- <input type="file" name="bg-image" id="bg-image" style="display: none;"> -->
+                                    <!-- <input type="file" name="bg-image" id="bg-image" style="display: none;"> -->
                                 </div>
                             </a>
                         </div>
                         <div style="width: 90%; margin:0 auto; ">
                             <div class="row profile-rows justify-content-center">
                                 <div class="col-md-3">
-                                    <div class="profile-info-left" style="background-color: white;position: sticky;top: -105px;">
+                                    <div class="profile-info-left"
+                                        style="background-color: white;position: sticky;top: -105px;">
                                         <div class="text-center">
                                             <div class="profile-img w-shadow">
                                                 <div class="profile-img-overlay"></div>
@@ -194,7 +195,7 @@
                                         <!-- Posts section -->
                                         <div class="row">
                                             <div class="profile-center">
-                                                <ul class="list-inline profile-links d-flex justify-content-around w-shadow rounded"
+                                                <!-- <ul class="list-inline profile-links d-flex justify-content-around w-shadow rounded"
                                                     style="min-width: 687px;">
                                                     <li class="list-inline-item profile-active w-25 text-center">
                                                         <a href="#">Timeline</a>
@@ -207,34 +208,60 @@
                                                     <li class="list-inline-item w-25 text-center">
                                                         <a href="#">Photos</a>
                                                     </li>
-                                                    <!-- <li class="list-inline-item dropdown">
-                                                        <a href="#" data-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            <i class='bx bx-dots-vertical-rounded'></i>
-                                                        </a>
-                                                        <div
-                                                            class="dropdown-menu dropdown-menu-right profile-ql-dropdown">
-                                                            <a href="#" class="dropdown-item">Activity Log</a>
-                                                            <a href="#" class="dropdown-item">Videos</a>
-                                                            <a href="#" class="dropdown-item">Check-Ins</a>
-                                                            <a href="#" class="dropdown-item">Events</a>
-                                                            <a href="#" class="dropdown-item">Likes</a>
-                                                        </div>
-                                                    </li> -->
+                                                    
+                                                </ul> -->
+
+
+                                                <ul class="nav nav-pills mb-3 profile-links" id="pills-tab"
+                                                    role="tablist" style="min-width: 687px;">
+                                                    <li class="nav-item w-25 text-center" role="presentation">
+                                                        <a class="nav-link active" id="pills-timeline-tab"
+                                                            data-toggle="pill" href="#pills-timeline" role="tab"
+                                                            aria-controls="pills-home" aria-selected="true">Timeline</a>
+                                                    </li>
+                                                    <li class="nav-item w-25 text-center" role="presentation">
+                                                        <a class="nav-link" id="pills-about-tab" data-toggle="pill"
+                                                            href="#pills-about" role="tab" aria-controls="pills-about"
+                                                            aria-selected="false">About</a>
+                                                    </li>
+                                                    <li class="nav-item w-25 text-center" role="presentation">
+                                                        <a class="nav-link" id="pills-friend-tab" data-toggle="pill"
+                                                            href="#pills-friend" role="tab" aria-controls="pills-friend"
+                                                            aria-selected="false">Friends</a>
+                                                    </li>
+                                                    <li class="nav-item w-25 text-center" role="presentation">
+                                                        <a class="nav-link" id="pills-photo-tab" data-toggle="pill"
+                                                            href="#pills-photo" role="tab" aria-controls="pills-photo"
+                                                            aria-selected="false">Photos</a>
+                                                    </li>
                                                 </ul>
 
-                                                <th:block th:if="${isCurrentUser}">
-                                                    <form th:replace="fragment :: create_post(${currentUser})"></form>
-                                                </th:block>
+                                                <div class="tab-content" id="pills-tabContent">
+                                                    <div class="tab-pane fade show active" id="pills-timeline"
+                                                        role="tabpanel" aria-labelledby="pills-home-tab">
+                                                        <th:block th:if="${isCurrentUser}">
+                                                            <form th:replace="fragment :: create_post(${currentUser})">
+                                                            </form>
+                                                        </th:block>
 
-                                                <div
-                                                    class="bg-white profile-posts-options mb-4 py-3 d-flex justify-content-between shadow-sm">
-                                                    <div class="col-md-3 col-sm-12">
-                                                        <h6 class="timeline-title">Posts</h6>
+                                                        <div
+                                                            class="bg-white profile-posts-options mb-4 py-3 d-flex justify-content-between shadow-sm">
+                                                            <div class="col-md-3 col-sm-12">
+                                                                <h6 class="timeline-title">Posts</h6>
+                                                            </div>
+
+                                                        </div>
+                                                        <div th:replace="fragment :: list_post"></div>
                                                     </div>
-
+                                                    <div class="tab-pane fade" id="pills-about" role="tabpanel"
+                                                        aria-labelledby="pills-about-tab">...</div>
+                                                    <div class="tab-pane fade" id="pills-friend" role="tabpanel"
+                                                        aria-labelledby="pills-friend-tab">...</div>
+                                                    <div class="tab-pane fade" id="pills-photo" role="tabpanel"
+                                                        aria-labelledby="pills-photo-tab">...</div>
                                                 </div>
-                                                <div th:replace="fragment :: list_post"></div>
+
+
 
                                             </div>
 
