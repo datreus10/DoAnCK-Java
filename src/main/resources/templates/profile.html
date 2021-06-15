@@ -248,9 +248,64 @@
                                                         <div th:replace="fragment :: list_post"></div>
                                                     </div>
                                                     <div class="tab-pane fade" id="pills-about" role="tabpanel"
-                                                        aria-labelledby="pills-about-tab">...</div>
+                                                        aria-labelledby="pills-about-tab">
+
+                                                        <div class="bg-white py-3 px-4 shadow-sm">
+                                                            <div class="card-head d-flex justify-content-between">
+                                                                <h5 class="mb-4"
+                                                                    th:text="${'About '+ detailUser.user.getFullName()}">
+                                                                </h5>
+                                                                <!-- <a href="#" class="btn btn-link">See All</a> -->
+                                                            </div>
+                                                            <p th:text="${detailUser.about}"></p>
+                                                        </div>
+                                                        
+
+                                                        
+                                                    </div>
                                                     <div class="tab-pane fade" id="pills-friend" role="tabpanel"
-                                                        aria-labelledby="pills-friend-tab">...</div>
+                                                        aria-labelledby="pills-friend-tab">
+                                                        <div class="bg-white py-3 px-4 shadow-sm">
+                                                            <div class="card-head d-flex justify-content-between">
+                                                                <h5 class="mb-4">Friends</h5>
+                                                                <!-- <a href="#" class="btn btn-link">See All</a> -->
+                                                            </div>
+                                                            <div class="row" th:each="f : ${friendList}">
+
+
+                                                                <div class="col-md-4 col-sm-6">
+                                                                    <div class="card group-card shadow-sm">
+                                                                        <img th:src="${f.avatarLink}"
+                                                                            class="card-img-top group-card-image"
+                                                                            alt="Group image">
+                                                                        <div class="card-body">
+                                                                            <h5 class="card-title text-center">
+                                                                                <th:block th:text="${f.getFullName()}">
+                                                                                </th:block>
+                                                                            </h5>
+                                                                            <!-- <p class="card-text">10k Members 20+ post a week</p> -->
+                                                                            <div class="btn-group w-100" role="group">
+                                                                                <a href="#"
+                                                                                    class="btn btn-quick-link join-group-btn border w-100">Message</a>
+                                                                                <!-- <div class="btn-group" role="group">
+                                                                                    <button id="friendsMore" type="button" class="btn btn-quick-link join-group-btn border btn-group-drop" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                        <i class="bx bx-dots-horizontal-rounded"></i>
+                                                                                    </button>
+                                                                                    <div class="dropdown-menu" aria-labelledby="friendsMore">
+                                                                                        <a class="dropdown-item" href="#">Dropdown link</a>
+                                                                                        <a class="dropdown-item" href="#">Dropdown link</a>
+                                                                                    </div>
+                                                                                </div> -->
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
                                                     <div class="tab-pane fade" id="pills-photo" role="tabpanel"
                                                         aria-labelledby="pills-photo-tab">...</div>
                                                 </div>

@@ -59,6 +59,7 @@ public class AppController {
         model.addAttribute("currentUser", currentUser);
         model.addAttribute("guestUser", guestUser);
         model.addAttribute("storageService", storageService);
+        model.addAttribute("friendList", friendService.getListFriendByUser(guestUser));
         if (postId != null) {
             model.addAttribute("listPost", postService.getPostByUserAndPostId(guestUser, postId));
         } else {

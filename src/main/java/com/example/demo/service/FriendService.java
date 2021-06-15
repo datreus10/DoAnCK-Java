@@ -141,4 +141,22 @@ public class FriendService {
         return result;
     }
 
+    public List<User> getListFriendByUser(User user) {
+        List<Friend> l1 = friendRepo.findByFirstUserAndStatus(user, "accept");
+        List<Friend> l2 = friendRepo.findBySecondUserAndStatus(user, "accept");
+        List<User> result = new ArrayList<>();
+
+        for (Friend f : l1) {
+            User u = f.getSecondUser();
+            u.setAvatarLink(storageService.getFileLink(u.getAvatar()));
+            result.add(u);
+        }
+        for (Friend f : l2) {
+            User u = f.getFirstUser();
+            u.setAvatarLink(storageService.getFileLink(u.getAvatar()));
+            result.add(u);
+        }
+        return result;
+    }
+
 }
