@@ -22,9 +22,10 @@
                     <div class="user-profile">
                         <div class="profile-header-background">
                             <a href="#" class="profile-cover">
-                                <img src="/images/users/cover/cover-1.jpg" alt="Profile Header Background">
+                                <img th:src="${guestUser.BgLink}" alt="Profile Header Background">
                                 <div th:if="${isCurrentUser}" class="cover-overlay">
-                                    <a href="#" class="btn btn-update-cover"><i class='bx bxs-camera'></i> Update Cover
+                                    
+                                    <a href="#" class="btn btn-update-cover"><input type="file" id="updateProfileBg" style="opacity: 0;position: absolute;top: 0;left: 0;"><i class='bx bxs-camera'></i> Update Cover
                                         Photo</a>
                                     <!-- <input type="file" name="bg-image" id="bg-image" style="display: none;"> -->
                                 </div>
@@ -77,7 +78,7 @@
                                                             Friend</div>
                                                     </th:block>
 
-
+                                                    <button type="button" class="btn btn-start-chat" data-toggle="modal" data-target="#newMessageModal"><i class="bx bxs-message-rounded"></i> <span class="fs-8">Message</span></button>
 
 
                                                 </div>
@@ -279,10 +280,13 @@
                                                                             class="card-img-top group-card-image"
                                                                             alt="Group image">
                                                                         <div class="card-body">
-                                                                            <h5 class="card-title text-center">
-                                                                                <th:block th:text="${f.getFullName()}">
-                                                                                </th:block>
-                                                                            </h5>
+                                                                            <a th:href="${'/profile?id='+ f.userId}">
+                                                                                <h5 class="card-title text-center"
+                                                                                    th:text="${f.getFullName()}"></h5>
+                                                                                </h5>
+                                                                            </a>
+
+
 
                                                                             <div class="btn-group w-100" role="group">
                                                                                 <a href="#"
@@ -299,7 +303,46 @@
 
                                                     </div>
                                                     <div class="tab-pane fade" id="pills-photo" role="tabpanel"
-                                                        aria-labelledby="pills-photo-tab">...</div>
+                                                        aria-labelledby="pills-photo-tab">
+
+
+
+
+                                                        <div class="bg-white py-3 px-4 shadow-sm">
+                                                            <div class="card-head d-flex justify-content-between">
+                                                                <h5 class="mb-4">Photos
+                                                                </h5>
+                                                                <!-- <a href="#" class="btn btn-link">See All</a> -->
+                                                            </div>
+                                                            <div class="row" th:if="${listPost.size()>0}"
+                                                                th:each="post : ${listPost}">
+                                                                <div class="col-md-4 col-sm-6">
+                                                                    <th:block th:if="${post.postMediaUrl!=''}">
+                                                                        <th:block
+                                                                            th:if="${post.postMediaType=='video'}">
+                                                                            <video
+                                                                                class="video-js vjs-default-skin post-content"
+                                                                                width="640px" height="400px" controls>
+                                                                                <source th:src="${post.postMediaUrl}"
+                                                                                    type="video/mp4">
+                                                                            </video>
+                                                                        </th:block>
+                                                                        <th:block
+                                                                            th:unless="${post.postMediaType=='video'}">
+                                                                            <img th:src="${post.postMediaUrl}"
+                                                                                class="post-content" alt="post image">
+                                                                        </th:block>
+                                                                    </th:block>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+
+
+
+
+                                                    </div>
                                                 </div>
 
 

@@ -240,6 +240,7 @@ public class UserService implements UserDetailsService {
         try {
             User user = userRepo.findById(id).get();
             user.setAvatarLink(storageService.getFileLink(user.getAvatar()));
+            user.setBgLink(storageService.getFileLink(user.getBgImg()));
             return user;
         } catch (Exception e) {
             return null;
@@ -254,6 +255,17 @@ public class UserService implements UserDetailsService {
             storageService.deleteFile(oldAvatar);
         getCurrentUser().setAvatar(newAvatar);
         return newAvatar;
+    }
+
+
+    @Transactional
+    public String updateBackground(MultipartFile file) {
+        String oldBg = getCurrentUser().getBgImg();
+        String newBg = storageService.upload(file);
+        if (!oldBg.equals("default_user_bg.jpg"))
+            storageService.deleteFile(oldBg);
+        getCurrentUser().setBgImg(newBg);
+        return newBg;
     }
 
     @Transactional

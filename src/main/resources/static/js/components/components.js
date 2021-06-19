@@ -29,7 +29,7 @@ $(document).ready(function () {
                 "commentContent": commentContent,
                 "postId": id.split("_")[1]
             }, function (data, status) {
-                alert("Status: " + status);
+                //alert("Status: " + status);
                 if (status == "success") {
                     var comment_html = `<li class="media"><a href="#" class="pull-left"><img src="/api/v1/file/download/${data.ownerImg}" alt="" class="img-circle"></a><div class="media-body"><div class="d-flex justify-content-between align-items-center w-100"><strong class="text-gray-dark"><a href="#" class="fs-8">${data.ownerName}</a></strong><a href="#"><i class="bx bx-dots-horizontal-rounded"></i></a></div>
                     <span class="d-block comment-created-time">${data.createdDate}</span><p class="fs-8 pt-2">${data.commentContent}</p></div></li> `
@@ -161,8 +161,26 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             success: function (data) {
-                // $(".avatar.img-circle").attr("src",data);
-                // $(".menu-user-img.ml-1").attr("src",data);
+                location.reload();
+            },
+            error: function (e) {
+                console.log(e.responseText);
+            }
+        });
+    });
+
+
+    $("#updateProfileBg").on('change', function (event) {
+        var formData = new FormData();
+        var f = $('#updateProfileBg')[0].files[0];
+        formData.append('file', f);
+        $.ajax({
+            url: "/user/update-bg",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (data) {
                 location.reload();
             },
             error: function (e) {
@@ -202,12 +220,9 @@ $(document).ready(function () {
                                 <img src="${e.avatarLink}" height="40" width="40" class="rounded-circle" alt="Search result">
                             </div>
                         </div>
-                        <div class="col-md-10 col-sm-10 col-xs-10">
+                        <div class="col-md-10 col-sm-10 col-xs-10 ml-3">
                             <a href="/profile?id=${e.userId}" class="notification-user">${e.fullName}</a>
-                            <a href="#" class="btn btn-quick-link join-group-btn border text-right float-right" style="font-size: 12px;
-                            font-weight: normal;">
-                                Add Friend
-                            </a>
+                            
                             
                         </div>
                     </li>`)
@@ -225,10 +240,14 @@ $(document).ready(function () {
     });
 
     $("#input-search").focusout(function () {
-        $(this).val('');
-        var result = $('#result-search');
-        result.removeClass();
-        result.empty();
+        
+        window.setTimeout(function() { 
+            $("#input-search").val('');
+            var result = $('#result-search');
+            result.removeClass();
+            result.empty();
+        }, 150);
+
     });
 
 

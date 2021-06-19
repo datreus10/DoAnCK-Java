@@ -8,8 +8,6 @@
     <th:block th:replace="fragment :: head"></th:block>
 
     <style>
-        
-
         /*==================================================
   Nearby People CSS
   ==================================================*/
@@ -70,7 +68,7 @@
                                 <li class="list-group-item">
                                     <h6>Home</h6>
                                 </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center sd-active">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <a href="index.html" class="sidebar-item"><img
                                             src="/images/icons/left-sidebar/newsfeed.png" alt="newsfeed"> News Feed</a>
                                     <span class="badge badge-primary badge-pill"><i
@@ -78,21 +76,21 @@
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <a href="messages.html" class="sidebar-item"><img
-                                            src="/images/icons/left-sidebar/message.png" alt="message"> Messages</a>
+                                            src="/images/icons/left-sidebar/message.png" alt="message"> Tin nhắn</a>
                                     <span class="badge badge-primary badge-pill"><i
                                             class='bx bx-chevron-right'></i></span>
                                 </li>
 
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <a href="find-friends.html" class="sidebar-item"><img
+                                <li class="list-group-item d-flex justify-content-between align-items-center sd-active">
+                                    <a href="/user/friend-check" class="sidebar-item"><img
                                             src="/images/icons/left-sidebar/find-friends.png" alt="find-friends">
-                                        Friends</a>
+                                        Bạn bè</a>
                                     <span class="badge badge-primary badge-pill"><i
                                             class='bx bx-chevron-right'></i></span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <a href="groups.html" class="sidebar-item"><img
-                                            src="/images/icons/left-sidebar/group.png" alt="group"> Groups</a>
+                                            src="/images/icons/left-sidebar/group.png" alt="group"> Nhóm</a>
                                     <span class="badge badge-primary badge-pill"><i
                                             class='bx bx-chevron-right'></i></span>
                                 </li>
@@ -132,38 +130,48 @@
                                     aria-labelledby="pills-home-tab">
                                     <div class="container">
                                         <div class="w-100">
+                                            <th:block th:if="${receive.size()>0}">
+                                                <div th:each="r : ${receive}" class="people-nearby">
 
-                                            <div th:each="r : ${receive}" class="people-nearby">
-
-                                                <div class="nearby-user">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-md-2 col-sm-2">
-                                                            <img th:src="${r.avatarLink}" height="50px" width="50px"
-                                                                alt="user" class="profile-photo-lg ml-2">
-                                                        </div>
-                                                        <div class="col-md-6 col-sm-6">
-                                                            <h6><a th:href="${'/profile?id='+r.userId}"
-                                                                    class="profile-link ml-2"
-                                                                    th:text="${r.getFullName()}"></a>
-                                                            </h6>
-                                                        </div>
-                                                        <div class="col-md-4 col-sm-4 justify-content-around row">
-                                                            <a th:href="${'/user/deny-friend?id='+r.userId}"
-                                                                class="btn btn-quick-link join-group-btn border text-right float-right"
-                                                                style="font-size: 0.9rem;font-weight: normal;">
-                                                                Từ chối
-                                                            </a>
-                                                            <a th:href="${'/user/accept-friend?id='+r.userId}"
-                                                                class="btn btn-quick-link join-group-btn border text-right float-right"
-                                                                style="font-size: 0.9rem;font-weight: normal;background:#007BFF;color: white;">
-                                                                Đồng ý
-                                                            </a>
+                                                    <div class="nearby-user">
+                                                        <div class="row align-items-center">
+                                                            <div class="col-md-2 col-sm-2">
+                                                                <img th:src="${r.avatarLink}" height="50px" width="50px"
+                                                                    alt="user" class="profile-photo-lg ml-2">
+                                                            </div>
+                                                            <div class="col-md-6 col-sm-6">
+                                                                <h6><a th:href="${'/profile?id='+r.userId}"
+                                                                        class="profile-link ml-2"
+                                                                        th:text="${r.getFullName()}"></a>
+                                                                </h6>
+                                                            </div>
+                                                            <div class="col-md-4 col-sm-4 justify-content-around row">
+                                                                <a th:href="${'/user/deny-friend?id='+r.userId}"
+                                                                    class="btn btn-quick-link join-group-btn border text-right float-right"
+                                                                    style="font-size: 0.9rem;font-weight: normal;">
+                                                                    Từ chối
+                                                                </a>
+                                                                <a th:href="${'/user/accept-friend?id='+r.userId}"
+                                                                    class="btn btn-quick-link join-group-btn border text-right float-right"
+                                                                    style="font-size: 0.9rem;font-weight: normal;background:#007BFF;color: white;">
+                                                                    Đồng ý
+                                                                </a>
+                                                            </div>
                                                         </div>
                                                     </div>
+
                                                 </div>
 
-                                            </div>
+                                            </th:block>
 
+                                            <th:block th:unless="${receive.size()>0}">
+                                                <div class="text-center">
+                                                    <img src="https://www.facebook.com/images/comet/empty_states_icons/people/null_states_people_gray_wash.svg"
+                                                        height="112" width="112">
+                                                    <h5>Bạn không nhận được lời mời kết bạn nào</h5>
+                                                </div>
+
+                                            </th:block>
                                         </div>
                                     </div>
                                 </div>
@@ -171,34 +179,43 @@
                                     aria-labelledby="pills-profile-tab">
                                     <div class="container">
                                         <div class="w-100">
+                                            <th:block th:if="${request.size()>0}">
+                                                <div th:each="r : ${request}" class="people-nearby">
 
-                                            <div th:each="r : ${request}" class="people-nearby">
+                                                    <div class="nearby-user">
+                                                        <div class="row align-items-center">
+                                                            <div class="col-md-2 col-sm-2">
+                                                                <img th:src="${r.avatarLink}" height="50px" width="50px"
+                                                                    alt="user" class="profile-photo-lg ml-2">
+                                                            </div>
+                                                            <div class="col-md-6 col-sm-6">
+                                                                <h6><a th:href="${'/profile?id='+r.userId}"
+                                                                        class="profile-link ml-2"
+                                                                        th:text="${r.getFullName()}"></a>
+                                                                </h6>
+                                                            </div>
+                                                            <div class="col-md-4 col-sm-4 justify-content-end row">
 
-                                                <div class="nearby-user">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-md-2 col-sm-2">
-                                                            <img th:src="${r.avatarLink}" height="50px" width="50px"
-                                                                alt="user" class="profile-photo-lg ml-2">
-                                                        </div>
-                                                        <div class="col-md-6 col-sm-6">
-                                                            <h6><a th:href="${'/profile?id='+r.userId}"
-                                                                    class="profile-link ml-2"
-                                                                    th:text="${r.getFullName()}"></a>
-                                                            </h6>
-                                                        </div>
-                                                        <div class="col-md-4 col-sm-4 justify-content-end row">
-
-                                                            <a th:href="${'/user/decline-friend?id='+r.userId}"
-                                                                class="btn btn-quick-link join-group-btn border text-right float-right"
-                                                                style="font-size: 0.9rem;font-weight: normal;background:#007BFF;color: white;">
-                                                                Hủy yêu cầu
-                                                            </a>
+                                                                <a th:href="${'/user/decline-friend?id='+r.userId}"
+                                                                    class="btn btn-quick-link join-group-btn border text-right float-right"
+                                                                    style="font-size: 0.9rem;font-weight: normal;background:#007BFF;color: white;">
+                                                                    Hủy yêu cầu
+                                                                </a>
+                                                            </div>
                                                         </div>
                                                     </div>
+
+                                                </div>
+                                            </th:block>
+
+                                            <th:block th:unless="${request.size()>0}">
+                                                <div class="text-center">
+                                                    <img src="https://www.facebook.com/images/comet/empty_states_icons/people/null_states_people_gray_wash.svg"
+                                                        height="112" width="112">
+                                                    <h5>Danh sách yêu cầu kết bạn trống</h5>
                                                 </div>
 
-                                            </div>
-
+                                            </th:block>
                                         </div>
                                     </div>
                                 </div>
@@ -206,7 +223,7 @@
                                     aria-labelledby="pills-profile-tab">
                                     <div class="container">
                                         <div class="w-100">
-
+                                            <th:block th:if="${listFriend.size()>0}">
                                             <div th:each="r : ${listFriend}" class="people-nearby">
 
                                                 <div class="nearby-user">
@@ -226,7 +243,16 @@
                                                 </div>
 
                                             </div>
+                                        </th:block>
 
+                                        <th:block th:unless="${listFriend.size()>0}">
+                                            <div class="text-center">
+                                                <img src="https://www.facebook.com/images/comet/empty_states_icons/people/null_states_people_gray_wash.svg"
+                                                    height="112" width="112">
+                                                <h5>Danh sách bạn bè trống</h5>
+                                            </div>
+
+                                        </th:block>
                                         </div>
                                     </div>
                                 </div>

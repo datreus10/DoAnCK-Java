@@ -42,6 +42,16 @@ public class UserController {
         }
     }
 
+    @PostMapping("/update-bg")
+    public ResponseEntity<String> updateBackground(@RequestParam(value = "file", required = false) MultipartFile file) {
+        try {
+            String newBg = userService.updateBackground(file);
+            return new ResponseEntity<>(storageService.getFileLink(newBg), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error while update avatar", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PostMapping("/update-account")
     public String updateAccount(@RequestParam Map<String, String> body) {
         userService.updateAccount(body.get("firstName"), body.get("lastName"), body.get("birthDate"));
