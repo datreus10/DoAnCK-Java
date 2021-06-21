@@ -8,9 +8,11 @@
     <th:block th:replace="fragment :: head"></th:block>
 
     <style>
-        /*==================================================
-  Nearby People CSS
-  ==================================================*/
+        .nav-pills .nav-link.active,
+        .nav-pills .show>.nav-link {
+            color: #fff !important;
+            background-color: #1DA1F2 !important;
+        }
 
         .people-nearby .google-maps {
             background: #f8f8f8;
@@ -153,7 +155,7 @@
                                                                 </a>
                                                                 <a th:href="${'/user/accept-friend?id='+r.userId}"
                                                                     class="btn btn-quick-link join-group-btn border text-right float-right"
-                                                                    style="font-size: 0.9rem;font-weight: normal;background:#007BFF;color: white;">
+                                                                    style="font-size: 0.9rem;font-weight: normal;background:#1DA1F2;color: white;">
                                                                     Đồng ý
                                                                 </a>
                                                             </div>
@@ -198,7 +200,7 @@
 
                                                                 <a th:href="${'/user/decline-friend?id='+r.userId}"
                                                                     class="btn btn-quick-link join-group-btn border text-right float-right"
-                                                                    style="font-size: 0.9rem;font-weight: normal;background:#007BFF;color: white;">
+                                                                    style="font-size: 0.9rem;font-weight: normal;background:#1DA1F2;color: white;">
                                                                     Hủy yêu cầu
                                                                 </a>
                                                             </div>
@@ -224,35 +226,41 @@
                                     <div class="container">
                                         <div class="w-100">
                                             <th:block th:if="${listFriend.size()>0}">
-                                            <div th:each="r : ${listFriend}" class="people-nearby">
+                                                <div th:each="r : ${listFriend}" class="people-nearby">
 
-                                                <div class="nearby-user">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-md-2 col-sm-2">
-                                                            <img th:src="${r.avatarLink}" height="50px" width="50px"
-                                                                alt="user" class="profile-photo-lg ml-2">
+                                                    <div class="nearby-user">
+                                                        <div class="row align-items-center">
+                                                            <div class="col-md-2 col-sm-2">
+                                                                <img th:src="${r.avatarLink}" height="50px" width="50px"
+                                                                    alt="user" class="profile-photo-lg ml-2">
+                                                            </div>
+                                                            <div class="col-md-6 col-sm-6">
+                                                                <h6><a th:href="${'/profile?id='+r.userId}"
+                                                                        class="profile-link ml-2"
+                                                                        th:text="${r.getFullName()}"></a>
+                                                                </h6>
+                                                            </div>
+                                                            <div class="col-md-4 col-sm-4 justify-content-end row">
+                                                                <a th:href="${'/user/delete-friend?id='+r.userId}"
+                                                                    class="btn btn-quick-link join-group-btn border text-right float-right"
+                                                                    style="font-size: 0.9rem;font-weight: normal;background:#1DA1F2;color: white;">
+                                                                    Hủy kết bạn
+                                                                </a>
+                                                            </div>
                                                         </div>
-                                                        <div class="col-md-6 col-sm-6">
-                                                            <h6><a th:href="${'/profile?id='+r.userId}"
-                                                                    class="profile-link ml-2"
-                                                                    th:text="${r.getFullName()}"></a>
-                                                            </h6>
-                                                        </div>
-
                                                     </div>
+
+                                                </div>
+                                            </th:block>
+
+                                            <th:block th:unless="${listFriend.size()>0}">
+                                                <div class="text-center">
+                                                    <img src="https://www.facebook.com/images/comet/empty_states_icons/people/null_states_people_gray_wash.svg"
+                                                        height="112" width="112">
+                                                    <h5>Danh sách bạn bè trống</h5>
                                                 </div>
 
-                                            </div>
-                                        </th:block>
-
-                                        <th:block th:unless="${listFriend.size()>0}">
-                                            <div class="text-center">
-                                                <img src="https://www.facebook.com/images/comet/empty_states_icons/people/null_states_people_gray_wash.svg"
-                                                    height="112" width="112">
-                                                <h5>Danh sách bạn bè trống</h5>
-                                            </div>
-
-                                        </th:block>
+                                            </th:block>
                                         </div>
                                     </div>
                                 </div>

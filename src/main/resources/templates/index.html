@@ -87,13 +87,11 @@
                                         height="58px" width="58px">
                                     <div class="media-body pb-3 pt-3 pl-1 mb-0 small lh-125">
                                         <div class="d-flex justify-content-between align-items-center w-100">
-                                            <strong class="text-gray-dark" style="font-size: 0.9rem;"><a
+                                            <strong class="text-gray-dark"
+                                                style="font-size: 0.9rem;margin-left: 0.9rem;"><a
                                                     th:href="${'/profile?id='+user.userId}" class="smFLname"
                                                     th:text="${user.getFullName()}"></a></strong>
-                                            <a th:href="${'/user/add-friend?id='+user.userId}" class="add-friend"
-                                                data-toggle="tooltip" data-placement="top" title=""
-                                                data-original-title="Add Friend"><i class="bx bxs-plus-circle"
-                                                    style="font-size: 2.5em; color: #969696;"></i></a>
+
                                         </div>
                                         <!-- <span class="d-block" style="font-size: 0.74rem;">4 mutual friends</span> -->
                                     </div>
@@ -108,38 +106,40 @@
                                 <img src="/images/users/user-2.jpg" alt="Online user" class="mr-2 online-user-image">
                                 <div class="media-body pb-3 mb-0 small lh-125">
                                     <div class="d-flex justify-content-between align-items-center w-100">
-                                        <strong class="text-gray-dark"><a href="#" class="smFLname">Karen
+                                        <strong class="text-gray-dark"><a href="#" style="font-size:0.8rem;"
+                                                class="smFLname">Karen
                                                 Minas</a></strong>
                                         <span class="online-status bg-success"></span>
                                     </div>
-                                    <span class="d-block online-username">@karen_minas</span>
+                                    <span class="d-block online-username" style="font-size:0.7rem;">@karen_minas</span>
                                 </div>
                             </div>
                             <div class="media text-muted pt-3">
                                 <img src="/images/users/user-3.jpg" alt="Online user" class="mr-2 online-user-image">
                                 <div class="media-body pb-3 mb-0 small lh-125">
                                     <div class="d-flex justify-content-between align-items-center w-100">
-                                        <strong class="text-gray-dark"><a href="#" class="smFLname">Hakob
+                                        <strong class="text-gray-dark"><a href="#" style="font-size:0.8rem;"
+                                                class="smFLname">Hakob
                                                 Minasyan</a></strong>
                                         <span class="online-status bg-success"></span>
                                     </div>
-                                    <span class="d-block online-username">@hakob_minasyan</span>
+                                    <span class="d-block online-username"
+                                        style="font-size:0.7rem;">@hakob_minasyan</span>
                                 </div>
                             </div>
                             <div class="media text-muted pt-3">
                                 <img src="/images/users/user-1.jpg" alt="Online user" class="mr-2 online-user-image">
                                 <div class="media-body pb-3 mb-0 small lh-125">
                                     <div class="d-flex justify-content-between align-items-center w-100">
-                                        <strong class="text-gray-dark"><a href="#" class="smFLname">John
+                                        <strong class="text-gray-dark"><a href="#" class="smFLname"
+                                                style="font-size:0.8rem;">John
                                                 Michael</a></strong>
                                         <span class="online-status bg-success"></span>
                                     </div>
-                                    <span class="d-block online-username">@john_michael</span>
+                                    <span class="d-block online-username" style="font-size:0.7rem;">@john_michael</span>
                                 </div>
                             </div>
-                            <small class="d-block text-right mt-3">
-                                <a href="#">See More</a>
-                            </small>
+
                         </div>
                     </div>
 

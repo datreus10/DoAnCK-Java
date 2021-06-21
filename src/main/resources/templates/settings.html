@@ -24,12 +24,12 @@
                             <div class="message-sidepanel">
                                 <div class="message-contacts settings-sidebar">
                                     <ul class="conversations">
-                                        <h6 class="p-3">General Settings</h6>
+                                        <h6 class="p-3">Thiết lập</h6>
                                         <li class="contact setting-active">
                                             <a href="setting" class="wrap d-flex align-items-center">
                                                 <img src="/images/icons/settings/account.png" class="settings-icon" alt="Settings left sidebar">
                                                 <div class="meta">
-                                                    <p>Your Account</p>
+                                                    <p>Tài khoản của bạn</p>
                                                 </div>
                                             </a>
                                         </li>
@@ -37,20 +37,20 @@
                                             <a href="/setting-about" class="wrap d-flex align-items-center">
                                                 <img src="/images/icons/settings/contact.png" class="settings-icon" alt="Settings left sidebar">
                                                 <div class="meta">
-                                                    <p>Contact Info</p>
+                                                    <p>Thông tin về bạn</p>
                                                 </div>
                                             </a>
                                         </li>
                                         
                                         
-                                        <li class="contact">
+                                        <!-- <li class="contact">
                                             <a href="settings-password.html" class="wrap d-flex align-items-center">
                                                 <img src="/images/icons/settings/account.png" class="settings-icon" alt="Settings left sidebar">
                                                 <div class="meta">
                                                     <p>Password</p>
                                                 </div>
                                             </a>
-                                        </li>
+                                        </li> -->
                                         
                                     </ul>
                                 </div>
@@ -58,37 +58,37 @@
                             
                             <div class="content">
                                 <div class="settings-form p-4">
-                                    <h2>Your Account</h2>
+                                    <h2>Tài khoản</h2>
                                     <form action="/user/update-account" method="POST" class="mt-4 settings-form">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="firstName">First Name</label>
+                                                    <label for="firstName">Họ</label>
                                                     <input type="text" class="form-control" name="firstName" id="firstName" th:placeholder="${user.firstName}">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="lastName">Last Name</label>
+                                                    <label for="lastName">Tên</label>
                                                     <input type="text" class="form-control" name="lastName" id="lastName" th:placeholder="${user.lastName}">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="email">Email Address</label>
+                                                    <label for="email">Địa chỉ Email</label>
                                                     <input type="email" class="form-control" id="email" aria-describedby="emailHelp"  th:value="${user.email}" readonly style="background-color: white;">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="birthDate">Birth Date</label>
+                                                    <label for="birthDate">Ngày sinh</label>
                                                     <input type="date" id="birthDate" class="form-control" name="birthDate" th:value="${user.birthDate}">
                                                 </div>
                                             </div>
 
 
                                             <div class="col-md-12 text-right">
-                                                <button type="submit" class="btn btn-primary btn-sm">Save Changes</button>
+                                                <button type="submit" class="btn btn-primary btn-sm">Lưu các thay đổi</button>
                                             </div>
                                         </div>
                                     </form>

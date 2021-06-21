@@ -22,4 +22,6 @@ public interface UserRepo extends JpaRepository<User, Long> {
     List<User> getRandomUsersExcept(@Param("id") Long userId);
 
     public User findByResetPasswordToken(String token);
+
+    public List<User> findAll();
 }

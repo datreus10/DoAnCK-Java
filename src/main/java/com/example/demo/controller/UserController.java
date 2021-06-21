@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.example.demo.service.AzureBlobService;
 import com.example.demo.service.FriendService;
 import com.example.demo.service.UserService;
@@ -84,8 +86,10 @@ public class UserController {
     }
 
     @GetMapping("/add-friend") // tạo lời mời kết bạn
-    public String addFriend(@RequestParam(name = "id") Long friendId) {
+    public String addFriend(@RequestParam(name = "id") Long friendId,HttpServletRequest request) {
         friendService.addFriend(friendId, userService.getCurrentUser().getUserId());
+        //System.out.println(request.getRequestURI());
+
         return "redirect:/user/friend-check";
     }
 
@@ -104,6 +108,12 @@ public class UserController {
     @GetMapping("/decline-friend") // hủy yêu cầu kết bạn
     public String declineFriend(@RequestParam(name = "id") Long friendId) {
         friendService.denyFriend(friendId, userService.getCurrentUser().getUserId());
+        return "redirect:/user/friend-check";
+    }
+
+    @GetMapping("/delete-friend") // hủy yêu cầu kết bạn
+    public String deleteFriend(@RequestParam(name = "id") Long friendId) {
+        friendService.deleteFriend(friendId);
         return "redirect:/user/friend-check";
     }
 

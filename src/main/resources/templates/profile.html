@@ -24,8 +24,10 @@
                             <a href="#" class="profile-cover">
                                 <img th:src="${guestUser.BgLink}" alt="Profile Header Background">
                                 <div th:if="${isCurrentUser}" class="cover-overlay">
-                                    
-                                    <a href="#" class="btn btn-update-cover"><input type="file" id="updateProfileBg" style="opacity: 0;position: absolute;top: 0;left: 0;"><i class='bx bxs-camera'></i> Update Cover
+
+                                    <a href="#" class="btn btn-update-cover"><input type="file" id="updateProfileBg"
+                                            style="opacity: 0;position: absolute;top: 0;left: 0;"><i
+                                            class='bx bxs-camera'></i> Update Cover
                                         Photo</a>
                                     <!-- <input type="file" name="bg-image" id="bg-image" style="display: none;"> -->
                                 </div>
@@ -56,12 +58,19 @@
                                         </div>
                                         <div style="background-color:white;">
                                             <div class="intro pt-4">
-                                                <div th:unless="${isCurrentUser}" class="d-flex">
+                                                <div th:unless="${isCurrentUser}">
 
                                                     <th:block th:switch="${friendShip}">
+                                                        <!-- <form th:case="null" action="/user/add-friend"
+                                                            method="get">
+                                                            <input type="hidden" name="id" th:value="${guestUser.userId}" />
+                                                            <button type="submit" class="mr-3 btn-follow btn"><i class='bx bx-plus'></i>
+                                                                Add Friend</button>
+                                                        </form> -->
                                                         <a th:case="null"
                                                             th:href="${'/user/add-friend?id='+guestUser.userId}"
-                                                            class="btn btn-follow mr-3"><i class='bx bx-plus'></i>
+                                                            class="btn btn-follow mr-3"
+                                                            style="border:1px solid #007bff;"><i class='bx bx-plus'></i>
                                                             Add Friend</a>
                                                         <a th:case="'nhan'"
                                                             th:href="${'/user/accept-friend?id='+guestUser.userId}"
@@ -78,7 +87,10 @@
                                                             Friend</div>
                                                     </th:block>
 
-                                                    <button type="button" class="btn btn-start-chat" data-toggle="modal" data-target="#newMessageModal"><i class="bx bxs-message-rounded"></i> <span class="fs-8">Message</span></button>
+                                                    <button type="button" class="btn btn-start-chat" data-toggle="modal"
+                                                        data-target="#newMessageModal"><i
+                                                            class="bx bxs-message-rounded"></i> <span
+                                                            class="fs-8">Message</span></button>
 
 
                                                 </div>
@@ -125,7 +137,7 @@
                                                         class="intro-item d-flex justify-content-between align-items-center">
                                                         <a href="/setting"
                                                             class="btn btn-quick-link join-group-btn border w-100"
-                                                            style="background-color: #1DA1F2;color:white">Edit
+                                                            style="background-color: #007bff;color:white">Edit
                                                             Details</a>
                                                     </div>
                                                 </div>

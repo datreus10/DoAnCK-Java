@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -257,7 +258,6 @@ public class UserService implements UserDetailsService {
         return newAvatar;
     }
 
-
     @Transactional
     public String updateBackground(MultipartFile file) {
         String oldBg = getCurrentUser().getBgImg();
@@ -332,6 +332,16 @@ public class UserService implements UserDetailsService {
             temp.put("avatarLink", storageService.getFileLink(user.getAvatar()));
             result.add(temp);
         }
+        return result;
+    }
+
+    public List<User> getRecommendUsers() {
+        List<User> users = userRepo.findAll();
+        users.remove(getCurrentUser());
+        Collections.shuffle(users);
+        List<User> result = users.subList(0, users.size() < 3 ? users.size() : 3);
+        for (int i = 0; i < result.size(); i++)
+            result.get(i).setAvatarLink(storageService.getFileLink(result.get(i).getAvatar()));
         return result;
     }
 

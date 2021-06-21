@@ -121,8 +121,6 @@ public class FriendService {
         }
     }
 
-    
-
     public List<User> getListFriend() {
         List<Friend> l1 = friendRepo.findByFirstUserAndStatus(userService.getCurrentUser(), "accept");
         List<Friend> l2 = friendRepo.findBySecondUserAndStatus(userService.getCurrentUser(), "accept");
@@ -159,4 +157,17 @@ public class FriendService {
         return result;
     }
 
+    public void deleteFriend(Long userId) {
+        Optional<User> user = userRepo.findById(userId);
+        if (user.isPresent()) {
+            Friend f1 = friendRepo.findByFirstUserAndSecondUserAndStatus(userService.getCurrentUser(), user.get(),
+                    "accept");
+            Friend f2 = friendRepo.findByFirstUserAndSecondUserAndStatus(user.get(), userService.getCurrentUser(),
+                    "accept");
+            if (f1 != null)
+                friendRepo.delete(f1);
+            if (f2 != null)
+                friendRepo.delete(f2);
+        }
+    }
 }

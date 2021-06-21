@@ -24,13 +24,13 @@
                             <div class="message-sidepanel">
                                 <div class="message-contacts settings-sidebar">
                                     <ul class="conversations">
-                                        <h6 class="p-3">General Settings</h6>
+                                        <h6 class="p-3">Thiết lập</h6>
                                         <li class="contact">
                                             <a href="setting" class="wrap d-flex align-items-center">
                                                 <img src="/images/icons/settings/account.png" class="settings-icon"
                                                     alt="Settings left sidebar">
                                                 <div class="meta">
-                                                    <p>Your Account</p>
+                                                    <p>Tài khoản của bạn</p>
                                                 </div>
                                             </a>
                                         </li>
@@ -39,12 +39,12 @@
                                                 <img src="/images/icons/settings/contact.png" class="settings-icon"
                                                     alt="Settings left sidebar">
                                                 <div class="meta">
-                                                    <p>Contact Info</p>
+                                                    <p>Thông tin về bạn</p>
                                                 </div>
                                             </a>
                                         </li>
 
-                                        <li class="contact">
+                                        <!-- <li class="contact">
                                             <a href="settings-password.html" class="wrap d-flex align-items-center">
                                                 <img src="/images/icons/settings/account.png" class="settings-icon"
                                                     alt="Settings left sidebar">
@@ -52,7 +52,7 @@
                                                     <p>Password</p>
                                                 </div>
                                             </a>
-                                        </li>
+                                        </li> -->
 
                                     </ul>
                                 </div>
@@ -60,45 +60,45 @@
 
                             <div class="content">
                                 <div class="settings-form p-4">
-                                    <h2>About You</h2>
+                                    <h2>Thông tin về bạn</h2>
                                     <form action="/user/update-account-detail" method="POST" class="mt-4 settings-form">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="job">Job</label>
+                                                    <label for="job">Công việc</label>
                                                     <input type="text" class="form-control" id="job"
-                                                        placeholder="Your current job" th:value="${userDetail.job}"
+                                                        placeholder="Công việc hiện tại của bạn" th:value="${userDetail.job}"
                                                         name="job">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="jobLocation">Job Location</label>
+                                                    <label for="jobLocation">Nơi làm việc</label>
                                                     <input type="text" class="form-control" id="jobLocation"
-                                                        placeholder="Place you work" name="jobLocation"
+                                                        placeholder="Nơi làm việc của bạn" name="jobLocation"
                                                         th:value="${userDetail.jobLocation}">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="location">Current town/city</label>
+                                                    <label for="location">Nơi bạn đang sống</label>
                                                     <input type="text" class="form-control" id="location"
-                                                        placeholder="Place you live" name="location"
+                                                        placeholder="Nơi bạn đang sinh sống" name="location"
                                                         th:value="${userDetail.location}">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="phone">Phone Number</label>
+                                                    <label for="phone">Số điện thoại</label>
                                                     <input type="number" id="phone" class="form-control"
-                                                        placeholder="Your phone number" name="phone"
+                                                        placeholder="Số điện thoại của bạn" name="phone"
                                                         th:value="${userDetail.phone}">
                                                 </div>
                                             </div>
 
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="intro">Introduce yourself</label>
+                                                    <label for="intro">Giới thiệu về bản thân</label>
                                                     <textarea name="intro" class="form-control" id="intro" cols="30"
                                                         rows="10" maxlength="150" placeholder="(Max characters: 150)"
                                                         th:text="${userDetail.about}"></textarea>
@@ -106,21 +106,21 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="facebook">Facebook link</label>
+                                                    <label for="facebook">Địa chỉ Facebook</label>
                                                     <input type="text" id="facebook" class="form-control"
-                                                        name="facebook" placeholder="your account link on facebook"
+                                                        name="facebook" placeholder="Link facebook của bạn"
                                                         th:value="${userDetail.facebook}">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="twitter">Twitter link</label>
+                                                    <label for="twitter">Địa chỉ Twitter</label>
                                                     <input type="text" id="twitter" class="form-control" name="twitter"
-                                                        placeholder="your account link on twitter"
+                                                        placeholder="Link twitter của bạn"
                                                         th:value="${userDetail.twitter}">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="instagram">Instagram link</label>
+                                                    <label for="instagram">Địa chỉ Instagram</label>
                                                     <input type="text" id="instagram" class="form-control"
-                                                        name="instagram" placeholder="your account link on instagram"
+                                                        name="instagram" placeholder="Link instagram của bạn"
                                                         th:value="${userDetail.instagram}">
                                                 </div>
                                             </div>
@@ -130,8 +130,7 @@
                                             <input type="hidden" th:name="${_csrf.parameterName}"
                                                 th:value="${_csrf.token}" />
                                             <div class="col-md-12 text-right">
-                                                <button type="submit" class="btn btn-primary btn-sm">Save
-                                                    Changes</button>
+                                                <button type="submit" class="btn btn-primary btn-sm">Lưu các thay đổi</button>
                                             </div>
                                         </div>
                                     </form>

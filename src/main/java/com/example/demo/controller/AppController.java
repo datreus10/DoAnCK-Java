@@ -34,7 +34,7 @@ public class AppController {
     @GetMapping()
     public String getMainPage(Model model) {
         model.addAttribute("user", userService.getCurrentUser());
-        // model.addAttribute("recommedUsers",userService.getRecommendUsers());
+        model.addAttribute("recommedUsers",userService.getRecommendUsers());
         model.addAttribute("listPost", postService.getAllPost());
         return "index";
     }
