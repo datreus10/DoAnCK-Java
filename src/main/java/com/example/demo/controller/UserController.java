@@ -82,6 +82,7 @@ public class UserController {
         model.addAttribute("receive", friendService.getFriendReceive());
         model.addAttribute("request", friendService.getFriendRequest());
         model.addAttribute("listFriend", friendService.getListFriend());
+        model.addAttribute("recommedUsers",userService.getRecommendUsers());
         return "friend-check";
     }
 

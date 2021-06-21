@@ -20,48 +20,7 @@
 
                 <nav th:replace="fragment :: navbar(${user},${'home'})"></nav>
                 <div class="row newsfeed-right-side-content mt-3 justify-content-between">
-                    <div class="col-md-3 newsfeed-left-side sticky-top shadow-sm" id="sidebar-wrapper"
-                        style="border-radius: 10px;">
-                        <div class="card newsfeed-user-card h-100" style="border-radius: 10px;">
-                            <ul class="list-group list-group-flush newsfeed-left-sidebar">
-                                <li class="list-group-item">
-                                    <h6>Home</h6>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center sd-active">
-                                    <a href="index.html" class="sidebar-item"><img
-                                            src="/images/icons/left-sidebar/newsfeed.png" alt="newsfeed"> News Feed</a>
-                                    <span class="badge badge-primary badge-pill"><i
-                                            class='bx bx-chevron-right'></i></span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <a href="messages.html" class="sidebar-item"><img
-                                            src="/images/icons/left-sidebar/message.png" alt="message"> Tin nhắn</a>
-                                    <span class="badge badge-primary badge-pill"><i
-                                            class='bx bx-chevron-right'></i></span>
-                                </li>
-
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <a href="/user/friend-check" class="sidebar-item"><img
-                                            src="/images/icons/left-sidebar/find-friends.png" alt="find-friends">
-                                        Bạn bè</a>
-                                    <span class="badge badge-primary badge-pill"><i
-                                            class='bx bx-chevron-right'></i></span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <a href="groups.html" class="sidebar-item"><img
-                                            src="/images/icons/left-sidebar/group.png" alt="group"> Nhóm</a>
-                                    <span class="badge badge-primary badge-pill"><i
-                                            class='bx bx-chevron-right'></i></span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center newsLink">
-                                    <a href="/logout" class="sidebar-item"><img
-                                            src="/images/icons/left-sidebar/news.png" alt="find-friends"> Đăng xuất</a>
-                                    <span class="badge badge-primary badge-pill"><i
-                                            class='bx bx-chevron-right'></i></span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    <div th:replace="fragment ::left_panel(feed)"></div>
                     <div class="col-md-5 second-section" id="page-content-wrapper">
                         <div style="margin-top: 0.9rem;">
                             <form th:replace="fragment :: create_post(${user})"></form>
@@ -78,70 +37,7 @@
                             </div> -->
                         </div>
                     </div>
-                    <div class="col-md-3 sticky-top third-section" id="sidebar-wrapper">
-                        <div class="p-3 bg-white" style="border-radius: 8px;">
-                            <h6 class="card-title border-bottom border-gray pb-2 mb-0">Những người bạn có thể biết</h6>
-                            <th:block th:each="user : ${recommedUsers}">
-                                <div class="media text-muted pt-3">
-                                    <img th:src="${user.avatarLink}" alt="Online user" class="mr-2 online-user-image"
-                                        height="58px" width="58px">
-                                    <div class="media-body pb-3 pt-3 pl-1 mb-0 small lh-125">
-                                        <div class="d-flex justify-content-between align-items-center w-100">
-                                            <strong class="text-gray-dark"
-                                                style="font-size: 0.9rem;margin-left: 0.9rem;"><a
-                                                    th:href="${'/profile?id='+user.userId}" class="smFLname"
-                                                    th:text="${user.getFullName()}"></a></strong>
-
-                                        </div>
-                                        <!-- <span class="d-block" style="font-size: 0.74rem;">4 mutual friends</span> -->
-                                    </div>
-                                </div>
-                            </th:block>
-
-                        </div>
-
-                        <div class="mt-4 p-3 bg-white" style="border-radius: 8px;">
-                            <h6 class="card-title border-bottom border-gray pb-2 mb-0">Online Users</h6>
-                            <div class="media text-muted pt-3">
-                                <img src="/images/users/user-2.jpg" alt="Online user" class="mr-2 online-user-image">
-                                <div class="media-body pb-3 mb-0 small lh-125">
-                                    <div class="d-flex justify-content-between align-items-center w-100">
-                                        <strong class="text-gray-dark"><a href="#" style="font-size:0.8rem;"
-                                                class="smFLname">Karen
-                                                Minas</a></strong>
-                                        <span class="online-status bg-success"></span>
-                                    </div>
-                                    <span class="d-block online-username" style="font-size:0.7rem;">@karen_minas</span>
-                                </div>
-                            </div>
-                            <div class="media text-muted pt-3">
-                                <img src="/images/users/user-3.jpg" alt="Online user" class="mr-2 online-user-image">
-                                <div class="media-body pb-3 mb-0 small lh-125">
-                                    <div class="d-flex justify-content-between align-items-center w-100">
-                                        <strong class="text-gray-dark"><a href="#" style="font-size:0.8rem;"
-                                                class="smFLname">Hakob
-                                                Minasyan</a></strong>
-                                        <span class="online-status bg-success"></span>
-                                    </div>
-                                    <span class="d-block online-username"
-                                        style="font-size:0.7rem;">@hakob_minasyan</span>
-                                </div>
-                            </div>
-                            <div class="media text-muted pt-3">
-                                <img src="/images/users/user-1.jpg" alt="Online user" class="mr-2 online-user-image">
-                                <div class="media-body pb-3 mb-0 small lh-125">
-                                    <div class="d-flex justify-content-between align-items-center w-100">
-                                        <strong class="text-gray-dark"><a href="#" class="smFLname"
-                                                style="font-size:0.8rem;">John
-                                                Michael</a></strong>
-                                        <span class="online-status bg-success"></span>
-                                    </div>
-                                    <span class="d-block online-username" style="font-size:0.7rem;">@john_michael</span>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
+                    <div th:replace="fragment ::right_panel(${recommedUsers})"></div>
 
                 </div>
             </div>
