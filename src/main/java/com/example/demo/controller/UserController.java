@@ -15,10 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
@@ -55,7 +53,7 @@ public class UserController {
     }
 
     @PostMapping("/update-account")
-    public String updateAccount(@RequestParam Map<String, String> body) {
+    public String updateAccoun(@RequestParam Map<String, String> body) {
         userService.updateAccount(body.get("firstName"), body.get("lastName"), body.get("birthDate"));
         return "redirect:/setting";
     }

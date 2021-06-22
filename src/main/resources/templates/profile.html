@@ -27,8 +27,7 @@
 
                                     <a href="#" class="btn btn-update-cover"><input type="file" id="updateProfileBg"
                                             style="opacity: 0;position: absolute;top: 0;left: 0;"><i
-                                            class='bx bxs-camera'></i> Update Cover
-                                        Photo</a>
+                                            class='bx bxs-camera'></i> Cập nhật ảnh bìa</a>
                                     <!-- <input type="file" name="bg-image" id="bg-image" style="display: none;"> -->
                                 </div>
                             </a>
@@ -45,7 +44,7 @@
                                                     alt="Avatar" class="avatar img-circle">
                                                 <div th:if="${isCurrentUser}" class="profile-img-caption">
                                                     <label for="updateProfilePic" class="upload">
-                                                        <i class='bx bxs-camera'></i> Update
+                                                        <i class='bx bxs-camera'></i> Cập nhật
                                                         <input type="file" id="updateProfilePicInput"
                                                             class="text-center upload">
                                                     </label>
@@ -97,20 +96,20 @@
                                                 <div class="intro mt-1 mv-hidden">
                                                     <div
                                                         class="intro-item d-flex justify-content-between align-items-center">
-                                                        <h3 class="intro-about">Intro</h3>
+                                                        <h3 class="intro-about">Giới thiệu</h3>
                                                     </div>
                                                     <div
                                                         class="intro-item d-flex justify-content-between align-items-center">
                                                         <p class="intro-title text-muted"><i
                                                                 class='bx bx-briefcase text-primary'></i>
                                                             <th:block th:unless="${detailUser.job}">
-                                                                Job
+                                                                Công việc
                                                             </th:block>
                                                             <th:block th:if="${detailUser.job}"
                                                                 th:text="${detailUser.job}">
                                                             </th:block>
                                                             <th:block th:if="${detailUser.jobLocation}"
-                                                                th:text="${' at ' + detailUser.jobLocation}"></th:block>
+                                                                th:text="${' tại ' + detailUser.jobLocation}"></th:block>
                                                         </p>
                                                     </div>
                                                     <div
@@ -118,18 +117,17 @@
                                                         <p class="intro-title text-muted"><i
                                                                 class='bx bx-map text-primary'></i>
                                                             <th:block th:if="${detailUser.location}"
-                                                                th:text="${'Lives in ' detailUser.location}">
+                                                                th:text="${'Sống tại ' detailUser.location}">
 
                                                             </th:block>
-                                                            <th:block th:unless="${detailUser.location}">Lives in City,
-                                                                Country</th:block>
+                                                            <th:block th:unless="${detailUser.location}">Sống tại thành phố, tỉnh</th:block>
                                                         </p>
                                                     </div>
                                                     <div
                                                         class="intro-item d-flex justify-content-between align-items-center">
                                                         <p class="intro-title text-muted"><i
                                                                 class='bx bx-time text-primary'></i>
-                                                            Last Login <a href="#">Online <span
+                                                            Đăng nhâp lần cuối <a href="#">Online <span
                                                                     class="ml-1 online-status bg-success"></span></a>
                                                         </p>
                                                     </div>
@@ -137,8 +135,7 @@
                                                         class="intro-item d-flex justify-content-between align-items-center">
                                                         <a href="/setting"
                                                             class="btn btn-quick-link join-group-btn border w-100"
-                                                            style="background-color: #007bff;color:white">Edit
-                                                            Details</a>
+                                                            style="background-color: #007bff;color:white">Chỉnh sửa thông tin</a>
                                                     </div>
                                                 </div>
                                                 <div class="intro mt-5 row justify-content-start mv-hidden">
@@ -155,7 +152,7 @@
                                                 <div class="intro mt-5 pb-4 mv-hidden">
                                                     <div
                                                         class="intro-item d-flex justify-content-between align-items-center">
-                                                        <h3 class="intro-about">Other Social Accounts</h3>
+                                                        <h3 class="intro-about">Tài khoản mạng xã hội khác</h3>
                                                     </div>
                                                     <div
                                                         class="intro-item d-flex justify-content-between align-items-center">
@@ -224,22 +221,22 @@
                                                     <li class="nav-item w-25 text-center" role="presentation">
                                                         <a class="nav-link active" id="pills-timeline-tab"
                                                             data-toggle="pill" href="#pills-timeline" role="tab"
-                                                            aria-controls="pills-home" aria-selected="true">Timeline</a>
+                                                            aria-controls="pills-home" aria-selected="true">Dòng thời gian</a>
                                                     </li>
                                                     <li class="nav-item w-25 text-center" role="presentation">
                                                         <a class="nav-link" id="pills-about-tab" data-toggle="pill"
                                                             href="#pills-about" role="tab" aria-controls="pills-about"
-                                                            aria-selected="false">About</a>
+                                                            aria-selected="false">Giới thiệu</a>
                                                     </li>
                                                     <li class="nav-item w-25 text-center" role="presentation">
                                                         <a class="nav-link" id="pills-friend-tab" data-toggle="pill"
                                                             href="#pills-friend" role="tab" aria-controls="pills-friend"
-                                                            aria-selected="false">Friends</a>
+                                                            aria-selected="false">Bạn bè</a>
                                                     </li>
                                                     <li class="nav-item w-25 text-center" role="presentation">
                                                         <a class="nav-link" id="pills-photo-tab" data-toggle="pill"
                                                             href="#pills-photo" role="tab" aria-controls="pills-photo"
-                                                            aria-selected="false">Photos</a>
+                                                            aria-selected="false">Ảnh</a>
                                                     </li>
                                                 </ul>
 
@@ -254,7 +251,7 @@
                                                         <div
                                                             class="bg-white profile-posts-options mb-4 py-3 d-flex justify-content-between shadow-sm">
                                                             <div class="col-md-3 col-sm-12">
-                                                                <h6 class="timeline-title">Posts</h6>
+                                                                <h6 class="timeline-title">Bài viết</h6>
                                                             </div>
 
                                                         </div>
@@ -266,7 +263,7 @@
                                                         <div class="bg-white py-3 px-4 shadow-sm">
                                                             <div class="card-head d-flex justify-content-between">
                                                                 <h5 class="mb-4"
-                                                                    th:text="${'About '+ detailUser.user.getFullName()}">
+                                                                    th:text="${'Giới thiệu về '+ detailUser.user.getFullName()}">
                                                                 </h5>
                                                                 <!-- <a href="#" class="btn btn-link">See All</a> -->
                                                             </div>
@@ -280,7 +277,7 @@
                                                         aria-labelledby="pills-friend-tab">
                                                         <div class="bg-white py-3 px-4 shadow-sm">
                                                             <div class="card-head d-flex justify-content-between">
-                                                                <h5 class="mb-4">Friends</h5>
+                                                                <h5 class="mb-4">Bạn bè</h5>
                                                                 <!-- <a href="#" class="btn btn-link">See All</a> -->
                                                             </div>
                                                             <div class="row" th:each="f : ${friendList}">
@@ -322,7 +319,7 @@
 
                                                         <div class="bg-white py-3 px-4 shadow-sm">
                                                             <div class="card-head d-flex justify-content-between">
-                                                                <h5 class="mb-4">Photos
+                                                                <h5 class="mb-4">Ảnh
                                                                 </h5>
                                                                 <!-- <a href="#" class="btn btn-link">See All</a> -->
                                                             </div>

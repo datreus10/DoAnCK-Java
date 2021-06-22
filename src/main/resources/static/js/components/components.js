@@ -4,10 +4,10 @@ $(document).ready(function () {
     $(function () {
         var token = $("meta[name='_csrf']").attr("content");
         var header = $("meta[name='_csrf_header']").attr("content");
-        $(document).ajaxSend(function(e, xhr, options) {
-          xhr.setRequestHeader(header, token);
+        $(document).ajaxSend(function (e, xhr, options) {
+            xhr.setRequestHeader(header, token);
         });
-      });
+    });
 
     // show comment section
     $('.show-comments').click(function () {
@@ -211,8 +211,8 @@ $(document).ready(function () {
                 type: "GET",
                 success: function (data) {
                     result.empty();
-                    result.append(`<div class="notify-drop-title"><div class="row"><div class="col-md-6 col-sm-6 col-xs-6 fs-8">Search Results <span class="badge badge-pill badge-primary ml-2">${data.length}</span></div></div>
-                </div><div class="drop-content"><h6 class="dropdown-header">Peoples</h6>`);
+                    result.append(`<div class="notify-drop-title"><div class="row"><div class="col-md-6 col-sm-6 col-xs-6 fs-8">Kết quả tìm kiếm <span class="badge badge-pill badge-primary ml-2">${data.length}</span></div></div>
+                </div><div class="drop-content">`+(data.length > 0 ? `<h6 class="dropdown-header">Mọi người</h6>` : ''));
                     data.forEach(function (e) {
                         result.append(`<li class="dropdown-item">
                         <div class="col-md-2 col-sm-2 col-xs-2">
@@ -240,8 +240,8 @@ $(document).ready(function () {
     });
 
     $("#input-search").focusout(function () {
-        
-        window.setTimeout(function() { 
+
+        window.setTimeout(function () {
             $("#input-search").val('');
             var result = $('#result-search');
             result.removeClass();

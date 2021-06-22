@@ -194,7 +194,11 @@ public class UserService implements UserDetailsService {
         }
         newUser.setEnable(true);
         newUser.setAuthProvider(provider);
+        UserDetail u = new UserDetail();
+        newUser.setUserDetail(u);
+        u.setUser(newUser);
         userRepo.save(newUser);
+        
     }
 
     public void updateUserAfterOauthLogin(User user, String fullName, String oauthName) {

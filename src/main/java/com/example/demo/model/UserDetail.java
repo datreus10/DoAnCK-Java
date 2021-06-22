@@ -2,9 +2,11 @@ package com.example.demo.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -13,12 +15,11 @@ import javax.persistence.Table;
 public class UserDetail {
 
     @Id
-    @Column(name = "userId")
-    private Long userId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "userId")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @Column
@@ -45,12 +46,14 @@ public class UserDetail {
     @Column
     private String twitter;
 
-    public Long getUserId() {
-        return userId;
+    
+
+    public Long getId() {
+        return id;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getJob() {

@@ -8,14 +8,14 @@
     <th:block th:replace="fragment :: head"></th:block>
     <link href="/css/settings.css" rel="stylesheet">
     <link href="/css/forms.css" rel="stylesheet">
-    
+
 </head>
 
 <body class="messenger">
     <div class="container-fluid newsfeed d-flex" id="wrapper">
         <div class="row newsfeed-size f-width">
             <div class="col-md-12 message-right-side">
-                
+
                 <nav th:replace="fragment :: navbar(${user},${''})"></nav>
 
                 <div class="row message-right-side-content">
@@ -27,7 +27,8 @@
                                         <h6 class="p-3">Thiết lập</h6>
                                         <li class="contact setting-active">
                                             <a href="setting" class="wrap d-flex align-items-center">
-                                                <img src="/images/icons/settings/account.png" class="settings-icon" alt="Settings left sidebar">
+                                                <img src="/images/icons/settings/account.png" class="settings-icon"
+                                                    alt="Settings left sidebar">
                                                 <div class="meta">
                                                     <p>Tài khoản của bạn</p>
                                                 </div>
@@ -35,60 +36,69 @@
                                         </li>
                                         <li class="contact">
                                             <a href="/setting-about" class="wrap d-flex align-items-center">
-                                                <img src="/images/icons/settings/contact.png" class="settings-icon" alt="Settings left sidebar">
+                                                <img src="/images/icons/settings/contact.png" class="settings-icon"
+                                                    alt="Settings left sidebar">
                                                 <div class="meta">
                                                     <p>Thông tin về bạn</p>
                                                 </div>
                                             </a>
                                         </li>
-                                        
-                                        
+
                                         <!-- <li class="contact">
                                             <a href="settings-password.html" class="wrap d-flex align-items-center">
-                                                <img src="/images/icons/settings/account.png" class="settings-icon" alt="Settings left sidebar">
+                                                <img src="/images/icons/settings/account.png" class="settings-icon"
+                                                    alt="Settings left sidebar">
                                                 <div class="meta">
                                                     <p>Password</p>
                                                 </div>
                                             </a>
                                         </li> -->
-                                        
+
                                     </ul>
                                 </div>
                             </div>
-                            
+
                             <div class="content">
                                 <div class="settings-form p-4">
-                                    <h2>Tài khoản</h2>
+                                    <h2>Thông tin về bạn</h2>
                                     <form action="/user/update-account" method="POST" class="mt-4 settings-form">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="firstName">Họ</label>
-                                                    <input type="text" class="form-control" name="firstName" id="firstName" th:placeholder="${user.firstName}">
+                                                    <input type="text" class="form-control" name="firstName"
+                                                        id="firstName" th:placeholder="${user.firstName}">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="lastName">Tên</label>
-                                                    <input type="text" class="form-control" name="lastName" id="lastName" th:placeholder="${user.lastName}">
+                                                    <input type="text" class="form-control" name="lastName"
+                                                        id="lastName" th:placeholder="${user.lastName}">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="email">Địa chỉ Email</label>
-                                                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp"  th:value="${user.email}" readonly style="background-color: white;">
+                                                    <input type="email" class="form-control" id="email"
+                                                        aria-describedby="emailHelp" th:value="${user.email}" readonly
+                                                        style="background-color: white;">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="birthDate">Ngày sinh</label>
-                                                    <input type="date" id="birthDate" class="form-control" name="birthDate" th:value="${user.birthDate}">
+                                                    <input type="date" id="birthDate" class="form-control"
+                                                        name="birthDate" th:value="${user.birthDate}">
                                                 </div>
                                             </div>
 
 
                                             <div class="col-md-12 text-right">
-                                                <button type="submit" class="btn btn-primary btn-sm">Lưu các thay đổi</button>
+                                                <input type="hidden" th:name="${_csrf.parameterName}"
+                                                    th:value="${_csrf.token}" />
+                                                <button type="submit" class="btn btn-primary btn-sm">Lưu các thay
+                                                    đổi</button>
                                             </div>
                                         </div>
                                     </form>
@@ -108,10 +118,12 @@
     <script src="/js/bootstrap/bootstrap.min.js"></script>
     <!-- Optional -->
     <script type="text/javascript">
-        $("#menu-toggle").click(function(e) {
+        $("#menu-toggle").click(function (e) {
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
         });
     </script>
     <script src="/js/components/components.js"></script>
-</body></html>
+</body>
+
+</html>

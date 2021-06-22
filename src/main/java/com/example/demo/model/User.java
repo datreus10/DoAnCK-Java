@@ -66,8 +66,7 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "secondUser")
     private List<Friend> friendReceive;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
     private UserDetail userDetail;
 
     @Transient
