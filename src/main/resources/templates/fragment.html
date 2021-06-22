@@ -538,16 +538,17 @@
     </nav>
 
     <!-- Left panel -->
-    <div th:fragment="left_panel(selected)" class="col-md-3 newsfeed-left-side sticky-top shadow-sm" id="sidebar-wrapper"
-        style="border-radius: 10px;">
+    <div th:fragment="left_panel(selected)" class="col-md-3 newsfeed-left-side sticky-top shadow-sm"
+        id="sidebar-wrapper" style="border-radius: 10px;">
         <div class="card newsfeed-user-card h-100" style="border-radius: 10px;">
             <ul class="list-group list-group-flush newsfeed-left-sidebar">
                 <li class="list-group-item">
                     <h6>Home</h6>
                 </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center" th:classappend="${'feed' == selected ? 'sd-active' : ''}">
-                    <a href="/" class="sidebar-item"><img src="/images/icons/left-sidebar/newsfeed.png"
-                            alt="newsfeed"> News Feed</a>
+                <li class="list-group-item d-flex justify-content-between align-items-center"
+                    th:classappend="${'feed' == selected ? 'sd-active' : ''}">
+                    <a href="/" class="sidebar-item"><img src="/images/icons/left-sidebar/newsfeed.png" alt="newsfeed">
+                        News Feed</a>
                     <span class="badge badge-primary badge-pill"><i class='bx bx-chevron-right'></i></span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -556,7 +557,8 @@
                     <span class="badge badge-primary badge-pill"><i class='bx bx-chevron-right'></i></span>
                 </li>
 
-                <li class="list-group-item d-flex justify-content-between align-items-center" th:classappend="${'friend' == selected ? 'sd-active' : ''}">
+                <li class="list-group-item d-flex justify-content-between align-items-center"
+                    th:classappend="${'friend' == selected ? 'sd-active' : ''}">
                     <a href="/user/friend-check" class="sidebar-item"><img
                             src="/images/icons/left-sidebar/find-friends.png" alt="find-friends">
                         Bạn bè</a>
@@ -789,6 +791,17 @@
                         <i class="bx bx-share-alt mr-2"></i> Chia sẻ
                     </a>
                     <div class="dropdown-menu post-dropdown-menu">
+                        <a class="dropdown-item btn-share" th:href="${'https://www.facebook.com/sharer/sharer.php?app_id=762170751140556&sdk=joey&u=http://localhost:8080/profile?id='+ post.userId+'&postId='+post.postId +'&display=popup&ref=plugin&src=share_button'}" onclick="return !window.open(this.href, 'Facebook', 'width=640,height=580')">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <i class="bx bx-share-alt"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <span>Chia sẻ lên Facebook</span>
+                                </div>
+                            </div>
+                        </a>
+                        
                         <a th:href="${'http://localhost:8080/profile?id='+post.userId+'&postId='+post.postId}"
                             class="dropdown-item btn-share">
                             <div class="row">
@@ -796,10 +809,13 @@
                                     <i class="bx bx-share-alt"></i>
                                 </div>
                                 <div class="col-md-10">
-                                    <span>Share Link</span>
+                                    <span>Sao chep liên kết</span>
                                 </div>
                             </div>
                         </a>
+
+                        
+
                         <a href="#" class="dropdown-item">
                             <div class="row">
                                 <div class="col-md-2">
