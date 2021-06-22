@@ -166,13 +166,17 @@ public class UserService implements UserDetailsService {
         mailSender.send(message);
     }
 
-    @Transactional
+    
     public boolean verifyUser(String code) {
         User user = userRepo.findByVerificationCode(code);
         if (user == null || user.isEnable())
             return false;
         user.setVerificationCode(null);
         user.setEnable(true);
+        UserDetail u = new UserDetail();
+        user.setUserDetail(u);
+        u.setUser(user);
+        userRepo.save(user);
         return true;
     }
 
