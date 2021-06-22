@@ -3,7 +3,6 @@ package com.example.demo.controller;
 import java.util.Map;
 
 import com.example.demo.service.PostService;
-import com.example.demo.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,8 +23,7 @@ public class PostController {
     @Autowired
     private PostService postService;
 
-    @Autowired
-    private UserService userService;
+    
 
     @PostMapping()
     @ResponseBody

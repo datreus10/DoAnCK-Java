@@ -1,7 +1,5 @@
 package com.example.demo.service;
 
-import java.util.Map;
-
 import com.example.demo.model.Post;
 import com.example.demo.model.Reaction;
 import com.example.demo.model.User;
