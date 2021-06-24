@@ -69,27 +69,27 @@
                                                         <a th:case="null"
                                                             th:href="${'/user/add-friend?id='+guestUser.userId}"
                                                             class="btn btn-follow mr-3"
-                                                            style="border:1px solid #007bff;"><i class='bx bx-plus'></i>
-                                                            Add Friend</a>
+                                                            style="border:1px solid #007bff;"><i class='bx bx-plus mr-1'></i>
+                                                            Thêm bạn bè</a>
                                                         <a th:case="'nhan'"
                                                             th:href="${'/user/accept-friend?id='+guestUser.userId}"
                                                             class="btn btn-follow mr-3"><i
-                                                                class="fal fa-user-check"></i>
+                                                                class="fal fa-user-check mr-1"></i>
                                                             Chấp nhận yêu cầu kết bạn</a>
                                                         <a th:case="'gui'"
                                                             th:href="${'/user/decline-friend?id='+guestUser.userId}"
                                                             class="btn btn-follow mr-3"><i
-                                                                class="fal fa-user-times"></i>
+                                                                class="fal fa-user-times mr-1"></i>
                                                             Hủy yêu cầu kết bạn</a>
                                                         <div th:case="*" class="btn btn-follow mr-3"><i
-                                                                class="fal fa-user-check"></i></i>
-                                                            Friend</div>
+                                                                class="fal fa-user-check mr-1"></i></i>
+                                                            Bạn bè</div>
                                                     </th:block>
 
                                                     <button type="button" class="btn btn-start-chat" data-toggle="modal"
                                                         data-target="#newMessageModal"><i
-                                                            class="bx bxs-message-rounded"></i> <span
-                                                            class="fs-8">Message</span></button>
+                                                            class="bx bxs-message-rounded mr-1"></i> <span
+                                                            class="fs-8">Nhắn tin</span></button>
 
 
                                                 </div>

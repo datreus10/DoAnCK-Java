@@ -539,7 +539,7 @@
 
     <!-- Left panel -->
     <div th:fragment="left_panel(selected)" class="col-md-3 newsfeed-left-side sticky-top shadow-sm"
-        id="sidebar-wrapper" style="border-radius: 10px;">
+        id="sidebar-wrapper" style="border-radius: 10px;margin: 0 15px;">
         <div class="card newsfeed-user-card h-100" style="border-radius: 10px;">
             <ul class="list-group list-group-flush newsfeed-left-sidebar">
                 <li class="list-group-item">
@@ -549,12 +549,12 @@
                     th:classappend="${'feed' == selected ? 'sd-active' : ''}">
                     <a href="/" class="sidebar-item"><img src="/images/icons/left-sidebar/newsfeed.png" alt="newsfeed">
                         News Feed</a>
-                    <span class="badge badge-primary badge-pill"><i class='bx bx-chevron-right'></i></span>
+                    <!-- <span class="badge badge-primary badge-pill"><i class='bx bx-chevron-right'></i></span> -->
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <a href="messages.html" class="sidebar-item"><img src="/images/icons/left-sidebar/message.png"
                             alt="message"> Tin nhắn</a>
-                    <span class="badge badge-primary badge-pill"><i class='bx bx-chevron-right'></i></span>
+                    <!-- <span class="badge badge-primary badge-pill"><i class='bx bx-chevron-right'></i></span> -->
                 </li>
 
                 <li class="list-group-item d-flex justify-content-between align-items-center"
@@ -562,17 +562,24 @@
                     <a href="/user/friend-check" class="sidebar-item"><img
                             src="/images/icons/left-sidebar/find-friends.png" alt="find-friends">
                         Bạn bè</a>
-                    <span class="badge badge-primary badge-pill"><i class='bx bx-chevron-right'></i></span>
+                    <!-- <span class="badge badge-primary badge-pill"><i class='bx bx-chevron-right'></i></span> -->
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <a href="groups.html" class="sidebar-item"><img src="/images/icons/left-sidebar/group.png"
+                    <a href="/groups" class="sidebar-item"><img src="/images/icons/left-sidebar/group.png"
                             alt="group"> Nhóm</a>
-                    <span class="badge badge-primary badge-pill"><i class='bx bx-chevron-right'></i></span>
+                    <!-- <span class="badge badge-primary badge-pill"><i class='bx bx-chevron-right'></i></span> -->
                 </li>
+
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="/market" class="sidebar-item"><img src="/images/icons/left-sidebar/market.png"
+                            alt="group"> Marketplace</a>
+                    <!-- <span class="badge badge-primary badge-pill"><i class='bx bx-chevron-right'></i></span> -->
+                </li>
+
                 <li class="list-group-item d-flex justify-content-between align-items-center newsLink">
                     <a href="/logout" class="sidebar-item"><img src="/images/icons/left-sidebar/news.png"
                             alt="find-friends"> Đăng xuất</a>
-                    <span class="badge badge-primary badge-pill"><i class='bx bx-chevron-right'></i></span>
+                    <!-- <span class="badge badge-primary badge-pill"><i class='bx bx-chevron-right'></i></span> -->
                 </li>
             </ul>
         </div>
@@ -674,7 +681,8 @@
                 onclick="(function(){document.getElementById('file-upload').click();})()">
 
                 <div><i class="far fa-image align-middle" style="font-size: 1.4rem;color:#007bff"></i> <span
-                        class="align-middle" style="color: #007bff;">Ảnh/Video</span> </div>
+                        class="align-middle" style="color: #007bff;">Ảnh/Video</span> <span id="file_name" class="align-middle font-weight-normal"></span></div>
+                
                 <input type="file" name="file" accept="image/*, video/mp4" id="file-upload" style="display:none;" />
             </button>
             <div class="flex-shrink-1">
@@ -791,7 +799,9 @@
                         <i class="bx bx-share-alt mr-2"></i> Chia sẻ
                     </a>
                     <div class="dropdown-menu post-dropdown-menu">
-                        <a class="dropdown-item btn-share" th:href="${'https://www.facebook.com/sharer/sharer.php?app_id=762170751140556&sdk=joey&u=http://localhost:8080/profile?id='+ post.userId+'&postId='+post.postId +'&display=popup&ref=plugin&src=share_button'}" onclick="return !window.open(this.href, 'Facebook', 'width=640,height=580')">
+                        <a class="dropdown-item btn-share"
+                            th:href="${'https://www.facebook.com/sharer/sharer.php?app_id=762170751140556&sdk=joey&u=http://localhost:8080/profile?id='+ post.userId+'&postId='+post.postId +'&display=popup&ref=plugin&src=share_button'}"
+                            onclick="return !window.open(this.href, 'Facebook', 'width=640,height=580')">
                             <div class="row">
                                 <div class="col-md-2">
                                     <i class="bx bx-share-alt"></i>
@@ -801,7 +811,7 @@
                                 </div>
                             </div>
                         </a>
-                        
+
                         <a th:href="${'http://localhost:8080/profile?id='+post.userId+'&postId='+post.postId}"
                             class="dropdown-item btn-share">
                             <div class="row">
@@ -814,7 +824,7 @@
                             </div>
                         </a>
 
-                        
+
 
                         <a href="#" class="dropdown-item">
                             <div class="row">

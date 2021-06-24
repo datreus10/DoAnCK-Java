@@ -59,7 +59,7 @@ public class UserService implements UserDetailsService {
             throw new UsernameNotFoundException("Tên đăng nhập không tồn tại");
         }
         if (!user.isEnable())
-            throw new IllegalStateException("Email chưa được xác thực");
+            throw new IllegalStateException("Email chưa được xác thực. </br> Hãy kiểm tra lại Email để kích hoạt");
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
                 Arrays.asList(new SimpleGrantedAuthority("Role_User")));
     }
@@ -90,7 +90,7 @@ public class UserService implements UserDetailsService {
             }
         }
         if (userRepo.findByEmail(user.getEmail()) != null) {
-            throw new IllegalStateException("Email đã được đăng kí");
+            throw new IllegalStateException("Email đã được đăng kí.");
         }
         user.setVerificationCode(RandomString.make(64));
         sendVerificationCode(user, siteURL);
