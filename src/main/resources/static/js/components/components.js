@@ -1,6 +1,14 @@
 // Show comment section
 $(document).ready(function () {
 
+    $(function () {
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+        $(document).ajaxSend(function (e, xhr, options) {
+            xhr.setRequestHeader(header, token);
+        });
+    });
+
     // show comment section
     $('.show-comments').click(function () {
         var id = $(this).parent().parent().attr('id');
@@ -21,7 +29,7 @@ $(document).ready(function () {
                 "commentContent": commentContent,
                 "postId": id.split("_")[1]
             }, function (data, status) {
-                alert("Status: " + status);
+                //alert("Status: " + status);
                 if (status == "success") {
                     var comment_html = `<li class="media"><a href="#" class="pull-left"><img src="/api/v1/file/download/${data.ownerImg}" alt="" class="img-circle"></a><div class="media-body"><div class="d-flex justify-content-between align-items-center w-100"><strong class="text-gray-dark"><a href="#" class="fs-8">${data.ownerName}</a></strong><a href="#"><i class="bx bx-dots-horizontal-rounded"></i></a></div>
                     <span class="d-block comment-created-time">${data.createdDate}</span><p class="fs-8 pt-2">${data.commentContent}</p></div></li> `
@@ -49,6 +57,7 @@ $(document).ready(function () {
         // disabled the submit button
         $("#btn-createPost").prop("disabled", true);
 
+
         $.ajax({
             type: "POST",
             enctype: 'multipart/form-data',
@@ -66,7 +75,9 @@ $(document).ready(function () {
             },
             error: function (e) {
                 $("#create-post textarea").val('');
-                alert("ERROR : " + e.responseText);
+                $('#nofication-modal .modal-body').text(e.responseText);
+                $('#nofication-modal').modal('show');
+                
                 $("#btn-createPost").prop("disabled", false);
 
             }
@@ -153,8 +164,26 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             success: function (data) {
-                // $(".avatar.img-circle").attr("src",data);
-                // $(".menu-user-img.ml-1").attr("src",data);
+                location.reload();
+            },
+            error: function (e) {
+                console.log(e.responseText);
+            }
+        });
+    });
+
+
+    $("#updateProfileBg").on('change', function (event) {
+        var formData = new FormData();
+        var f = $('#updateProfileBg')[0].files[0];
+        formData.append('file', f);
+        $.ajax({
+            url: "/user/update-bg",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (data) {
                 location.reload();
             },
             error: function (e) {
@@ -185,8 +214,8 @@ $(document).ready(function () {
                 type: "GET",
                 success: function (data) {
                     result.empty();
-                    result.append(`<div class="notify-drop-title"><div class="row"><div class="col-md-6 col-sm-6 col-xs-6 fs-8">Search Results <span class="badge badge-pill badge-primary ml-2">${data.length}</span></div></div>
-                </div><div class="drop-content"><h6 class="dropdown-header">Peoples</h6>`);
+                    result.append(`<div class="notify-drop-title"><div class="row"><div class="col-md-6 col-sm-6 col-xs-6 fs-8">Kết quả tìm kiếm <span class="badge badge-pill badge-primary ml-2">${data.length}</span></div></div>
+                </div><div class="drop-content">` + (data.length > 0 ? `<h6 class="dropdown-header">Mọi người</h6>` : ''));
                     data.forEach(function (e) {
                         result.append(`<li class="dropdown-item">
                         <div class="col-md-2 col-sm-2 col-xs-2">
@@ -194,12 +223,9 @@ $(document).ready(function () {
                                 <img src="${e.avatarLink}" height="40" width="40" class="rounded-circle" alt="Search result">
                             </div>
                         </div>
-                        <div class="col-md-10 col-sm-10 col-xs-10">
+                        <div class="col-md-10 col-sm-10 col-xs-10 ml-3">
                             <a href="/profile?id=${e.userId}" class="notification-user">${e.fullName}</a>
-                            <a href="#" class="btn btn-quick-link join-group-btn border text-right float-right" style="font-size: 12px;
-                            font-weight: normal;">
-                                Add Friend
-                            </a>
+                            
                             
                         </div>
                     </li>`)
@@ -217,10 +243,14 @@ $(document).ready(function () {
     });
 
     $("#input-search").focusout(function () {
-        $(this).val('');
-        var result = $('#result-search');
-        result.removeClass();
-        result.empty();
+
+        window.setTimeout(function () {
+            $("#input-search").val('');
+            var result = $('#result-search');
+            result.removeClass();
+            result.empty();
+        }, 150);
+
     });
 
 
@@ -229,6 +259,16 @@ $(document).ready(function () {
         $.get($(this).attr('href'));
         $(this).closest('.media.text-muted.pt-3').remove();
     });
+
+    $("input#file-upload").on('change', function (e) {
+        //get the file name
+        var fileName = $(this).val();
+        if (fileName) {
+            $(this).closest('button').find('#file_name').text('1 file được chọn')
+        }
+        //replace the "Choose a file" label
+
+    })
 });
 
 // Video.js

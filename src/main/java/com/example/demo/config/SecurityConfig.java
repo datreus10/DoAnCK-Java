@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().disable().csrf().disable().authorizeRequests().antMatchers("/css/**","/js/**","/images/**", "/register","/register/verify","/oauth2/**").permitAll()
+        http.authorizeRequests().antMatchers("/css/**","/js/**","/images/**", "/register","/register/verify","/oauth2/**","/forgot_password","/reset_password").permitAll()
             .anyRequest().authenticated()
             .and().formLogin().permitAll().loginPage("/login").failureUrl("/login-error").successHandler(myAuthenticationSuccessHandler)
             .and().oauth2Login().loginPage("/login").userInfoEndpoint().userService(customOAuth2UserService)
@@ -47,8 +47,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and().logout()
                 .invalidateHttpSession(true).clearAuthentication(true)
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login?logout")
-                .permitAll();
+                .permitAll()
+            .and().rememberMe().key("uniqueAndSecret").tokenValiditySeconds(86400).userDetailsService(userService);  //2 weeks
        //http.formLogin().defaultSuccessUrl("/login-success", true);
+        //http.csrf().ignoringAntMatchers("/login");
     }
 
     @Bean

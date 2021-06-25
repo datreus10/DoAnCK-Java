@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -40,6 +41,9 @@ public class User {
     @Column(name = "Avatar")
     private String avatar = "default_user_avatart.jpg";
 
+    @Column(name = "BackgroundImage")
+    private String bgImg = "default_user_bg.jpg";
+
     @Column(name = "Enable")
     private boolean enable;
 
@@ -49,8 +53,14 @@ public class User {
     @Column(name = "AuthProvider")
     private String authProvider;
 
+    @Column(name = "ResetPasswordToken")
+    private String resetPasswordToken;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private List<Post> posts;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Notification> notifications;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "firstUser")
     private List<Friend> friendRequest;
@@ -58,8 +68,14 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "secondUser")
     private List<Friend> friendReceive;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+    private UserDetail userDetail;
+
     @Transient
     private String avatarLink;
+
+    @Transient
+    private String bgLink;
 
     public String getAvatarLink() {
         return avatarLink;
@@ -71,6 +87,14 @@ public class User {
 
     public LocalDate getBirthDate() {
         return birthDate;
+    }
+
+    public String getResetPasswordToken() {
+        return resetPasswordToken;
+    }
+
+    public void setResetPasswordToken(String resetPasswordToken) {
+        this.resetPasswordToken = resetPasswordToken;
     }
 
     public void setBirthDate(LocalDate birthDate) {
@@ -155,6 +179,46 @@ public class User {
 
     public void setPosts(List<Post> posts) {
         this.posts = posts;
+    }
+
+    public List<Friend> getFriendRequest() {
+        return friendRequest;
+    }
+
+    public void setFriendRequest(List<Friend> friendRequest) {
+        this.friendRequest = friendRequest;
+    }
+
+    public List<Friend> getFriendReceive() {
+        return friendReceive;
+    }
+
+    public void setFriendReceive(List<Friend> friendReceive) {
+        this.friendReceive = friendReceive;
+    }
+
+    public UserDetail getUserDetail() {
+        return userDetail;
+    }
+
+    public void setUserDetail(UserDetail userDetail) {
+        this.userDetail = userDetail;
+    }
+
+    public String getBgImg() {
+        return bgImg;
+    }
+
+    public void setBgImg(String bgImg) {
+        this.bgImg = bgImg;
+    }
+
+    public String getBgLink() {
+        return bgLink;
+    }
+
+    public void setBgLink(String bgLink) {
+        this.bgLink = bgLink;
     }
 
     @Transient

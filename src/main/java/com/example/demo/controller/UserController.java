@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.example.demo.service.AzureBlobService;
 import com.example.demo.service.FriendService;
 import com.example.demo.service.UserService;
@@ -15,7 +17,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
@@ -41,10 +42,26 @@ public class UserController {
         }
     }
 
+    @PostMapping("/update-bg")
+    public ResponseEntity<String> updateBackground(@RequestParam(value = "file", required = false) MultipartFile file) {
+        try {
+            String newBg = userService.updateBackground(file);
+            return new ResponseEntity<>(storageService.getFileLink(newBg), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error while update avatar", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PostMapping("/update-account")
-    public String updateAccount(@RequestParam Map<String, String> body) {
-        userService.updateAccount(body.get("firstName"), body.get("lastName"));
+    public String updateAccoun(@RequestParam Map<String, String> body) {
+        userService.updateAccount(body.get("firstName"), body.get("lastName"), body.get("birthDate"));
         return "redirect:/setting";
+    }
+
+    @PostMapping("/update-account-detail")
+    public String updateAccountDetail(@RequestParam Map<String, String> body) {
+        userService.updateUserDetails(body);
+        return "redirect:/setting-about";
     }
 
     @GetMapping("/search")
@@ -63,12 +80,15 @@ public class UserController {
         model.addAttribute("receive", friendService.getFriendReceive());
         model.addAttribute("request", friendService.getFriendRequest());
         model.addAttribute("listFriend", friendService.getListFriend());
+        model.addAttribute("recommedUsers",userService.getRecommendUsers());
         return "friend-check";
     }
 
     @GetMapping("/add-friend") // tạo lời mời kết bạn
-    public String addFriend(@RequestParam(name = "id") Long friendId) {
+    public String addFriend(@RequestParam(name = "id") Long friendId,HttpServletRequest request) {
         friendService.addFriend(friendId, userService.getCurrentUser().getUserId());
+        //System.out.println(request.getRequestURI());
+
         return "redirect:/user/friend-check";
     }
 
@@ -87,6 +107,12 @@ public class UserController {
     @GetMapping("/decline-friend") // hủy yêu cầu kết bạn
     public String declineFriend(@RequestParam(name = "id") Long friendId) {
         friendService.denyFriend(friendId, userService.getCurrentUser().getUserId());
+        return "redirect:/user/friend-check";
+    }
+
+    @GetMapping("/delete-friend") // hủy yêu cầu kết bạn
+    public String deleteFriend(@RequestParam(name = "id") Long friendId) {
+        friendService.deleteFriend(friendId);
         return "redirect:/user/friend-check";
     }
 

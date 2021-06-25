@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.User;
+import com.example.demo.model.UserDetail;
 import com.example.demo.service.AzureBlobService;
 import com.example.demo.service.FriendService;
 import com.example.demo.service.PostService;
@@ -33,7 +34,7 @@ public class AppController {
     @GetMapping()
     public String getMainPage(Model model) {
         model.addAttribute("user", userService.getCurrentUser());
-        // model.addAttribute("recommedUsers",userService.getRecommendUsers());
+        model.addAttribute("recommedUsers",userService.getRecommendUsers());
         model.addAttribute("listPost", postService.getAllPost());
         return "index";
     }
@@ -47,15 +48,18 @@ public class AppController {
         User currentUser = userService.getCurrentUser();
         if (guestUser.equals(currentUser)) {
             model.addAttribute("isCurrentUser", true);
+            model.addAttribute("detailUser", userService.getUserDetail());
         } else {
             model.addAttribute("isCurrentUser", false);
             model.addAttribute("friendShip",
                     friendService.getFriendShip(userId, userService.getCurrentUser().getUserId()));
+            model.addAttribute("detailUser", userService.getUserDetailByUser(guestUser));
         }
 
         model.addAttribute("currentUser", currentUser);
         model.addAttribute("guestUser", guestUser);
         model.addAttribute("storageService", storageService);
+        model.addAttribute("friendList", friendService.getListFriendByUser(guestUser));
         if (postId != null) {
             model.addAttribute("listPost", postService.getPostByUserAndPostId(guestUser, postId));
         } else {
@@ -70,5 +74,17 @@ public class AppController {
     public String getPage(Model model) {
         model.addAttribute("user", userService.getCurrentUser());
         return "settings";
+    }
+
+    // render setting account
+    @GetMapping("/setting-about")
+    public String getPageAboutSettings(Model model) {
+        model.addAttribute("user", userService.getCurrentUser());
+        if (userService.getUserDetail() == null) {
+            model.addAttribute("userDetail", new UserDetail());
+        } else {
+            model.addAttribute("userDetail", userService.getUserDetail());
+        }
+        return "settings-contact";
     }
 }

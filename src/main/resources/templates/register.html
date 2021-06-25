@@ -2,27 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" type="image/png" href="/images/logo-16x16.png" />
-    <meta name="_csrf" content="${_csrf.token}" />
+    <meta name="_csrf" th:content="${_csrf.token}" />
     <!-- default header name is X-CSRF-TOKEN -->
-    <meta name="_csrf_header" content="${_csrf.headerName}" />
-
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Argon - Social Network</title>
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Major+Mono+Display" rel="stylesheet">
-    <link href='https://cdn.jsdelivr.net/npm/boxicons@1.9.2/css/boxicons.min.css' rel='stylesheet'>
-
-    <!-- Styles -->
-    <link href="/css/bootstrap/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/style.css" rel="stylesheet">
-    <link href="/css/components.css" rel="stylesheet">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+    <th:block th:replace="fragment :: head"></th:block>
     <link href="/css/auth.css" rel="stylesheet">
-    <link href="/css/media.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -35,8 +20,8 @@
                             <img src="/images/logo-64x64.png" class="logo-img" alt="Logo">
                         </div>
                         <div class="col-md-10">
-                            <p>DM Social Network</p>
-                            <span>Design System</span>
+                            <p>Mạng xã hội DM</p>
+                            <span>Hãy cùng nhau kết nối và chia sẻ</span>
                         </div>
                     </div>
                 </div>
@@ -46,33 +31,31 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="firstName" placeholder="First Name"
-                                    required>
+                                <input type="text" class="form-control" name="firstName" placeholder="Họ" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="lastName" placeholder="Last Name"
-                                    required>
+                                <input type="text" class="form-control" name="lastName" placeholder="Tên" required>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="email" placeholder="Email Address"
+                                <input type="text" class="form-control" name="email" placeholder="Địa chỉ email"
                                     required>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input type="password" class="form-control" name="password_1" placeholder="Password"
+                                <input type="password" class="form-control" name="password_1" placeholder="Mật khẩu"
                                     minlength="6" maxlength="10" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <input type="password" class="form-control" name="password_2"
-                                    placeholder="Confirm Password" minlength="6" maxlength="10" required>
+                                    placeholder="Nhập lại mật khẩu" minlength="6" maxlength="10" required>
                             </div>
                         </div>
 
@@ -87,15 +70,17 @@
 
 
                         <div class="col-md-12">
-                            <p class="agree-privacy">By clicking the Sign Up button below you agreed to our privacy
-                                policy and terms of use of our website.</p>
+                            <p class="agree-privacy">Bằng việc nhấn vào nút Đăng kí bên dưới bạn đã đồng ý với những
+                                chính sách và điều khoản của chúng tôi.
+                            </p>
                         </div>
                         <div class="col-md-6">
-                            <span class="go-login">Already a member? <a href="sign-in.html">Sign In</a></span>
+                            <span class="go-login">Đã là thành viên? <a href="/login" style="color:#1DA1F2">Đăng
+                                    nhập</a></span>
                         </div>
                         <div class="col-md-6 text-right">
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary sign-up">Sign Up</button>
+                                <button type="submit" class="btn btn-primary sign-up">Đăng kí</button>
                             </div>
                         </div>
                     </div>
@@ -107,8 +92,8 @@
         <div class="col-md-6 auth-bg-image d-flex justify-content-center align-items-center">
             <div class="auth-left-content mt-5 mb-5 text-center">
                 <div class="text-white mt-5 mb-5">
-                    <h2 class="create-account mb-3">Create Account</h2>
-                    <p>Enter your personal details and start journey with us.</p>
+                    <h2 class="create-account mb-3">Tạo tài khoản</h2>
+                    <p>Hãy điền thông tin của bạn để bắt đầu với chúng tôi</p>
                 </div>
             </div>
         </div>
@@ -138,7 +123,7 @@
                 $.ajax({
                     method: 'post',
                     url: '/register',
-                    contentType : 'application/json',
+                    contentType: 'application/json',
                     data: JSON.stringify(data),
                     success: function (msg) {
                         $("#alert-message").empty().append(
@@ -151,8 +136,14 @@
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         $("#alert-message").empty().append(
-                            '<div class="alert alert-danger">' +
-                            XMLHttpRequest.responseText + '</div>'
+                            // '<div class="alert alert-danger">' +
+                            // XMLHttpRequest.responseText + '</div>'
+                            `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                ${XMLHttpRequest.responseText}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>`
                         ).hide().fadeIn(1000);
                     }
                 });

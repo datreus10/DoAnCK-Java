@@ -2,29 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <meta name="_csrf" content="${_csrf.token}" />
+    <meta name="_csrf" th:content="${_csrf.token}" />
     <!-- default header name is X-CSRF-TOKEN -->
-    <meta name="_csrf_header" content="${_csrf.headerName}" />
-
-    <link rel="icon" type="image/png" href="/images/logo-16x16.png" />
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Mạng xã hội - DM</title>
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Major+Mono+Display" rel="stylesheet">
-    <link href='https://cdn.jsdelivr.net/npm/boxicons@1.9.2/css/boxicons.min.css' rel='stylesheet'>
-
-    <!-- Styles -->
-    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/components.css" rel="stylesheet">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+    <th:block th:replace="fragment :: head"></th:block>
     <link href="css/auth.css" rel="stylesheet">
     <link href="css/forms.css" rel="stylesheet">
-    <link href="css/media.css" rel="stylesheet">
+
     <link href="css/my-styles.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -40,7 +24,7 @@
                         </div>
                         <div class="col-md-8">
                             <p>Mạng xã hội DM</p>
-                            <span>Design System</span>
+                            <span>Hãy cùng nhau kết nối và chia sẻ</span>
                         </div>
                     </div>
                 </div>
@@ -56,34 +40,36 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="username" placeholder="Email Address"
+                                <input type="text" class="form-control" name="username" placeholder="Địa chỉ Email"
                                     required>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <input type="password" class="form-control" name="password" placeholder="Password"
+                                <input type="password" class="form-control" name="password" placeholder="Mật khẩu"
                                     minlength="6" maxlength="10" required>
                             </div>
                         </div>
                         <div class="col-md-12 mb-3">
-                            <a href="forgot-password.html">Forgot password?</a>
+                            <a href="/forgot_password">Quên mật khẩu?</a>
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control material-checkbox">
-                                <input type="checkbox" class="material-control-input">
+                                <input type="checkbox" name="remember-me" class="material-control-input">
                                 <span class="material-control-indicator"></span>
-                                <span class="material-control-description">Remember Me</span>
+                                <span class="material-control-description">Nhớ tài khoản</span>
                             </label>
                         </div>
                         <div class="col-md-6 text-right">
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary sign-up">Sign In</button>
+                                <button type="submit" class="btn btn-primary sign-up"
+                                    style="background-color: #1DA1F2;">Đăng nhập</button>
                             </div>
                         </div>
 
                         <div class="col-md-12 text-center mt-4">
-                            <span class="go-login">Chưa là thành viên? <a href="/register">Đăng ký</a></span>
+                            <span class="go-login">Chưa là thành viên? <a href="/register"
+                                    style="border-bottom: 1px solid #1DA1F2; color:#1DA1F2;">Đăng ký</a></span>
                         </div>
 
                         <div class="col-md-12 text-center mt-4">
@@ -115,7 +101,7 @@
                 </div> -->
                 <div class="text-white mt-5 mb-5">
                     <h2 class="create-account mb-3">Xin chào</h2>
-                    <p>Thank you for joining. Updates and new features are released daily.</p>
+                    <p>Chào mừng bạn đã đến với mạng xã hội DM.</p>
                 </div>
                 <!-- <div class="auth-quick-links">
                     <a href="#" class="btn btn-outline-primary">Purchase template</a>
@@ -155,17 +141,22 @@
                     url: '/login',
                     data: data,
                     success: function (msg) {
-                        $("#alert-message").empty().append(
-                            '<div class="alert alert-primary">Đăng nhập thành công</div>'
-                        ).hide().fadeIn(1000);
-                        window.setTimeout(function () {
-                            window.location.href = msg;
-                        }, 3000);
+                        // $("#alert-message").empty().append(
+                        //     '<div class="alert alert-primary alert-dismissible fade show">Đăng nhập thành công</div>'
+                        // ).hide().fadeIn(1000);
+                        // window.setTimeout(function () {
+                        //     window.location.href = msg;
+                        // }, 2000);
+                        window.location.href = msg;
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         $("#alert-message").empty().append(
-                            '<div class="alert alert-danger">' +
-                            XMLHttpRequest.responseText + '</div>'
+                            `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                ${XMLHttpRequest.responseText}.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>`
                         ).hide().fadeIn(1000);
                     }
                 });

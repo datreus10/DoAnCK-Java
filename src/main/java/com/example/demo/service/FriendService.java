@@ -121,8 +121,6 @@ public class FriendService {
         }
     }
 
-    
-
     public List<User> getListFriend() {
         List<Friend> l1 = friendRepo.findByFirstUserAndStatus(userService.getCurrentUser(), "accept");
         List<Friend> l2 = friendRepo.findBySecondUserAndStatus(userService.getCurrentUser(), "accept");
@@ -141,4 +139,35 @@ public class FriendService {
         return result;
     }
 
+    public List<User> getListFriendByUser(User user) {
+        List<Friend> l1 = friendRepo.findByFirstUserAndStatus(user, "accept");
+        List<Friend> l2 = friendRepo.findBySecondUserAndStatus(user, "accept");
+        List<User> result = new ArrayList<>();
+
+        for (Friend f : l1) {
+            User u = f.getSecondUser();
+            u.setAvatarLink(storageService.getFileLink(u.getAvatar()));
+            result.add(u);
+        }
+        for (Friend f : l2) {
+            User u = f.getFirstUser();
+            u.setAvatarLink(storageService.getFileLink(u.getAvatar()));
+            result.add(u);
+        }
+        return result;
+    }
+
+    public void deleteFriend(Long userId) {
+        Optional<User> user = userRepo.findById(userId);
+        if (user.isPresent()) {
+            Friend f1 = friendRepo.findByFirstUserAndSecondUserAndStatus(userService.getCurrentUser(), user.get(),
+                    "accept");
+            Friend f2 = friendRepo.findByFirstUserAndSecondUserAndStatus(user.get(), userService.getCurrentUser(),
+                    "accept");
+            if (f1 != null)
+                friendRepo.delete(f1);
+            if (f2 != null)
+                friendRepo.delete(f2);
+        }
+    }
 }
