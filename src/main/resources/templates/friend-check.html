@@ -68,7 +68,7 @@
                         <div class="posts-section mb-5 bg-white" style="border-radius: 8px;">
                             <!-- <form th:replace="fragment :: create_post(${user})"></form> -->
 
-                            <ul class="nav nav-pills nav-fill nav-tabs m-3 pt-3" id="pills-tab" role="tablist">
+                            <ul class="nav nav-pills nav-fill nav-tabs ml-3 mr-3 mb-3 pt-3" id="pills-tab" role="tablist" style="margin-top:4px">
                                 <li class="nav-item">
                                     <a class="nav-link active text-center" id="pills-home-tab" data-toggle="pill"
                                         href="#pills-home" role="tab" aria-controls="pills-home"
@@ -83,6 +83,11 @@
                                     <a class="nav-link text-center" id="pills-friend-tab" data-toggle="pill"
                                         href="#pills-friend" role="tab" aria-controls="pills-friend"
                                         aria-selected="false">Danh sách bạn bè</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-center" id="pills-find-tab" data-toggle="pill"
+                                        href="#pills-find" role="tab" aria-controls="pills-find"
+                                        aria-selected="false">Tìm kiếm</a>
                                 </li>
 
                             </ul>
@@ -220,6 +225,17 @@
                                                 </div>
 
                                             </th:block>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="pills-find" role="tabpanel"
+                                    aria-labelledby="pills-find-tab">
+                                    <div class="container">
+                                        <div class="w-100">
+                                            <div class="input-group mb-3"> <input type="text" class="form-control">
+                                                <div class="input-group-append"><button class="btn" style="background-color: #1DA1F2;"><i
+                                                            class="fas fa-search"></i></button></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

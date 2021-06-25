@@ -57,6 +57,7 @@ $(document).ready(function () {
         // disabled the submit button
         $("#btn-createPost").prop("disabled", true);
 
+
         $.ajax({
             type: "POST",
             enctype: 'multipart/form-data',
@@ -74,7 +75,9 @@ $(document).ready(function () {
             },
             error: function (e) {
                 $("#create-post textarea").val('');
-                alert("ERROR : " + e.responseText);
+                $('#nofication-modal .modal-body').text(e.responseText);
+                $('#nofication-modal').modal('show');
+                
                 $("#btn-createPost").prop("disabled", false);
 
             }
