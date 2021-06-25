@@ -31,7 +31,7 @@ public class PostController {
             @RequestParam(value = "file", required = false) MultipartFile file) {
         boolean success = false;
         try {
-            success = postService.createPost(body.get("postContent"), file);
+            success = postService.createPost(body, file);
         } catch (Exception e) {
             success = false;
         }

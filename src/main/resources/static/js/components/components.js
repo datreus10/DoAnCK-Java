@@ -57,33 +57,47 @@ $(document).ready(function () {
         // disabled the submit button
         $("#btn-createPost").prop("disabled", true);
 
+        if (!data.get('postContent') && !data.get('file').size) {
+            $('#nofication-modal .modal-body').text("Bài viết bạn tạo trống. Hãy thêm nội dung bài viết hoặc đính kèm hình ảnh/video");
+            $('#nofication-modal').modal('show');
+            $("#btn-createPost").prop("disabled", false);
+        } else {
+            $.ajax({
+                type: "POST",
+                enctype: 'multipart/form-data',
+                url: "/post",
+                data: data,
+                processData: false,
+                contentType: false,
+                cache: false,
+                timeout: 600000,
+                success: function (data) {
+                    $("#create-post textarea").val('');
+                    //alert("SUCCESS : " + data);
+                    $("#btn-createPost").prop("disabled", false);
+                    $('#nofication-modal .modal-body').text("Đăng bài thành công");
+                    $('#nofication-modal').modal('show');
+                    $('#nofication-modal .modal-footer button').on('click', function () {
+                        location.reload();
+                    });
+                },
+                error: function (e) {
+                    $("#create-post textarea").val('');
+                    $('#nofication-modal .modal-body').text("Lỗi khi đăng bài");
+                    $('#nofication-modal').modal('show');
 
-        $.ajax({
-            type: "POST",
-            enctype: 'multipart/form-data',
-            url: "/post",
-            data: data,
-            processData: false,
-            contentType: false,
-            cache: false,
-            timeout: 600000,
-            success: function (data) {
-                $("#create-post textarea").val('');
-                //alert("SUCCESS : " + data);
-                $("#btn-createPost").prop("disabled", false);
-                location.reload();
-            },
-            error: function (e) {
-                $("#create-post textarea").val('');
-                $('#nofication-modal .modal-body').text(e.responseText);
-                $('#nofication-modal').modal('show');
-                
-                $("#btn-createPost").prop("disabled", false);
+                    $("#btn-createPost").prop("disabled", false);
 
-            }
-        });
+                }
+            });
+
+        }
 
     });
+
+    // $('.d-block.post-mode button').on('click', function(){
+    //     $('#mode-modal').modal('show');
+    // });
 
     // post comment tho server
     $(".btn.comment-form-btn").on('click', function (event) {

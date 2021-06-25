@@ -170,4 +170,12 @@ public class FriendService {
                 friendRepo.delete(f2);
         }
     }
+
+    public boolean isFriend(User user) {
+        if (friendRepo.findByFirstUserAndSecondUserAndStatus(userService.getCurrentUser(), user, "accept") != null)
+            return true;
+        if (friendRepo.findByFirstUserAndSecondUserAndStatus(user, userService.getCurrentUser(), "accept") != null)
+            return true;
+        return false;
+    }
 }

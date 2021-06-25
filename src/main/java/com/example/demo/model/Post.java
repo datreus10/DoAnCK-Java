@@ -35,8 +35,11 @@ public class Post {
     @Column(name = "PostMedia", nullable = true)
     private String media;
 
+    @Column
+    private String mode = "public";
+
     @ManyToOne
-    @JoinColumn(name = "userId")  
+    @JoinColumn(name = "userId")
     private User user;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "post")
@@ -66,12 +69,24 @@ public class Post {
         return postTime.format(formatter);
     }
 
+    public LocalDateTime getPostTime2() {
+        return this.postTime;
+    }
+
     // public void setPostTime(LocalDateTime postTime) {
-    //     this.postTime = postTime;
+    // this.postTime = postTime;
     // }
 
     public User getUser() {
         return user;
+    }
+
+    public String getMode() {
+        return mode;
+    }
+
+    public void setMode(String mode) {
+        this.mode = mode;
     }
 
     public void setUser(User user) {
@@ -110,5 +125,4 @@ public class Post {
         this.postTime = LocalDateTime.now(ZoneId.of("Asia/Ho_Chi_Minh"));
     }
 
-    
 }

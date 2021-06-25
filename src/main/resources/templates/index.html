@@ -40,11 +40,14 @@
                     <div th:replace="fragment ::right_panel(${recommedUsers})"></div>
 
                 </div>
+                
             </div>
         </div>
+        
+        <div th:replace="fragment ::modal-alert"></div>
+        <form th:replace="fragment ::modal-change-post"></form>
     </div>
     
-    <div th:replace="fragment ::modal-alert"></div>
 
 
     <!-- Core -->

@@ -9,10 +9,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PostRepo extends JpaRepository<Post, Long>{
+public interface PostRepo extends JpaRepository<Post, Long> {
     List<Post> findPostByUserOrderByPostTimeDesc(User user);
 
     List<Post> findAllByOrderByPostTimeDesc();
 
-    Post  findByUserAndPostId(User user,Long postId);
+    Post findByUserAndPostId(User user, Long postId);
+
+    List<Post> findByUserInAndModeInOrderByPostTimeDesc(List<User> users, List<String> modes);
 }

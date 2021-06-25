@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,16 +28,20 @@ public class PostService {
     private UserService userService;
 
     @Autowired
+    private FriendService friendService;
+
+    @Autowired
     private ReactionService reactionService;
 
     public Post getPostById(Long id) {
         return postRepo.findById(id).orElseGet(() -> null);
     }
 
-    public boolean createPost(String postContent, MultipartFile multipartFile) {
-        if (!postContent.isBlank()) {
+    public boolean createPost(Map<String, String> body, MultipartFile multipartFile) {
+        if (!body.get("postContent").isBlank() || (multipartFile != null && !multipartFile.isEmpty())) {
             Post newPost = new Post();
-            newPost.setPostContent(postContent);
+            newPost.setPostContent(body.get("postContent"));
+            newPost.setMode(body.get("mode"));
             newPost.setUser(userService.getCurrentUser());
             if (multipartFile != null && !multipartFile.isEmpty()) {
                 newPost.setMedia(storageService.upload(multipartFile));
@@ -52,6 +58,19 @@ public class PostService {
 
     public List<Map<String, Object>> getPostByUser(User user) {
         return fillter(postRepo.findPostByUserOrderByPostTimeDesc(user));
+    }
+
+    public List<Map<String, Object>> getPostMainPage() {
+        List<User> friends = friendService.getListFriend();
+        List<Post> posts = postRepo.findByUserInAndModeInOrderByPostTimeDesc(friends,
+                Arrays.asList("public", "friend"));
+        posts.addAll(postRepo.findPostByUserOrderByPostTimeDesc(userService.getCurrentUser()));
+        posts.sort(Comparator.comparing(Post::getPostTime2).reversed());
+        return fillter(posts);
+    }
+
+    public List<Map<String, Object>> getPostByUserAndMode(List<User> users, List<String> modes) {
+        return fillter(postRepo.findByUserInAndModeInOrderByPostTimeDesc(users, modes));
     }
 
     public List<Map<String, Object>> getPostByUserAndPostId(User user, Long postId) {
@@ -73,6 +92,8 @@ public class PostService {
             temp.put("postId", post.getPostId().toString());
             temp.put("comments", addLinkAvatarToComment(post.getComments()));
             temp.put("reactions", post.getReactions());
+            temp.put("mode", post.getMode());
+            temp.put("own",post.getUser().equals(userService.getCurrentUser()));
             temp.put("isCurrentUserLiked", reactionService.isCurrentUserLiked(post));
             if (post.getMedia() != null && !post.getMedia().isEmpty()) {
                 temp.put("postMediaUrl", storageService.getFileLink(post.getMedia()));

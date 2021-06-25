@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.Arrays;
+
 import com.example.demo.model.User;
 import com.example.demo.model.UserDetail;
 import com.example.demo.service.AzureBlobService;
@@ -34,8 +36,8 @@ public class AppController {
     @GetMapping()
     public String getMainPage(Model model) {
         model.addAttribute("user", userService.getCurrentUser());
-        model.addAttribute("recommedUsers",userService.getRecommendUsers());
-        model.addAttribute("listPost", postService.getAllPost());
+        model.addAttribute("recommedUsers", userService.getRecommendUsers());
+        model.addAttribute("listPost", postService.getPostMainPage());
         return "index";
     }
 
@@ -44,28 +46,54 @@ public class AppController {
     public String getProfile(@RequestParam(name = "id") Long userId,
             @RequestParam(name = "postId", required = false) Long postId, Model model) {
 
+        // User guestUser = userService.getUserById(userId);
+        // User currentUser = userService.getCurrentUser();
+        // if (guestUser.equals(currentUser)) {
+        // model.addAttribute("isCurrentUser", true);
+        // model.addAttribute("detailUser", userService.getUserDetail());
+        // } else {
+        // model.addAttribute("isCurrentUser", false);
+        // model.addAttribute("friendShip",
+        // friendService.getFriendShip(userId,
+        // userService.getCurrentUser().getUserId()));
+        // model.addAttribute("detailUser", userService.getUserDetailByUser(guestUser));
+        // }
+
+        // model.addAttribute("currentUser", currentUser);
+        // model.addAttribute("guestUser", guestUser);
+        // model.addAttribute("storageService", storageService);
+        // model.addAttribute("friendList",
+        // friendService.getListFriendByUser(guestUser));
+        // if (postId != null) {
+        // model.addAttribute("listPost", postService.getPostByUserAndPostId(guestUser,
+        // postId));
+        // } else {
+        // model.addAttribute("listPost", postService.getPostByUser(guestUser));
+        // }
+
+        // isCurrentUser,detailUser,friendShip,currentUser,guestUser,friendList,listPost
+
         User guestUser = userService.getUserById(userId);
         User currentUser = userService.getCurrentUser();
+
+        model.addAttribute("isCurrentUser", false);
+        model.addAttribute("detailUser", userService.getUserDetailByUser(guestUser));
         if (guestUser.equals(currentUser)) {
             model.addAttribute("isCurrentUser", true);
             model.addAttribute("detailUser", userService.getUserDetail());
+            model.addAttribute("listPost", postService.getPostByUser(currentUser));
+        } else if (friendService.isFriend(guestUser)) {
+            model.addAttribute("listPost",
+                    postService.getPostByUserAndMode(Arrays.asList(guestUser), Arrays.asList("public", "friend")));
         } else {
-            model.addAttribute("isCurrentUser", false);
-            model.addAttribute("friendShip",
-                    friendService.getFriendShip(userId, userService.getCurrentUser().getUserId()));
-            model.addAttribute("detailUser", userService.getUserDetailByUser(guestUser));
+            model.addAttribute("listPost",
+                    postService.getPostByUserAndMode(Arrays.asList(guestUser), Arrays.asList("public")));
         }
-
+        
         model.addAttribute("currentUser", currentUser);
         model.addAttribute("guestUser", guestUser);
-        model.addAttribute("storageService", storageService);
         model.addAttribute("friendList", friendService.getListFriendByUser(guestUser));
-        if (postId != null) {
-            model.addAttribute("listPost", postService.getPostByUserAndPostId(guestUser, postId));
-        } else {
-            model.addAttribute("listPost", postService.getPostByUser(guestUser));
-        }
-
+        model.addAttribute("friendShip", friendService.getFriendShip(userId, userService.getCurrentUser().getUserId()));
         return "profile";
     }
 
