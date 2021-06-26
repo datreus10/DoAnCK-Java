@@ -23,8 +23,6 @@ public class PostController {
     @Autowired
     private PostService postService;
 
-    
-
     @PostMapping()
     @ResponseBody
     public ResponseEntity<String> createPost(@RequestParam Map<String, String> body,
@@ -39,10 +37,17 @@ public class PostController {
             return new ResponseEntity<>("Đăng bài thành công", HttpStatus.OK);
         return new ResponseEntity<>("Đăng bài thất bại", HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
     // ResponseEntity<List<Map<String, String>>>
     @GetMapping
-    public String getAllPosts(Model model){
+    public String getAllPosts(Model model) {
         model.addAttribute("listPost", postService.getAllPost());
         return "fragment :: list_post";
+    }
+
+    @PostMapping("/change_mode")
+    public ResponseEntity<String> changeMode(@RequestParam Map<String, String> body) {
+        postService.changeMode(body);
+        return new ResponseEntity<>("", HttpStatus.OK);
     }
 }

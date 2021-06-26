@@ -120,7 +120,7 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: function (data) {
-                alert("SUCCESS !!");
+                //alert("SUCCESS !!");
                 $('#post_' + id).find('ul.we-comet.mt-4').append(data);
                 $(".form-control.comment-input").val("");
                 $(".btn.comment-form-btn").prop("disabled", false);
@@ -129,7 +129,7 @@ $(document).ready(function () {
                 });
             },
             error: function (e) {
-                alert("ERROR : " + e.responseText);
+                //alert("ERROR : " + e.responseText);
                 $(form).closest('.form-control.comment-input').val('');
                 $(".btn.comment-form-btn").prop("disabled", false);
             }
@@ -238,9 +238,7 @@ $(document).ready(function () {
                             </div>
                         </div>
                         <div class="col-md-10 col-sm-10 col-xs-10 ml-3">
-                            <a href="/profile?id=${e.userId}" class="notification-user">${e.fullName}</a>
-                            
-                            
+                            <a href="/profile?id=${e.userId}" class="notification-user">${e.fullName}</a>         
                         </div>
                     </li>`)
                     });
@@ -263,9 +261,15 @@ $(document).ready(function () {
             var result = $('#result-search');
             result.removeClass();
             result.empty();
-        }, 150);
+        }, 800);
 
     });
+
+    $('.d-block.post-mode button').click(function () {
+        var id = $(this).closest('.post.border-bottom.p-3.bg-white').attr('id').split('_')[1]
+        $('#mode-modal .modal-body').find("input[name='postId']").val(id)
+        $('#mode-modal').modal('show');
+    })
 
 
     $(".add-friend").on('click', function (e) {
@@ -282,6 +286,31 @@ $(document).ready(function () {
         }
         //replace the "Choose a file" label
 
+    });
+
+    $("#mode-modal .modal-footer .btn-primary").on('click', function (e) {
+        //stop submit the form, we will post it manually.
+        e.preventDefault();
+
+        // Get form
+        var form = $(this).closest('form');
+
+        // Create an FormData object 
+        var dataForm = new FormData(form[0]);
+
+        $.ajax({
+            type: "POST",
+            url: "/post/change_mode",
+            data: dataForm,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                window.location.reload();
+            },
+            error: function (e) {
+                
+            }
+        });
     })
 });
 

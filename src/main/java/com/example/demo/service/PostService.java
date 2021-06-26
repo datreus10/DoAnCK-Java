@@ -93,7 +93,7 @@ public class PostService {
             temp.put("comments", addLinkAvatarToComment(post.getComments()));
             temp.put("reactions", post.getReactions());
             temp.put("mode", post.getMode());
-            temp.put("own",post.getUser().equals(userService.getCurrentUser()));
+            temp.put("own", post.getUser().equals(userService.getCurrentUser()));
             temp.put("isCurrentUserLiked", reactionService.isCurrentUserLiked(post));
             if (post.getMedia() != null && !post.getMedia().isEmpty()) {
                 temp.put("postMediaUrl", storageService.getFileLink(post.getMedia()));
@@ -121,4 +121,14 @@ public class PostService {
         return "image";
     }
 
+    public void changeMode(Map<String, String> body) {
+        if (!body.get("postId").isBlank()) {
+            Long id = Long.parseLong(body.get("postId"));
+            Post temp = postRepo.findByUserAndPostId(userService.getCurrentUser(), id);
+            if (temp != null) {
+                temp.setMode(body.get("mode"));
+                postRepo.save(temp);
+            }
+        }
+    }
 }
