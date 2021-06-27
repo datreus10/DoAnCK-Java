@@ -24,4 +24,6 @@ public interface UserRepo extends JpaRepository<User, Long> {
     public User findByResetPasswordToken(String token);
 
     public List<User> findAll();
+
+    public List<User> findByUserIdNotIn(List<Long> users);
 }

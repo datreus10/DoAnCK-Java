@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -26,6 +27,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -51,6 +53,12 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private UserDetailRepo userDetailRepo;
+
+    @Autowired
+    private FriendService friendService;
+
+    @Autowired
+    private SessionRegistry sessionRegistry;
 
     @Override
     public UserDetails loadUserByUsername(String email) {
@@ -166,7 +174,6 @@ public class UserService implements UserDetailsService {
         mailSender.send(message);
     }
 
-    
     public boolean verifyUser(String code) {
         User user = userRepo.findByVerificationCode(code);
         if (user == null || user.isEnable())
@@ -202,7 +209,7 @@ public class UserService implements UserDetailsService {
         newUser.setUserDetail(u);
         u.setUser(newUser);
         userRepo.save(newUser);
-        
+
     }
 
     public void updateUserAfterOauthLogin(User user, String fullName, String oauthName) {
@@ -344,13 +351,35 @@ public class UserService implements UserDetailsService {
     }
 
     public List<User> getRecommendUsers() {
-        List<User> users = userRepo.findAll();
-        users.remove(getCurrentUser());
+
+        List<User> f = friendService.getListFriendByUser(getCurrentUser());
+        f.add(getCurrentUser());
+        List<Long> fUsers = f.stream().map(e -> e.getUserId()).collect(Collectors.toList());
+        List<User> users = userRepo.findByUserIdNotIn(fUsers);
         Collections.shuffle(users);
         List<User> result = users.subList(0, users.size() < 3 ? users.size() : 3);
         for (int i = 0; i < result.size(); i++)
             result.get(i).setAvatarLink(storageService.getFileLink(result.get(i).getAvatar()));
         return result;
+    }
+
+    public List<User> getUsersFromSessionRegistry() {
+        return sessionRegistry.getAllPrincipals().stream()
+                .filter(u -> !sessionRegistry.getAllSessions(u, false).isEmpty()).map(e->{
+                    User user =null;
+                    if (e instanceof CustomOAuth2User) {
+                        String email = ((CustomOAuth2User) e).getEmail();
+                        user = userRepo.findByEmail(email);
+                    } else {
+                        //String currentPrincipalName = authentication.getName();
+                        String email = ((org.springframework.security.core.userdetails.User) e).getUsername();
+                        user = userRepo.findByEmail(email);
+                    }
+                    user.setAvatarLink(storageService.getFileLink(user.getAvatar()));
+                    return user;
+                })
+                .collect(Collectors.toList());
+                
     }
 
 }

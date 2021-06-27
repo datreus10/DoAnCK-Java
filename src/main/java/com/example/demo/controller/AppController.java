@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.Arrays;
+import java.util.List;
 
 import com.example.demo.model.User;
 import com.example.demo.model.UserDetail;
@@ -35,6 +36,9 @@ public class AppController {
     // render main page
     @GetMapping()
     public String getMainPage(Model model) {
+        List<User> onlineUsers = userService.getUsersFromSessionRegistry();
+        onlineUsers.remove(userService.getCurrentUser());
+        model.addAttribute("onlineUsers", onlineUsers);
         model.addAttribute("user", userService.getCurrentUser());
         model.addAttribute("recommedUsers", userService.getRecommendUsers());
         model.addAttribute("listPost", postService.getPostMainPage());
