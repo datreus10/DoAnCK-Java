@@ -127,12 +127,16 @@
                     data: JSON.stringify(data),
                     success: function (msg) {
                         $("#alert-message").empty().append(
-                            '<div class="alert alert-primary">' +
-                            msg + '</div>'
+                            `<div class="alert alert-primary alert-dismissible fade show" role="alert">
+                                Đăng kí thành công. </br>Hãy kiểm tra email để kích hoạt tài khoản.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>`
                         ).hide().fadeIn(1000);
-                        window.setTimeout(function () {
-                            window.location.href = '/login';
-                        }, 4000);
+                        // window.setTimeout(function () {
+                        //     window.location.href = '/login';
+                        // }, 4000);
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         $("#alert-message").empty().append(

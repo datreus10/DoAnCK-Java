@@ -586,7 +586,7 @@
     </div>
 
     <!-- Right panel -->
-    <div th:fragment="right_panel(recommedUsers)" class="col-md-3 sticky-top third-section r-panel"
+    <div th:fragment="right_panel(recommedUsers,onlineUsers)" class="col-md-3 sticky-top third-section r-panel"
         id="sidebar-wrapper">
         <div class="p-3 bg-white" style="border-radius: 8px;">
             <h6 class="card-title border-bottom border-gray pb-2 mb-0">Những người bạn có thể biết</h6>
@@ -610,39 +610,22 @@
 
         <div class="mt-4 p-3 bg-white" style="border-radius: 8px;">
             <h6 class="card-title border-bottom border-gray pb-2 mb-0">Người dùng đang online</h6>
-            <div class="media text-muted pt-3">
-                <img src="/images/users/user-2.jpg" alt="Online user" class="mr-2 online-user-image">
-                <div class="media-body pb-3 mb-0 small lh-125">
-                    <div class="d-flex justify-content-between align-items-center w-100">
-                        <strong class="text-gray-dark"><a href="#" style="font-size:0.8rem;" class="smFLname">Karen
-                                Minas</a></strong>
-                        <span class="online-status bg-success"></span>
+            <th:block th:each="user: ${onlineUsers}">
+                <div class="media text-muted pt-3">
+                    <img th:src="${user.avatarLink}" alt="Online user" class="mr-2 online-user-image">
+                    <div class="media-body pl-2 pt-1 mb-0 small lh-125">
+                        <div class="d-flex justify-content-between align-items-center w-100">
+                            <strong class="text-gray-dark"><a th:href="${'/profile?id='+user.userId}"
+                                    style="font-size:0.8rem;" class="smFLname"
+                                    th:text="${user.getFullName()}"></a></strong>
+                            <span class="online-status bg-success"></span>
+                        </div>
+                        <span class="d-block online-username" style="font-size:0.7rem;"
+                            th:text="${user.getEmail()}"></span>
                     </div>
-                    <span class="d-block online-username" style="font-size:0.7rem;">@karen_minas</span>
                 </div>
-            </div>
-            <div class="media text-muted pt-3">
-                <img src="/images/users/user-3.jpg" alt="Online user" class="mr-2 online-user-image">
-                <div class="media-body pb-3 mb-0 small lh-125">
-                    <div class="d-flex justify-content-between align-items-center w-100">
-                        <strong class="text-gray-dark"><a href="#" style="font-size:0.8rem;" class="smFLname">Hakob
-                                Minasyan</a></strong>
-                        <span class="online-status bg-success"></span>
-                    </div>
-                    <span class="d-block online-username" style="font-size:0.7rem;">@hakob_minasyan</span>
-                </div>
-            </div>
-            <div class="media text-muted pt-3">
-                <img src="/images/users/user-1.jpg" alt="Online user" class="mr-2 online-user-image">
-                <div class="media-body pb-3 mb-0 small lh-125">
-                    <div class="d-flex justify-content-between align-items-center w-100">
-                        <strong class="text-gray-dark"><a href="#" class="smFLname" style="font-size:0.8rem;">John
-                                Michael</a></strong>
-                        <span class="online-status bg-success"></span>
-                    </div>
-                    <span class="d-block online-username" style="font-size:0.7rem;">@john_michael</span>
-                </div>
-            </div>
+            </th:block>
+
 
         </div>
     </div>
@@ -823,7 +806,7 @@
                     </a>
                     <div class="dropdown-menu post-dropdown-menu">
                         <a class="dropdown-item btn-share"
-                            th:href="${'https://www.facebook.com/sharer/sharer.php?app_id=762170751140556&sdk=joey&u=http://localhost:8080/profile?id='+ post.userId+'&postId='+post.postId +'&display=popup&ref=plugin&src=share_button'}"
+                            th:href="${'https://www.facebook.com/sharer/sharer.php?app_id=205459631402449&sdk=joey&u=https://java-final-vn.herokuapp.com/profile?id='+ post.userId+'&postId='+post.postId +'&display=popup&ref=plugin&picture=https://java-final-vn.herokuapp.com/images/logo-512x512.png&src=share_button'}"
                             onclick="return !window.open(this.href, 'Facebook', 'width=640,height=580')">
                             <div class="row">
                                 <div class="col-md-2">
@@ -987,15 +970,18 @@
                 <form>
                     <div class="modal-body">
                         <input type="text" name="postId" hidden>
-                        <div><input type="radio" name="mode" value="public" id="mode-public" checked><label class="ml-2">Công khai</label></div>
-                        <div><input type="radio" name="mode" value="friend" id="mode-friend"><label class="ml-2">Chỉ bạn bè</label></div>
-                        <div><input type="radio" name="mode" value="me" id="mode-me"><label class="ml-2">Chỉ mình tôi</label></div>
+                        <div><input type="radio" name="mode" value="public" id="mode-public" checked><label
+                                class="ml-2">Công khai</label></div>
+                        <div><input type="radio" name="mode" value="friend" id="mode-friend"><label class="ml-2">Chỉ bạn
+                                bè</label></div>
+                        <div><input type="radio" name="mode" value="me" id="mode-me"><label class="ml-2">Chỉ mình
+                                tôi</label></div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
                         <button type="button" class="btn btn-primary">OK</button>
                     </div>
-                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                 </form>
             </div>
         </div>
