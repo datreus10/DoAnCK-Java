@@ -1,9 +1,11 @@
 package com.example.demo.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.example.demo.model.User;
 import com.example.demo.service.AzureBlobService;
 import com.example.demo.service.FriendService;
 import com.example.demo.service.UserService;
@@ -75,8 +77,10 @@ public class UserController {
 
     @GetMapping("/friend-check")
     public String friendCheck(Model model) {
+        List<User> onlineUsers = userService.getUsersFromSessionRegistry();
+        onlineUsers.remove(userService.getCurrentUser());
+        model.addAttribute("onlineUsers", onlineUsers);
         model.addAttribute("user", userService.getCurrentUser());
-        // model.addAttribute("recommedUsers",userService.getRecommendUsers());
         model.addAttribute("receive", friendService.getFriendReceive());
         model.addAttribute("request", friendService.getFriendRequest());
         model.addAttribute("listFriend", friendService.getListFriend());

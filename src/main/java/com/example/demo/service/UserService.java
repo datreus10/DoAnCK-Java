@@ -109,10 +109,10 @@ public class UserService implements UserDetailsService {
             throws MessagingException, UnsupportedEncodingException {
         String toAddress = user.getEmail();
         String fromAddress = "bankhongphailanguoimay@gmail.com";
-        String senderName = "DM Social Network";
-        String subject = "Please verify your registration";
-        String content = "Dear [[name]],<br>" + "Please click the link below to verify your registration:<br>"
-                + "<h3><a href=\"[[URL]]\" target=\"_self\">VERIFY</a></h3>" + "Thank you,<br>" + "Your company name.";
+        String senderName = "Mạng xã hội DM";
+        String subject = "Xác thực tài khoản của bạn";
+        String content = "Xin chào [[name]],<br>" + "Bạn hãy click vào link sau đây để hoàn tất việc đăng ký tài khoản:<br>"
+                + "<h3><a href=\"[[URL]]\" target=\"_self\">XÁC NHẬN</a></h3>" + "Cám ơn bạn,<br>" + "Mạng xã hội DM.";
 
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
@@ -160,12 +160,12 @@ public class UserService implements UserDetailsService {
         helper.setFrom("bankhongphailanguoimay@gmail.com", "DM Social Network Support");
         helper.setTo(recipientEmail);
 
-        String subject = "Here's the link to reset your password";
+        String subject = "Đây là link để reset lại mật khẩu của bạn";
 
-        String content = "<p>Hello,</p>" + "<p>You have requested to reset your password.</p>"
-                + "<p>Click the link below to change your password:</p>" + "<p><a href=\"" + link
-                + "\">Change my password</a></p>" + "<br>" + "<p>Ignore this email if you do remember your password, "
-                + "or you have not made the request.</p>";
+        String content = "<p>Xin chào,</p>" + "<p>Bạn đã yêu cầu rest lại mật khẩu.</p>"
+                + "<p>Vui lòng click vào đường link dưới đây để đổi mật khẩu:</p>" + "<p><a href=\"" + link
+                + "\">Thay đổi mật khẩu</a></p>" + "<br>" + "<p>Hãy bỏ qua email này nếu như bạn đã nhớ mật khẩu, "
+                + "hoặc bạn không yêu cầu đổi mật khẩu.</p>";
 
         helper.setSubject(subject);
 

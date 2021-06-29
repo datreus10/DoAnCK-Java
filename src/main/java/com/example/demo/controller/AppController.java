@@ -50,32 +50,7 @@ public class AppController {
     public String getProfile(@RequestParam(name = "id") Long userId,
             @RequestParam(name = "postId", required = false) Long postId, Model model) {
 
-        // User guestUser = userService.getUserById(userId);
-        // User currentUser = userService.getCurrentUser();
-        // if (guestUser.equals(currentUser)) {
-        // model.addAttribute("isCurrentUser", true);
-        // model.addAttribute("detailUser", userService.getUserDetail());
-        // } else {
-        // model.addAttribute("isCurrentUser", false);
-        // model.addAttribute("friendShip",
-        // friendService.getFriendShip(userId,
-        // userService.getCurrentUser().getUserId()));
-        // model.addAttribute("detailUser", userService.getUserDetailByUser(guestUser));
-        // }
-
-        // model.addAttribute("currentUser", currentUser);
-        // model.addAttribute("guestUser", guestUser);
-        // model.addAttribute("storageService", storageService);
-        // model.addAttribute("friendList",
-        // friendService.getListFriendByUser(guestUser));
-        // if (postId != null) {
-        // model.addAttribute("listPost", postService.getPostByUserAndPostId(guestUser,
-        // postId));
-        // } else {
-        // model.addAttribute("listPost", postService.getPostByUser(guestUser));
-        // }
-
-        // isCurrentUser,detailUser,friendShip,currentUser,guestUser,friendList,listPost
+        
 
         User guestUser = userService.getUserById(userId);
         User currentUser = userService.getCurrentUser();
