@@ -307,7 +307,8 @@
                                                                                 <div class="btn-group w-100"
                                                                                     role="group">
                                                                                     <a href="#"
-                                                                                        class="btn btn-quick-link join-group-btn border w-100">Nhắn tin</a>
+                                                                                        class="btn btn-quick-link join-group-btn border w-100">Nhắn
+                                                                                        tin</a>
 
                                                                                 </div>
                                                                             </div>
@@ -333,26 +334,31 @@
                                                                 </h5>
                                                                 <!-- <a href="#" class="btn btn-link">See All</a> -->
                                                             </div>
-                                                            <div class="row" th:if="${listPost.size()>0}"
-                                                                th:each="post : ${listPost}">
-                                                                <div class="col-md-4 col-sm-6">
-                                                                    <th:block th:if="${post.postMediaUrl!=''}">
-                                                                        <th:block
-                                                                            th:if="${post.postMediaType=='video'}">
-                                                                            <video
-                                                                                class="video-js vjs-default-skin post-content"
-                                                                                width="640px" height="400px" controls>
-                                                                                <source th:src="${post.postMediaUrl}"
-                                                                                    type="video/mp4">
-                                                                            </video>
+                                                            <div class="row" th:if="${listPost.size()>0}">
+                                                                <th:block th:each="post : ${listPost}">
+                                                                    <div class="col-md-4 col-sm-6">
+                                                                        <th:block th:if="${post.postMediaUrl!=''}">
+                                                                            <th:block
+                                                                                th:if="${post.postMediaType=='video'}">
+                                                                                <video
+                                                                                    class="video-js vjs-default-skin post-content"
+                                                                                    width="640px" height="400px"
+                                                                                    controls>
+                                                                                    <source
+                                                                                        th:src="${post.postMediaUrl}"
+                                                                                        type="video/mp4">
+                                                                                </video>
+                                                                            </th:block>
+                                                                            <th:block
+                                                                                th:unless="${post.postMediaType=='video'}">
+                                                                                <img th:src="${post.postMediaUrl}"
+                                                                                    class="post-content"
+                                                                                    alt="post image">
+                                                                            </th:block>
                                                                         </th:block>
-                                                                        <th:block
-                                                                            th:unless="${post.postMediaType=='video'}">
-                                                                            <img th:src="${post.postMediaUrl}"
-                                                                                class="post-content" alt="post image">
-                                                                        </th:block>
-                                                                    </th:block>
-                                                                </div>
+                                                                    </div>
+                                                                </th:block>
+
 
                                                             </div>
                                                         </div>
