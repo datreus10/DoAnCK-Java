@@ -36,9 +36,9 @@ public class AppController {
     // render main page
     @GetMapping()
     public String getMainPage(Model model) {
-        List<User> onlineUsers = userService.getUsersFromSessionRegistry();
-        onlineUsers.remove(userService.getCurrentUser());
-        model.addAttribute("onlineUsers", onlineUsers);
+        // List<User> onlineUsers = userService.getUsersFromSessionRegistry();
+        // onlineUsers.remove(userService.getCurrentUser());
+        model.addAttribute("onlineUsers", userService.getUsersFromSessionRegistry());
         model.addAttribute("user", userService.getCurrentUser());
         model.addAttribute("recommedUsers", userService.getRecommendUsers());
         model.addAttribute("listPost", postService.getPostMainPage());

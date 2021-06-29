@@ -77,9 +77,9 @@ public class UserController {
 
     @GetMapping("/friend-check")
     public String friendCheck(Model model) {
-        List<User> onlineUsers = userService.getUsersFromSessionRegistry();
-        onlineUsers.remove(userService.getCurrentUser());
-        model.addAttribute("onlineUsers", onlineUsers);
+        // List<User> onlineUsers = userService.getUsersFromSessionRegistry();
+        // onlineUsers.remove(userService.getCurrentUser());
+        model.addAttribute("onlineUsers", userService.getUsersFromSessionRegistry());
         model.addAttribute("user", userService.getCurrentUser());
         model.addAttribute("receive", friendService.getFriendReceive());
         model.addAttribute("request", friendService.getFriendRequest());

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -111,7 +112,8 @@ public class UserService implements UserDetailsService {
         String fromAddress = "bankhongphailanguoimay@gmail.com";
         String senderName = "Mạng xã hội DM";
         String subject = "Xác thực tài khoản của bạn";
-        String content = "Xin chào [[name]],<br>" + "Bạn hãy click vào link sau đây để hoàn tất việc đăng ký tài khoản:<br>"
+        String content = "Xin chào [[name]],<br>"
+                + "Bạn hãy click vào link sau đây để hoàn tất việc đăng ký tài khoản:<br>"
                 + "<h3><a href=\"[[URL]]\" target=\"_self\">XÁC NHẬN</a></h3>" + "Cám ơn bạn,<br>" + "Mạng xã hội DM.";
 
         MimeMessage message = mailSender.createMimeMessage();
@@ -312,6 +314,9 @@ public class UserService implements UserDetailsService {
         if (isNotNullEmptyBlank(data.get("job"))) {
             u.setJob(data.get("job"));
         }
+        if (isNotNullEmptyBlank(data.get("location"))) {
+            u.setLocation(data.get("location"));
+        }
         if (isNotNullEmptyBlank(data.get("jobLocation"))) {
             u.setJobLocation(data.get("jobLocation"));
         }
@@ -364,22 +369,23 @@ public class UserService implements UserDetailsService {
     }
 
     public List<User> getUsersFromSessionRegistry() {
-        return sessionRegistry.getAllPrincipals().stream()
-                .filter(u -> !sessionRegistry.getAllSessions(u, false).isEmpty()).map(e->{
-                    User user =null;
+        List<User> usr = sessionRegistry.getAllPrincipals().stream()
+                .filter(u -> !sessionRegistry.getAllSessions(u, false).isEmpty()).map(e -> {
+                    User user = null;
                     if (e instanceof CustomOAuth2User) {
                         String email = ((CustomOAuth2User) e).getEmail();
                         user = userRepo.findByEmail(email);
                     } else {
-                        //String currentPrincipalName = authentication.getName();
+                        // String currentPrincipalName = authentication.getName();
                         String email = ((org.springframework.security.core.userdetails.User) e).getUsername();
                         user = userRepo.findByEmail(email);
                     }
                     user.setAvatarLink(storageService.getFileLink(user.getAvatar()));
                     return user;
-                })
-                .collect(Collectors.toList());
-                
+                }).collect(Collectors.toList());
+        List<User> result = new ArrayList<>(new HashSet<>(usr));
+        result.remove(getCurrentUser());
+        return result;
     }
 
 }
