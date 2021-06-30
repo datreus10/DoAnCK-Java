@@ -32,7 +32,7 @@ public class FriendService {
     UserRepo userRepo;
 
     @Autowired
-    private NotificationRepo notificationRepo;
+    private NotificationService notificationService;
 
     // 1 là thằng nhận
     // 2 la thằng gửi
@@ -46,7 +46,7 @@ public class FriendService {
             if (!(friendRepo.existsByFirstUserAndSecondUser(firstuser, seconduser))) {
                 friendRepo.save(new Friend(firstuser, seconduser));
                 String nof = "Bạn đã nhận được lời mời kết bạn từ "+ seconduser.getFullName();
-                notificationRepo.save(new Notification(nof, seconduser, firstuser));
+                notificationService.saveNotification(seconduser, firstuser, nof);
             }
         }
     }
@@ -110,7 +110,10 @@ public class FriendService {
             User seconduser = user2.get();
             if (friendRepo.existsByFirstUserAndSecondUser(firstuser, seconduser)) {
                 Friend f = friendRepo.findByFirstUserAndSecondUser(firstuser, seconduser);
+                notificationService.deleteNotification(seconduser, firstuser);
                 f.setStatus("accept");
+                String noti = firstuser.getFullName()+ " đã chấp nhận lời mời kết bạn";
+                notificationService.saveNotification(firstuser, seconduser, noti);
             }
         }
     }

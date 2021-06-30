@@ -22,13 +22,12 @@ public class Notification {
     private String content;
 
     @ManyToOne
-    @JoinColumn(name = "fUser")  
-    private User fUser;
-
+    @JoinColumn(name = "from_user_id", referencedColumnName = "id")
+    User fromUser;
 
     @ManyToOne
-    @JoinColumn(name = "tUser")  
-    private User tUser;
+    @JoinColumn(name = "to_user_id", referencedColumnName = "id")
+    User toUser;
 
     public Long getnId() {
         return nId;
@@ -46,26 +45,15 @@ public class Notification {
         this.content = content;
     }
 
-    public User getfUser() {
-        return fUser;
-    }
-
-    public void setfUser(User fUser) {
-        this.fUser = fUser;
-    }
-
-    public User gettUser() {
-        return tUser;
-    }
-
-    public void settUser(User tUser) {
-        this.tUser = tUser;
+    
+    
+    public Notification() {
     }
 
     public Notification(String content, User fUser, User tUser) {
         this.content = content;
-        this.fUser = fUser;
-        this.tUser = tUser;
+        this.fromUser = fUser;
+        this.toUser = tUser;
     }
 
     

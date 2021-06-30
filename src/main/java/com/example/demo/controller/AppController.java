@@ -1,10 +1,13 @@
 package com.example.demo.controller;
 
 import java.util.Arrays;
+import java.util.List;
 
+import com.example.demo.model.Notification;
 import com.example.demo.model.User;
 import com.example.demo.model.UserDetail;
 import com.example.demo.service.FriendService;
+import com.example.demo.service.NotificationService;
 import com.example.demo.service.PostService;
 import com.example.demo.service.UserService;
 
@@ -28,6 +31,9 @@ public class AppController {
     @Autowired
     private FriendService friendService;
 
+    @Autowired
+    private NotificationService notificationService;
+
     // render main page
     @GetMapping()
     public String getMainPage(Model model) {
@@ -35,6 +41,8 @@ public class AppController {
         model.addAttribute("user", userService.getCurrentUser());
         model.addAttribute("recommedUsers", userService.getRecommendUsers());
         model.addAttribute("listPost", postService.getPostMainPage());
+        model.addAttribute("len_nof",notificationService.getNotificationsCurrentUser().size());
+        // model.addAttribute("len_nof_friend",notificationService.getFriendNotification().size());
         return "index";
     }
 
@@ -66,6 +74,8 @@ public class AppController {
         model.addAttribute("guestUser", guestUser);
         model.addAttribute("friendList", friendService.getListFriendByUser(guestUser));
         model.addAttribute("friendShip", friendService.getFriendShip(userId, userService.getCurrentUser().getUserId()));
+        model.addAttribute("len_nof",notificationService.getNotificationsCurrentUser().size());
+        // model.addAttribute("len_nof_friend",notificationService.getFriendNotification().size());
         return "profile";
     }
 

@@ -59,11 +59,11 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private List<Post> posts;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "fUser")
-    private List<Notification> fNotifications;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "fromUser")
+    private List<Notification> fromUserNotifications;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "tUser")
-    private List<Notification> tNotifications;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "toUser")
+    private List<Notification> toUserNotifications;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "firstUser")
     private List<Friend> friendRequest;
@@ -230,24 +230,7 @@ public class User {
     }
 
 
-    public List<Notification> getfNotifications() {
-        return fNotifications;
-    }
-
-    public void setfNotifications(List<Notification> fNotifications) {
-        this.fNotifications = fNotifications;
-    }
-
-
     
-
-    public List<Notification> gettNotifications() {
-        return tNotifications;
-    }
-
-    public void settNotifications(List<Notification> tNotifications) {
-        this.tNotifications = tNotifications;
-    }
 
     public User() {
     }

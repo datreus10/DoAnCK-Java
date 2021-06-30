@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.example.demo.service.AzureBlobService;
 import com.example.demo.service.FriendService;
+import com.example.demo.service.NotificationService;
 import com.example.demo.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ public class UserController {
 
     @Autowired
     private FriendService friendService;
+
+    @Autowired
+    private NotificationService notificationService;
 
     @PostMapping("/update-avatar")
     public ResponseEntity<String> updateAvatar(@RequestParam(value = "file", required = false) MultipartFile file) {
@@ -81,6 +85,8 @@ public class UserController {
         model.addAttribute("request", friendService.getFriendRequest());
         model.addAttribute("listFriend", friendService.getListFriend());
         model.addAttribute("recommedUsers",userService.getRecommendUsers());
+        model.addAttribute("len_nof",notificationService.getNotificationsCurrentUser().size());
+        // model.addAttribute("len_nof_friend",notificationService.getFriendNotification().size());
         return "friend-check";
     }
 

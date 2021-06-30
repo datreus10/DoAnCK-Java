@@ -129,10 +129,13 @@ button:focus {
 }
 
 #main_menu .dropdown .nav-links span.badge {
+    font-size: 11px;
+    font-family: sans-serif;
+    background-color: #F02849;
     position: relative;
     width: 20px;
-    top: -10px;
-    right: 12px;
+    top: -14px;
+    right: 9px;
     border: 1px solid #fff;
 }
 
