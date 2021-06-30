@@ -1,11 +1,9 @@
 package com.example.demo.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.example.demo.model.User;
 import com.example.demo.service.AzureBlobService;
 import com.example.demo.service.FriendService;
 import com.example.demo.service.UserService;
@@ -77,8 +75,6 @@ public class UserController {
 
     @GetMapping("/friend-check")
     public String friendCheck(Model model) {
-        // List<User> onlineUsers = userService.getUsersFromSessionRegistry();
-        // onlineUsers.remove(userService.getCurrentUser());
         model.addAttribute("onlineUsers", userService.getUsersFromSessionRegistry());
         model.addAttribute("user", userService.getCurrentUser());
         model.addAttribute("receive", friendService.getFriendReceive());
@@ -91,8 +87,6 @@ public class UserController {
     @GetMapping("/add-friend") // tạo lời mời kết bạn
     public String addFriend(@RequestParam(name = "id") Long friendId,HttpServletRequest request) {
         friendService.addFriend(friendId, userService.getCurrentUser().getUserId());
-        //System.out.println(request.getRequestURI());
-
         return "redirect:/user/friend-check";
     }
 

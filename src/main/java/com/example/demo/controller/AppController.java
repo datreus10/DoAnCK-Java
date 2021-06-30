@@ -1,11 +1,9 @@
 package com.example.demo.controller;
 
 import java.util.Arrays;
-import java.util.List;
 
 import com.example.demo.model.User;
 import com.example.demo.model.UserDetail;
-import com.example.demo.service.AzureBlobService;
 import com.example.demo.service.FriendService;
 import com.example.demo.service.PostService;
 import com.example.demo.service.UserService;
@@ -30,14 +28,9 @@ public class AppController {
     @Autowired
     private FriendService friendService;
 
-    @Autowired
-    private AzureBlobService storageService;
-
     // render main page
     @GetMapping()
     public String getMainPage(Model model) {
-        // List<User> onlineUsers = userService.getUsersFromSessionRegistry();
-        // onlineUsers.remove(userService.getCurrentUser());
         model.addAttribute("onlineUsers", userService.getUsersFromSessionRegistry());
         model.addAttribute("user", userService.getCurrentUser());
         model.addAttribute("recommedUsers", userService.getRecommendUsers());

@@ -18,13 +18,17 @@ public class Notification {
     @Column(name = "Id")
     private Long nId;
 
-    @Column
+    @Column(columnDefinition = "nvarchar(MAX)")
     private String content;
 
     @ManyToOne
-    @JoinColumn(name = "userId")  
-    private User user;
+    @JoinColumn(name = "fUser")  
+    private User fUser;
 
+
+    @ManyToOne
+    @JoinColumn(name = "tUser")  
+    private User tUser;
 
     public Long getnId() {
         return nId;
@@ -42,5 +46,31 @@ public class Notification {
         this.content = content;
     }
 
+    public User getfUser() {
+        return fUser;
+    }
+
+    public void setfUser(User fUser) {
+        this.fUser = fUser;
+    }
+
+    public User gettUser() {
+        return tUser;
+    }
+
+    public void settUser(User tUser) {
+        this.tUser = tUser;
+    }
+
+    public Notification(String content, User fUser, User tUser) {
+        this.content = content;
+        this.fUser = fUser;
+        this.tUser = tUser;
+    }
+
+    
+
+    
+    
     
 }
