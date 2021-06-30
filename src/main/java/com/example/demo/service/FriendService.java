@@ -7,8 +7,10 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import com.example.demo.model.Friend;
+import com.example.demo.model.Notification;
 import com.example.demo.model.User;
 import com.example.demo.repo.FriendRepo;
+import com.example.demo.repo.NotificationRepo;
 import com.example.demo.repo.UserRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,9 @@ public class FriendService {
     @Autowired
     UserRepo userRepo;
 
+    @Autowired
+    private NotificationRepo notificationRepo;
+
     // 1 là thằng nhận
     // 2 la thằng gửi
 
@@ -40,6 +45,8 @@ public class FriendService {
             User seconduser = user2.get();
             if (!(friendRepo.existsByFirstUserAndSecondUser(firstuser, seconduser))) {
                 friendRepo.save(new Friend(firstuser, seconduser));
+                String nof = "Bạn đã nhận được lời mời kết bạn từ "+ seconduser.getFullName();
+                notificationRepo.save(new Notification(nof, seconduser, firstuser));
             }
         }
     }

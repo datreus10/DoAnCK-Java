@@ -75,8 +75,8 @@ public class UserController {
 
     @GetMapping("/friend-check")
     public String friendCheck(Model model) {
+        model.addAttribute("onlineUsers", userService.getUsersFromSessionRegistry());
         model.addAttribute("user", userService.getCurrentUser());
-        // model.addAttribute("recommedUsers",userService.getRecommendUsers());
         model.addAttribute("receive", friendService.getFriendReceive());
         model.addAttribute("request", friendService.getFriendRequest());
         model.addAttribute("listFriend", friendService.getListFriend());
@@ -87,8 +87,6 @@ public class UserController {
     @GetMapping("/add-friend") // tạo lời mời kết bạn
     public String addFriend(@RequestParam(name = "id") Long friendId,HttpServletRequest request) {
         friendService.addFriend(friendId, userService.getCurrentUser().getUserId());
-        //System.out.println(request.getRequestURI());
-
         return "redirect:/user/friend-check";
     }
 

@@ -7,8 +7,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -26,6 +28,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -51,6 +54,12 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private UserDetailRepo userDetailRepo;
+
+    @Autowired
+    private FriendService friendService;
+
+    @Autowired
+    private SessionRegistry sessionRegistry;
 
     @Override
     public UserDetails loadUserByUsername(String email) {
@@ -101,10 +110,11 @@ public class UserService implements UserDetailsService {
             throws MessagingException, UnsupportedEncodingException {
         String toAddress = user.getEmail();
         String fromAddress = "bankhongphailanguoimay@gmail.com";
-        String senderName = "DM Social Network";
-        String subject = "Please verify your registration";
-        String content = "Dear [[name]],<br>" + "Please click the link below to verify your registration:<br>"
-                + "<h3><a href=\"[[URL]]\" target=\"_self\">VERIFY</a></h3>" + "Thank you,<br>" + "Your company name.";
+        String senderName = "Mạng xã hội DM";
+        String subject = "Xác thực tài khoản của bạn";
+        String content = "Xin chào [[name]],<br>"
+                + "Bạn hãy click vào link sau đây để hoàn tất việc đăng ký tài khoản:<br>"
+                + "<h3><a href=\"[[URL]]\" target=\"_self\">XÁC NHẬN</a></h3>" + "Cám ơn bạn,<br>" + "Mạng xã hội DM.";
 
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
@@ -152,12 +162,12 @@ public class UserService implements UserDetailsService {
         helper.setFrom("bankhongphailanguoimay@gmail.com", "DM Social Network Support");
         helper.setTo(recipientEmail);
 
-        String subject = "Here's the link to reset your password";
+        String subject = "Đây là link để reset lại mật khẩu của bạn";
 
-        String content = "<p>Hello,</p>" + "<p>You have requested to reset your password.</p>"
-                + "<p>Click the link below to change your password:</p>" + "<p><a href=\"" + link
-                + "\">Change my password</a></p>" + "<br>" + "<p>Ignore this email if you do remember your password, "
-                + "or you have not made the request.</p>";
+        String content = "<p>Xin chào,</p>" + "<p>Bạn đã yêu cầu rest lại mật khẩu.</p>"
+                + "<p>Vui lòng click vào đường link dưới đây để đổi mật khẩu:</p>" + "<p><a href=\"" + link
+                + "\">Thay đổi mật khẩu</a></p>" + "<br>" + "<p>Hãy bỏ qua email này nếu như bạn đã nhớ mật khẩu, "
+                + "hoặc bạn không yêu cầu đổi mật khẩu.</p>";
 
         helper.setSubject(subject);
 
@@ -166,7 +176,6 @@ public class UserService implements UserDetailsService {
         mailSender.send(message);
     }
 
-    
     public boolean verifyUser(String code) {
         User user = userRepo.findByVerificationCode(code);
         if (user == null || user.isEnable())
@@ -202,7 +211,7 @@ public class UserService implements UserDetailsService {
         newUser.setUserDetail(u);
         u.setUser(newUser);
         userRepo.save(newUser);
-        
+
     }
 
     public void updateUserAfterOauthLogin(User user, String fullName, String oauthName) {
@@ -305,6 +314,9 @@ public class UserService implements UserDetailsService {
         if (isNotNullEmptyBlank(data.get("job"))) {
             u.setJob(data.get("job"));
         }
+        if (isNotNullEmptyBlank(data.get("location"))) {
+            u.setLocation(data.get("location"));
+        }
         if (isNotNullEmptyBlank(data.get("jobLocation"))) {
             u.setJobLocation(data.get("jobLocation"));
         }
@@ -344,12 +356,35 @@ public class UserService implements UserDetailsService {
     }
 
     public List<User> getRecommendUsers() {
-        List<User> users = userRepo.findAll();
-        users.remove(getCurrentUser());
+
+        List<User> f = friendService.getListFriendByUser(getCurrentUser());
+        f.add(getCurrentUser());
+        List<Long> fUsers = f.stream().map(e -> e.getUserId()).collect(Collectors.toList());
+        List<User> users = userRepo.findByUserIdNotIn(fUsers);
         Collections.shuffle(users);
         List<User> result = users.subList(0, users.size() < 3 ? users.size() : 3);
         for (int i = 0; i < result.size(); i++)
             result.get(i).setAvatarLink(storageService.getFileLink(result.get(i).getAvatar()));
+        return result;
+    }
+
+    public List<User> getUsersFromSessionRegistry() {
+        List<User> usr = sessionRegistry.getAllPrincipals().stream()
+                .filter(u -> !sessionRegistry.getAllSessions(u, false).isEmpty()).map(e -> {
+                    User user = null;
+                    if (e instanceof CustomOAuth2User) {
+                        String email = ((CustomOAuth2User) e).getEmail();
+                        user = userRepo.findByEmail(email);
+                    } else {
+                        // String currentPrincipalName = authentication.getName();
+                        String email = ((org.springframework.security.core.userdetails.User) e).getUsername();
+                        user = userRepo.findByEmail(email);
+                    }
+                    user.setAvatarLink(storageService.getFileLink(user.getAvatar()));
+                    return user;
+                }).collect(Collectors.toList());
+        List<User> result = new ArrayList<>(new HashSet<>(usr));
+        result.remove(getCurrentUser());
         return result;
     }
 

@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 import com.example.demo.model.User;
 import com.example.demo.model.UserDetail;
-import com.example.demo.service.AzureBlobService;
 import com.example.demo.service.FriendService;
 import com.example.demo.service.PostService;
 import com.example.demo.service.UserService;
@@ -29,12 +28,10 @@ public class AppController {
     @Autowired
     private FriendService friendService;
 
-    @Autowired
-    private AzureBlobService storageService;
-
     // render main page
     @GetMapping()
     public String getMainPage(Model model) {
+        model.addAttribute("onlineUsers", userService.getUsersFromSessionRegistry());
         model.addAttribute("user", userService.getCurrentUser());
         model.addAttribute("recommedUsers", userService.getRecommendUsers());
         model.addAttribute("listPost", postService.getPostMainPage());
@@ -45,6 +42,8 @@ public class AppController {
     @GetMapping("/profile")
     public String getProfile(@RequestParam(name = "id") Long userId,
             @RequestParam(name = "postId", required = false) Long postId, Model model) {
+
+        
 
         User guestUser = userService.getUserById(userId);
         User currentUser = userService.getCurrentUser();

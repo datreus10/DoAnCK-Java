@@ -69,7 +69,8 @@
                                                         <a th:case="null"
                                                             th:href="${'/user/add-friend?id='+guestUser.userId}"
                                                             class="btn btn-follow mr-3"
-                                                            style="border:1px solid #007bff;"><i class='bx bx-plus mr-1'></i>
+                                                            style="border:1px solid #007bff;"><i
+                                                                class='bx bx-plus mr-1'></i>
                                                             Thêm bạn bè</a>
                                                         <a th:case="'nhan'"
                                                             th:href="${'/user/accept-friend?id='+guestUser.userId}"
@@ -109,7 +110,8 @@
                                                                 th:text="${detailUser.job}">
                                                             </th:block>
                                                             <th:block th:if="${detailUser.jobLocation}"
-                                                                th:text="${' tại ' + detailUser.jobLocation}"></th:block>
+                                                                th:text="${' tại ' + detailUser.jobLocation}">
+                                                            </th:block>
                                                         </p>
                                                     </div>
                                                     <div
@@ -117,10 +119,11 @@
                                                         <p class="intro-title text-muted"><i
                                                                 class='bx bx-map text-primary'></i>
                                                             <th:block th:if="${detailUser.location}"
-                                                                th:text="${'Sống tại ' detailUser.location}">
+                                                                th:text="${'Sống tại '+ detailUser.location}">
 
                                                             </th:block>
-                                                            <th:block th:unless="${detailUser.location}">Sống tại thành phố, tỉnh</th:block>
+                                                            <th:block th:unless="${detailUser.location}">Sống tại thành
+                                                                phố, tỉnh</th:block>
                                                         </p>
                                                     </div>
                                                     <div
@@ -135,7 +138,8 @@
                                                         class="intro-item d-flex justify-content-between align-items-center">
                                                         <a href="/setting"
                                                             class="btn btn-quick-link join-group-btn border w-100"
-                                                            style="background-color: #007bff;color:white">Chỉnh sửa thông tin</a>
+                                                            style="background-color: #007bff;color:white">Chỉnh sửa
+                                                            thông tin</a>
                                                     </div>
                                                 </div>
                                                 <div class="intro mt-5 row justify-content-start mv-hidden">
@@ -221,7 +225,8 @@
                                                     <li class="nav-item w-25 text-center" role="presentation">
                                                         <a class="nav-link active" id="pills-timeline-tab"
                                                             data-toggle="pill" href="#pills-timeline" role="tab"
-                                                            aria-controls="pills-home" aria-selected="true">Dòng thời gian</a>
+                                                            aria-controls="pills-home" aria-selected="true">Dòng thời
+                                                            gian</a>
                                                     </li>
                                                     <li class="nav-item w-25 text-center" role="presentation">
                                                         <a class="nav-link" id="pills-about-tab" data-toggle="pill"
@@ -280,31 +285,37 @@
                                                                 <h5 class="mb-4">Bạn bè</h5>
                                                                 <!-- <a href="#" class="btn btn-link">See All</a> -->
                                                             </div>
-                                                            <div class="row" th:each="f : ${friendList}">
+                                                            <div class="row">
+                                                                <th:block th:each="f : ${friendList}">
+
+                                                                    <div class="col-md-4 col-sm-6">
+                                                                        <div class="card group-card shadow-sm">
+                                                                            <img th:src="${f.avatarLink}"
+                                                                                class="card-img-top group-card-image"
+                                                                                alt="Group image">
+                                                                            <div class="card-body">
+                                                                                <a
+                                                                                    th:href="${'/profile?id='+ f.userId}">
+                                                                                    <h5 class="card-title text-center"
+                                                                                        th:text="${f.getFullName()}">
+                                                                                    </h5>
+                                                                                    </h5>
+                                                                                </a>
 
 
-                                                                <div class="col-md-4 col-sm-6">
-                                                                    <div class="card group-card shadow-sm">
-                                                                        <img th:src="${f.avatarLink}"
-                                                                            class="card-img-top group-card-image"
-                                                                            alt="Group image">
-                                                                        <div class="card-body">
-                                                                            <a th:href="${'/profile?id='+ f.userId}">
-                                                                                <h5 class="card-title text-center"
-                                                                                    th:text="${f.getFullName()}"></h5>
-                                                                                </h5>
-                                                                            </a>
 
+                                                                                <div class="btn-group w-100"
+                                                                                    role="group">
+                                                                                    <a href="#"
+                                                                                        class="btn btn-quick-link join-group-btn border w-100">Nhắn
+                                                                                        tin</a>
 
-
-                                                                            <div class="btn-group w-100" role="group">
-                                                                                <a href="#"
-                                                                                    class="btn btn-quick-link join-group-btn border w-100">Message</a>
-
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
+                                                                </th:block>
+
 
                                                             </div>
                                                         </div>
@@ -323,26 +334,31 @@
                                                                 </h5>
                                                                 <!-- <a href="#" class="btn btn-link">See All</a> -->
                                                             </div>
-                                                            <div class="row" th:if="${listPost.size()>0}"
-                                                                th:each="post : ${listPost}">
-                                                                <div class="col-md-4 col-sm-6">
-                                                                    <th:block th:if="${post.postMediaUrl!=''}">
-                                                                        <th:block
-                                                                            th:if="${post.postMediaType=='video'}">
-                                                                            <video
-                                                                                class="video-js vjs-default-skin post-content"
-                                                                                width="640px" height="400px" controls>
-                                                                                <source th:src="${post.postMediaUrl}"
-                                                                                    type="video/mp4">
-                                                                            </video>
+                                                            <div class="row" th:if="${listPost.size()>0}">
+                                                                <th:block th:each="post : ${listPost}">
+                                                                    <div class="col-md-4 col-sm-6">
+                                                                        <th:block th:if="${post.postMediaUrl!=''}">
+                                                                            <th:block
+                                                                                th:if="${post.postMediaType=='video'}">
+                                                                                <video
+                                                                                    class="video-js vjs-default-skin post-content"
+                                                                                    height="193px" width="193px" 
+                                                                                    controls style="margin-bottom: 0;">
+                                                                                    <source
+                                                                                        th:src="${post.postMediaUrl}"
+                                                                                        type="video/mp4">
+                                                                                </video>
+                                                                            </th:block>
+                                                                            <th:block
+                                                                                th:unless="${post.postMediaType=='video'}">
+                                                                                <img th:src="${post.postMediaUrl}"
+                                                                                    class="post-content"
+                                                                                    alt="post image">
+                                                                            </th:block>
                                                                         </th:block>
-                                                                        <th:block
-                                                                            th:unless="${post.postMediaType=='video'}">
-                                                                            <img th:src="${post.postMediaUrl}"
-                                                                                class="post-content" alt="post image">
-                                                                        </th:block>
-                                                                    </th:block>
-                                                                </div>
+                                                                    </div>
+                                                                </th:block>
+
 
                                                             </div>
                                                         </div>
