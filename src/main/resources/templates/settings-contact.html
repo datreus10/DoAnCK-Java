@@ -16,8 +16,8 @@
         <div class="row newsfeed-size f-width">
             <div class="col-md-12 message-right-side">
 
-                <nav th:replace="fragment :: navbar(${user},${''})"></nav>
-
+                <nav th:replace="fragment :: navbar(${user},${''},${nof})"></nav>
+                
                 <div class="row message-right-side-content">
                     <div class="col-md-12">
                         <div id="message-frame">

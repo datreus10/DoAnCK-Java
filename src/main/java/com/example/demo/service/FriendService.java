@@ -7,10 +7,8 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import com.example.demo.model.Friend;
-import com.example.demo.model.Notification;
 import com.example.demo.model.User;
 import com.example.demo.repo.FriendRepo;
-import com.example.demo.repo.NotificationRepo;
 import com.example.demo.repo.UserRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;

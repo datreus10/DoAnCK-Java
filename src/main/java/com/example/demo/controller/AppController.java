@@ -1,9 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.Arrays;
-import java.util.List;
 
-import com.example.demo.model.Notification;
 import com.example.demo.model.User;
 import com.example.demo.model.UserDetail;
 import com.example.demo.service.FriendService;
@@ -41,8 +39,7 @@ public class AppController {
         model.addAttribute("user", userService.getCurrentUser());
         model.addAttribute("recommedUsers", userService.getRecommendUsers());
         model.addAttribute("listPost", postService.getPostMainPage());
-        model.addAttribute("len_nof",notificationService.getNotificationsCurrentUser().size());
-        // model.addAttribute("len_nof_friend",notificationService.getFriendNotification().size());
+        model.addAttribute("nof",notificationService.getNotificationsCurrentUser());    
         return "index";
     }
 
@@ -50,9 +47,6 @@ public class AppController {
     @GetMapping("/profile")
     public String getProfile(@RequestParam(name = "id") Long userId,
             @RequestParam(name = "postId", required = false) Long postId, Model model) {
-
-        
-
         User guestUser = userService.getUserById(userId);
         User currentUser = userService.getCurrentUser();
 
@@ -74,8 +68,7 @@ public class AppController {
         model.addAttribute("guestUser", guestUser);
         model.addAttribute("friendList", friendService.getListFriendByUser(guestUser));
         model.addAttribute("friendShip", friendService.getFriendShip(userId, userService.getCurrentUser().getUserId()));
-        model.addAttribute("len_nof",notificationService.getNotificationsCurrentUser().size());
-        // model.addAttribute("len_nof_friend",notificationService.getFriendNotification().size());
+        model.addAttribute("nof",notificationService.getNotificationsCurrentUser());
         return "profile";
     }
 
@@ -83,6 +76,7 @@ public class AppController {
     @GetMapping("/setting")
     public String getPage(Model model) {
         model.addAttribute("user", userService.getCurrentUser());
+        model.addAttribute("nof",notificationService.getNotificationsCurrentUser());
         return "settings";
     }
 
@@ -90,6 +84,7 @@ public class AppController {
     @GetMapping("/setting-about")
     public String getPageAboutSettings(Model model) {
         model.addAttribute("user", userService.getCurrentUser());
+        model.addAttribute("nof",notificationService.getNotificationsCurrentUser());
         if (userService.getUserDetail() == null) {
             model.addAttribute("userDetail", new UserDetail());
         } else {

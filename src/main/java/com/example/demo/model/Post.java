@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -65,7 +66,7 @@ public class Post {
     }
 
     public String getPostTime() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, MMM dd, yyyy HH:mm a");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm | EEEE, d MMMM, y",new Locale("vi", "VN"));
         return postTime.format(formatter);
     }
 

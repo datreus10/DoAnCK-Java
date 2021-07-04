@@ -56,6 +56,9 @@ public class User {
     @Column(name = "ResetPasswordToken")
     private String resetPasswordToken;
 
+    @Column(name = "SeenNotification")
+    private boolean seenNotification = true;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private List<Post> posts;
 
@@ -82,6 +85,30 @@ public class User {
 
     public String getAvatarLink() {
         return avatarLink;
+    }
+
+    public boolean isSeenNotification() {
+        return seenNotification;
+    }
+
+    public void setSeenNotification(boolean seenNotification) {
+        this.seenNotification = seenNotification;
+    }
+
+    public List<Notification> getFromUserNotifications() {
+        return fromUserNotifications;
+    }
+
+    public void setFromUserNotifications(List<Notification> fromUserNotifications) {
+        this.fromUserNotifications = fromUserNotifications;
+    }
+
+    public List<Notification> getToUserNotifications() {
+        return toUserNotifications;
+    }
+
+    public void setToUserNotifications(List<Notification> toUserNotifications) {
+        this.toUserNotifications = toUserNotifications;
     }
 
     public void setAvatarLink(String avatarLink) {

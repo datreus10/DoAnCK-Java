@@ -311,6 +311,12 @@ $(document).ready(function () {
                 
             }
         });
+    });
+
+    $(".seen-notification").click(function () {
+        var n = $(this).find("span");
+        n.css("display", "none");
+        $.get("/user/seen-notification")
     })
 });
 

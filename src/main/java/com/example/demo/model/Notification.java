@@ -21,6 +21,7 @@ public class Notification {
     @Column(columnDefinition = "nvarchar(MAX)")
     private String content;
 
+
     @ManyToOne
     @JoinColumn(name = "from_user_id", referencedColumnName = "id")
     User fromUser;
@@ -56,6 +57,23 @@ public class Notification {
         this.toUser = tUser;
     }
 
+    public User getFromUser() {
+        return fromUser;
+    }
+
+    public void setFromUser(User fromUser) {
+        this.fromUser = fromUser;
+    }
+
+    public User getToUser() {
+        return toUser;
+    }
+
+    public void setToUser(User toUser) {
+        this.toUser = toUser;
+    }
+
+   
     
 
     

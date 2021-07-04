@@ -47,10 +47,6 @@ public class ForgotPasswordController {
         return "forgot_password_form";
     }
 
-    // public void sendEmail() {
-
-    // }
-
     @GetMapping("/reset_password")
     public String showResetPasswordForm(@Param(value = "token") String token, Model model) {
         User user = userService.getByResetPasswordToken(token);

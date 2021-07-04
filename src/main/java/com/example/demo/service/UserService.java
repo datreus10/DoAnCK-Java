@@ -388,4 +388,9 @@ public class UserService implements UserDetailsService {
         return result;
     }
 
+    public void setSeenNotification(boolean b){
+        User u =getCurrentUser();
+        u.setSeenNotification(b);
+        userRepo.save(u);
+    }
 }

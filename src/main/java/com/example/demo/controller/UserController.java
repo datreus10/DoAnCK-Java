@@ -85,8 +85,7 @@ public class UserController {
         model.addAttribute("request", friendService.getFriendRequest());
         model.addAttribute("listFriend", friendService.getListFriend());
         model.addAttribute("recommedUsers",userService.getRecommendUsers());
-        model.addAttribute("len_nof",notificationService.getNotificationsCurrentUser().size());
-        // model.addAttribute("len_nof_friend",notificationService.getFriendNotification().size());
+        model.addAttribute("nof",notificationService.getNotificationsCurrentUser());
         return "friend-check";
     }
 
@@ -118,6 +117,11 @@ public class UserController {
     public String deleteFriend(@RequestParam(name = "id") Long friendId) {
         friendService.deleteFriend(friendId);
         return "redirect:/user/friend-check";
+    }
+
+    @GetMapping("/seen-notification") 
+    public void seenNotification() {
+        userService.setSeenNotification(true);
     }
 
 }
