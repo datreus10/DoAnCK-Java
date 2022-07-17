@@ -21,6 +21,7 @@ import com.example.demo.model.User;
 import com.example.demo.model.UserDetail;
 import com.example.demo.repo.UserDetailRepo;
 import com.example.demo.repo.UserRepo;
+import com.example.demo.service.storage.StorageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -50,7 +51,7 @@ public class UserService implements UserDetailsService {
     private JavaMailSender mailSender;
 
     @Autowired
-    private AzureBlobService storageService;
+    private StorageService storageService;
 
     @Autowired
     private UserDetailRepo userDetailRepo;

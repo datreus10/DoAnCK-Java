@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.service.AzureBlobService;
+
+import com.example.demo.service.storage.StorageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 @CrossOrigin("*")
 public class StorageController{
     @Autowired
-    private AzureBlobService service;
+    private StorageService service;
 
     @PostMapping("/upload")
     public ResponseEntity<String> uploadFile(@RequestParam(value = "file") MultipartFile file) {

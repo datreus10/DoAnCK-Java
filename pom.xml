@@ -86,11 +86,11 @@
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.4</version>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>com.azure</groupId>
 			<artifactId>azure-storage-blob</artifactId>
 			<version>12.6.0</version>
-		</dependency>
+		</dependency> -->
 
 	</dependencies>
 

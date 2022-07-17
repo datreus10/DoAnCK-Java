@@ -1,24 +1,24 @@
-package com.example.demo.config;
+// package com.example.demo.config;
 
-import com.azure.storage.blob.BlobClientBuilder;
+// import com.azure.storage.blob.BlobClientBuilder;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+// import org.springframework.beans.factory.annotation.Value;
+// import org.springframework.context.annotation.Bean;
+// import org.springframework.context.annotation.Configuration;
 
-@Configuration
-public class AzureStorageBlobClientConfig {
-    @Value("${blob.connection-string}")
-    String connectionString;
+// @Configuration
+// public class AzureStorageBlobClientConfig {
+//     @Value("${blob.connection-string}")
+//     String connectionString;
 
-    @Value("${blob.container-name}")
-    String containerName;
+//     @Value("${blob.container-name}")
+//     String containerName;
 
-    @Bean
-    public BlobClientBuilder getClient() {
-        BlobClientBuilder client = new BlobClientBuilder();
-        client.connectionString(connectionString);
-        client.containerName(containerName);
-        return client;
-    }
-}
+//     @Bean
+//     public BlobClientBuilder getClient() {
+//         BlobClientBuilder client = new BlobClientBuilder();
+//         client.connectionString(connectionString);
+//         client.containerName(containerName);
+//         return client;
+//     }
+// }

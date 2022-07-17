@@ -11,6 +11,7 @@ import com.example.demo.model.Comment;
 import com.example.demo.model.Post;
 import com.example.demo.model.User;
 import com.example.demo.repo.PostRepo;
+import com.example.demo.service.storage.StorageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class PostService {
     private PostRepo postRepo;
 
     @Autowired
-    private AzureBlobService storageService;
+    private StorageService storageService;
 
     @Autowired
     private UserService userService;

@@ -4,10 +4,10 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.example.demo.service.AzureBlobService;
 import com.example.demo.service.FriendService;
 import com.example.demo.service.NotificationService;
 import com.example.demo.service.UserService;
+import com.example.demo.service.storage.StorageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,7 +28,7 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    private AzureBlobService storageService;
+    private StorageService storageService;
 
     @Autowired
     private FriendService friendService;

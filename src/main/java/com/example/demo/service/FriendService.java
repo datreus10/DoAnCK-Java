@@ -10,6 +10,7 @@ import com.example.demo.model.Friend;
 import com.example.demo.model.User;
 import com.example.demo.repo.FriendRepo;
 import com.example.demo.repo.UserRepo;
+import com.example.demo.service.storage.StorageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class FriendService {
     FriendRepo friendRepo;
 
     @Autowired
-    AzureBlobService storageService;
+    StorageService storageService;
 
     @Autowired
     UserRepo userRepo;

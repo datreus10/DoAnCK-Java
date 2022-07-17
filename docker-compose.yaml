@@ -1,0 +1,26 @@
+
+
+
+
+
+
+
+version: "3.8"
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: mssql
+    ports:
+      - 1433:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=1234
+
+  app:
+    image: 'docker-spring-boot-social-network:latest'
+    build: .
+    container_name: social-network
+    ports:
+      - 8080:8080
+    depends_on:
+      - mssql
